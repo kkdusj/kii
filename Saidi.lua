@@ -1069,8 +1069,36 @@ Status = false
 end  
 return Status
 end 
+function getInputFile(file, conversion_str, expected_size)
+local str = tostring(file)
+if (conversion_str and expectedsize) then
+return {
+luatele = 'inputFileGenerated',
+original_path = tostring(file),
+conversion = tostring(conversion_str),
+expected_size = expected_size
+}
+else
+if str:match('/') then
+return {
+luatele = 'inputFileLocal',
+path = file
+}
+elseif str:match('^%d+$') then
+return {
+luatele = 'inputFileId',
+id = file
+}
+else
+return {
+luatele = 'inputFileRemote',
+id = file
+}
+end
+end
+end
 function GetInfoBot(msg)
-local GetMemberStatus = bot.getChatMember(msg.chat_id,Saidi).status
+local GetMemberStatus = LuaTele.getChatMember(msg.chat_id,Saidi).status
 if GetMemberStatus.can_change_info then
 change_info = true else change_info = false
 end
@@ -16870,7 +16898,7 @@ local List = {
 [[ 
 ➞: 𝒔𝒕𝒂𓂅 #stast 𓍯➸💞. 
 ➞: 𝒖𝒔𝒆𝒓𓂅 #username 𓍯➸💞. 
-➞: 𝒎𝒔𝒈𝒆𓂅 #msgs 𓍯➸💞. 
+➞: 𝒎𝒔𝒈𝒆𓂅 #msgs ??➸💞. 
 ➞: 𝒊𝒅 𓂅 #id 𓍯➸💞. 
 ]], 
 [[ 
