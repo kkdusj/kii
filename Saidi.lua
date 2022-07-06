@@ -23,7 +23,7 @@ json = require('libs/json')
 Redis = require('libs/redis').connect('127.0.0.1', 6379)
 http  = require("socket.http")
 https   = require("ssl.https")
-local Methods = io.open("./bot.lua","r")
+local Methods = io.open("./luatele.lua","r")
 if Methods then
 URL.tdlua_CallBack()
 end
@@ -123,7 +123,7 @@ Token = Information.Token
 UserBot = Information.UserBot
 Saidi = Token:match("(%d+)")
 os.execute('sudo rm -fr .CallBack-Bot/'..Saidi)
-bot = bot.set_config{api_id=16063372,api_hash='8ec29c4f93b643d2f2ebbf9d97d5e83b',session_name=Saidi,token=Token}
+bot = luatele.set_config{api_id=16063372,api_hash='8ec29c4f93b643d2f2ebbf9d97d5e83b',session_name=Saidi,token=Token}
 function coin(coin)
 local Coins = tostring(coin)
 local Coins = Coins:gsub('٠','0')
@@ -29737,7 +29737,7 @@ end
 end
 end
 
-bot.run(CallBackLua)
+luatele.run(CallBackLua)
  
 
 
