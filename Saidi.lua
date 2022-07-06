@@ -23,7 +23,7 @@ json = require('libs/json')
 Redis = require('libs/redis').connect('127.0.0.1', 6379)
 http  = require("socket.http")
 https   = require("ssl.https")
-local Methods = io.open("./luatele.lua","r")
+local Methods = io.open("./bot.lua","r")
 if Methods then
 URL.tdlua_CallBack()
 end
@@ -123,7 +123,7 @@ Token = Information.Token
 UserBot = Information.UserBot
 Saidi = Token:match("(%d+)")
 os.execute('sudo rm -fr .CallBack-Bot/'..Saidi)
-bot = luatele.set_config{api_id=16063372,api_hash='8ec29c4f93b643d2f2ebbf9d97d5e83b',session_name=Saidi,token=Token}
+bot = bot.set_config{api_id=16063372,api_hash='8ec29c4f93b643d2f2ebbf9d97d5e83b',session_name=Saidi,token=Token}
 function coin(coin)
 local Coins = tostring(coin)
 local Coins = Coins:gsub('٠','0')
@@ -1098,7 +1098,7 @@ end
 end
 end
 function GetInfoBot(msg)
-local GetMemberStatus = LuaTele.getChatMember(msg.chat_id,Saidi).status
+local GetMemberStatus = bot.getChatMember(msg.chat_id,Saidi).status
 if GetMemberStatus.can_change_info then
 change_info = true else change_info = false
 end
@@ -1191,7 +1191,7 @@ local msg_user_send_id = msg.sender_id.user_id
 local msg_id = msg.id 
 local text = nil
 if msg.sender_id.luatele == "messageSenderChat" then 
-LuaTele.deleteMessages(msg.chat_id,{[1]= msg.id}) 
+bot.deleteMessages(msg.chat_id,{[1]= msg.id}) 
 return false 
 end
 if msg.date and msg.date < tonumber(os.time() - 15) then 
@@ -12069,27 +12069,43 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(
 return send(msg.chat_id,msg.id,'*\n ✫ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
 if msg.can_be_deleted_for_all_users == false then
-return send(msg_chat_id,msg_id,"\n* ✫ عذرآ البوت ليس ادمن في الجروب يرجى ترقيته وتفعيل الصلاحيات له *","md",true)  
+return send(msg_chat_id,msg_id,"\n* ✧ عذرآ البوت ليس ادمن في الجروب يرجى ترقيته وتفعيل الصلاحيات له *","md",true)  
 end
 if GetInfoBot(msg).BanUser == false then
-return bot.sendText(msg_chat_id,msg_id,'\n*✫ البوت ليس لديه صلاحيه حظر المستخدمين* ',"md",true)  
+return send(msg_chat_id,msg_id,'\n* ✧ البوت ليس لديه صلاحيه حظر المستخدمين* ',"md",true)  
+end
+if not msg.Creator and not Redis:get(Saidi.."Status:BanId"..msg_chat_id) then
+return send(msg_chat_id,msg_id," ✧ تم تعطيل (الحظر : الطرد : التقييد) من قبل المدراء","md",true)
+end 
+local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
+local ban = bot.getUser(Message_Reply.sender.user_id)
+local bain = bot.getUser(msg.sender_id.user_id)
+if ban.message == "Invalid user ID" then
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرأ تستطيع فقط استخدام الامر على المستخدمين ","md",true)  
 end
 if not msg.Creator and not Redis:get(Saidi.."Status:BanId"..msg_chat_id) then
 return send(msg_chat_id,msg_id," ✫ تم تعطيل (الحظر : الطرد : التقييد) من قبل المنشئين","md",true)
 end 
-local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
-local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
-if UserInfo.message == "Invalid user ID" then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ تستطيع فقط استخدام الامر على المستخدمين ","md",true)  
+if ban and ban.type and ban.type.luatele == "userTypeBot" then
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرأ لا تستطيع استخدام الامر على البوت ","md",true)  
 end
-if UserInfo and UserInfo.type and UserInfo.type.luatele == "userTypeBot" then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام الامر على البوت ","md",true)  
+if StatusCanOrNotCan(msg_chat_id,Message_Reply.sender.user_id) then
+return bot.sendText(msg_chat_id,msg_id,"\n* ✧ عذرأ لا تستطيع استخدام الامر على 〘 "..Controller(msg_chat_id,Message_Reply.sender.user_id).." 〙 *","md",true)  
 end
-if StatusCanOrNotCan(msg_chat_id,Message_Reply.sender_id.user_id) then
-return send(msg_chat_id,msg_id,"\n* ✫ عذرآ لا تستطيع استخدام الامر على { "..Controller(msg_chat_id,Message_Reply.sender_id.user_id).." } *","md",true)  
+bot.setChatMemberStatus(msg.chat_id,Message_Reply.sender.user_id,'restricted',{1,0,0,0,0,0,0,0,0})
+if ban.first_name then
+baniusername = '*العضو ⇦ *['..ban.first_name..'](tg://user?id='..ban.id..')*\n ✧ تم تقييده في الجروب\nبواسطه ⇦ *['..bain.first_name..'](tg://user?id='..bain.id..')*\n*'
+else
+baniusername = 'لا يوجد'
 end
-bot.setChatMemberStatus(msg.chat_id,Message_Reply.sender_id.user_id,'restricted',{1,0,0,0,0,0,0,0,0})
-return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✫ تم تقييده في الجروب ").Reply,"md",true)  
+keyboard = {} 
+keyboard.inline_keyboard = {
+{
+{text = 'الـغـاء الـتـقـيـيـد 📢', callback_data=msg.sender_id.user_id..'/unbanktmkid@'..Message_Reply.sender.user_id},
+},
+}
+local msgg = msg_id/2097152/0.5
+https.request("https://api.telegram.org/bot"..Token.."/sendvideo?chat_id=" .. msg_chat_id .. "&video=https://t.me/DEV_JABWA/182&caption=".. URL.escape(baniusername).."&photo="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end
 
 if text == ('الغاء التقييد') or text == ('الغاء تقييد') and msg.reply_to_message_id ~= 0 then
@@ -29721,7 +29737,7 @@ end
 end
 end
 
-luatele.run(CallBackLua)
+bot.run(CallBackLua)
  
 
 
