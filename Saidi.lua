@@ -1069,34 +1069,6 @@ Status = false
 end  
 return Status
 end 
-function getInputFile(file, conversion_str, expected_size)
-local str = tostring(file)
-if (conversion_str and expectedsize) then
-return {
-luatele = 'inputFileGenerated',
-original_path = tostring(file),
-conversion = tostring(conversion_str),
-expected_size = expected_size
-}
-else
-if str:match('/') then
-return {
-luatele = 'inputFileLocal',
-path = file
-}
-elseif str:match('^%d+$') then
-return {
-luatele = 'inputFileId',
-id = file
-}
-else
-return {
-luatele = 'inputFileRemote',
-id = file
-}
-end
-end
-end
 function GetInfoBot(msg)
 local GetMemberStatus = bot.getChatMember(msg.chat_id,Saidi).status
 if GetMemberStatus.can_change_info then
@@ -4794,22 +4766,40 @@ if text == 'تفعيل' and msg.Dev then
 if msg.can_be_deleted_for_all_users == false then
 return send(msg_chat_id,msg_id,"\n* ✫ عذرآ البوت ليس ادمن في الجروب يرجى ترقيته وتفعيل الصلاحيات له *","md",true)  
 end
+local Info_Members = bot.getSupergroupMembers(msg_chat_id, "Administrators", "*", 0, 200)
+local List_Members = Info_Members.members
+x = 0
+y = 0
+for k, v in pairs(List_Members) do
+if Info_Members.members[k].bot_info == nil then
+if Info_Members.members[k].status.luatele == "chatMemberStatusCreator" then
+Redis:sadd(Saidi.."Ownerss:Group"..msg_chat_id,v.member_id.user_id) 
+x = x + 1
+else
+Redis:sadd(Saidi.."Admin:Group"..msg_chat_id,v.member_id.user_id) 
+y = y + 1
+end
+end
+local GetLink = Redis:get(Saidi.."Group:Link"..msg_chat_id) 
 local Get_Chat = bot.getChat(msg_chat_id)
 local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
 if tonumber(Info_Chats.member_count) < tonumber((Redis:get(Saidi..'Num:Add:Bot') or 0)) and not msg.Asasy then
 return send(msg_chat_id,msg_id,' ✫ عدد الاعضاء قليل لا يمكن تفعيل الجروب  يجب ان يكون اكثر من :'..Redis:get(Saidi..'Num:Add:Bot'),"md",true)  
 end
 if Redis:sismember(Saidi.."ChekBotAdd",msg_chat_id) then
-return send(msg_chat_id,msg_id,'\n* ✫ الجروب : {*['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')*}\n ✫ تم تفعيلها مسبقا *',"md",true)  
+return send(msg_chat_id,msg_id,'\n*تم تفعيل المجموعه بنجاح ✅\nتم ترقيته '..y..' من الادمن •*',"md",true)  
 else
 local reply_markup = bot.replyMarkup{
 type = 'inline',
 data = {
 {
-{text = '- رفع المالك والادمنيه', data = msg.sender_id.user_id..'/addAdmins@'..msg_chat_id},
+{text =Get_Chat.title, url = GetLink},
 },
 {
-{text = '- قفل جميع الاوامر ', data =msg.sender_id.user_id..'/LockAllGroup@'..msg_chat_id},{text = '- ترتيب الاوامر', data = msg.sender_id.user_id..'/trtep@'..msg_chat_id},
+{text = '- قفل جميع الاوامر ', data =msg.sender_id.user_id..'/LockAllGroup@'..msg_chat_id},
+},
+{
+{text = '- ترتيب الاوامر', data = msg.sender_id.user_id..'/trtep@'..msg_chat_id},
 },
 }
 }
@@ -7009,9 +6999,9 @@ if text and text:match('^رفع مطور اساسي @(%S+)$') then
 local UserName = text:match('^رفع مطور اساسي @(%S+)$')
 if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber(1052711356) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber( 1052711356 ) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1839666881) then
 YouCan = true
 else
 YouCan = false
@@ -7040,9 +7030,9 @@ if text and text:match('^تنزيل مطور اساسي @(%S+)$') then
 local UserName = text:match('^تنزيل مطور اساسي @(%S+)$')
 if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber(1052711356) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber( 1052711356 ) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1839666881) then
 YouCan = true
 else
 YouCan = false
@@ -7070,9 +7060,9 @@ end
 if text == ('رفع مطور اساسي') and msg.reply_to_message_id ~= 0 then
 if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber(1052711356) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber( 1052711356 ) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1839666881) then
 YouCan = true
 else
 YouCan = false
@@ -7098,9 +7088,9 @@ end
 if text == ('تنزيل مطور اساسي') and msg.reply_to_message_id ~= 0 then
 if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber(1052711356) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber( 1052711356 ) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1839666881) then
 YouCan = true
 else
 YouCan = false
@@ -7127,9 +7117,9 @@ if text and text:match('^رفع مطور اساسي (%d+)$') then
 local UserId = text:match('^رفع مطور اساسي (%d+)$')
 if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber(1052711356) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber( 1052711356 ) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1839666881) then
 YouCan = true
 else
 YouCan = false
@@ -7152,9 +7142,9 @@ if text and text:match('^تنزيل مطور اساسي (%d+)$') then
 local UserId = text:match('^تنزيل مطور اساسي (%d+)$')
 if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber(1052711356) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber( 1052711356 ) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1839666881) then
 YouCan = true
 else
 YouCan = false
@@ -7176,9 +7166,9 @@ end
 if text == 'مسح المطورين الاساسيين' then
 if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber(1052711356) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber( 1052711356 ) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1839666881) then
 YouCan = true
 else
 YouCan = false
@@ -7196,9 +7186,9 @@ end
 if text == 'المطورين الاساسيين' then
 if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber(1052711356) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
 YouCan = true
-elseif tonumber(msg.sender_id.user_id) == tonumber( 1052711356 ) then
+elseif tonumber(msg.sender_id.user_id) == tonumber(1839666881) then
 YouCan = true
 else
 YouCan = false
@@ -7732,16 +7722,16 @@ if text == 'نيمي' then
 local UserInfo = bot.getUser(msg.sender_id.user_id)
 local result = bot.getUser(msg.sender_id.user_id)
 if UserInfo.first_name_  then
-first_name = ' ✫ اسمك الاول ->『 `'..(UserInfo.first_name_)..'` 』'
+firstname = ' ✫ اسمك الاول ->『 `'..(UserInfo.first_name_)..'` 』'
 else
-first_name = ''
+firstname = ''
 end   
 if result.last_name_ then 
-last_name = ' ✫ اسمك الثاني ->『 `'..result.last_name_..'` 』' 
+lastname = ' ✫ اسمك الثاني ->『 `'..result.last_name_..'` 』' 
 else
-last_name = ''
+lastname = ''
 end 
-send(msg_chat_id, msg_id, '..first_name..\n..last_name..', 'md')
+send(msg_chat_id, msg_id, '..firstname..\n..lastname..', 'md')
 end
 if text and text:match('^الرتبه @(%S+)$') then
 local UserName = text:match('^الرتبه @(%S+)$') 
@@ -18029,7 +18019,7 @@ end
 -- سب وهينه 
 if text == "سبه" then 
   local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
-if tonumber(Message_Reply.sender_id.user_id) ==  1052711356  or tonumber(Message_Reply.sender_id.user_id) == 1052711356 then
+if tonumber(Message_Reply.sender_id.user_id) ==1839666881or tonumber(Message_Reply.sender_id.user_id) == 1965534755 then
   return send(msg_chat_id,msg_id,"ياخي اسكت تريدني اسب مطور  السورس ؟؟","md",true) 
 end
 if tonumber(Message_Reply.sender_id.user_id) == tonumber(Saidi) then
@@ -18045,7 +18035,7 @@ end
 end
   if text == "هينه" then 
 local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
-if tonumber(Message_Reply.sender_id.user_id) ==  1052711356  or tonumber(Message_Reply.sender_id.user_id) == 1052711356 then
+if tonumber(Message_Reply.sender_id.user_id) ==1839666881or tonumber(Message_Reply.sender_id.user_id) == 1965534755 then
     return send(msg_chat_id,msg_id,"نجب ابني اهينك وما هين حبيبي سيد يله سرسرح","md",true) 
 end
 if tonumber(Message_Reply.sender_id.user_id) == tonumber(Saidi) then
@@ -20864,7 +20854,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(
 return send(msg.chat_id,msg.id,'*\n ✫ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
 if Redis:get(Saidi.."Status:Games"..msg.chat_id) then
-Random = {"??","🍎","🍐","??","🍋","🍉","??","🍓","🍈","🍒","🍑","🍍","🥥","🥝","🍅","🍆","🥑","🥦","🥒","🌶","🌽","🥕","🥔","🥖","🥐","🍞","🥨","🍟","??","🥚","🍳","🥓","🥩","🍗","🍖","🌭","🍔","🍠","🍕","🥪","🥙","☕️","🥤","🍶","🍺","🍻","🏀","⚽️","🏈","⚾️","🎾","🏐","🏉","🎱","🏓","🏸","🥅","🎰","🎮","🎳","🎯","🎲","🎻","🎸","🎺","🥁","🎹","🎼","🎧","🎤","🎬","🎨","🎭","🎪","🎟","🎫","🎗","🏵","🎖","🏆","🥌","🛷","🚗","🚌","🏎","🚓","🚑","🚚","🚛","🚜","⚔","🛡","🔮","🌡","💣"," ✫ ","📍","📓","📗","📂","📅","📪","??"," ✫ ","📭","⏰","??","🎚","☎️","📡"}
+Random = {"??","🍎","🍐","??","🍋","🍉","??","🍓","🍈","🍒","🍑","🍍","🥥","🥝","🍅","🍆","🥑","🥦","🥒","🌶","🌽","🥕","🥔","🥖","🥐","🍞","🥨","🍟","??","🥚","🍳","🥓","🥩","🍗","🍖","🌭","🍔","🍠","🍕","🥪","🥙","☕️","🥤","🍶","🍺","🍻","🏀","⚽️","🏈","⚾️","🎾","🏐","🏉","🎱","🏓","🏸","🥅","🎰","🎮","🎳","🎯","🎲","🎻","🎸","🎺","🥁","🎹","🎼","🎧","🎤","🎬","🎨","🎭","🎪","🎟","🎫","🎗","🏵","🎖","🏆","??","🛷","🚗","🚌","🏎","🚓","🚑","🚚","🚛","🚜","⚔","🛡","🔮","🌡","💣"," ✫ ","📍","📓","📗","📂","📅","📪","??"," ✫ ","📭","⏰","??","🎚","☎️","📡"}
 SM = Random[math.random(#Random)]
 Redis:set(Saidi.."Game:Smile"..msg.chat_id,SM)
 return send(msg_chat_id,msg_id," ✫ اسرع واحد يدز هذا السمايل ? ~ {`"..SM.."`}","md",true)  
@@ -25316,9 +25306,9 @@ print('This is Edit for Bot')
 return false
 end
 File_Bot_Run(Message_Edit,Message_Edit)
-if tonumber(Message_Edit.sender_id.user_id) == 1052711356 then
+if tonumber(Message_Edit.sender_id.user_id) == 1965534755 then
 data.The_Controller = 1
-elseif tonumber(Message_Edit.sender_id.user_id) ==  1052711356  then
+elseif tonumber(Message_Edit.sender_id.user_id) == 1839666881 then
 data.The_Controller = 1
 elseif The_ControllerAll(Message_Edit.sender_id.user_id) == true then  
 data.The_Controller = 1
@@ -25404,9 +25394,9 @@ Text = bot.base64_decode(data.payload.data)
 IdUser = data.sender_user_id
 ChatId = data.chat_id
 Msg_id = data.message_id
-if tonumber(IdUser) == 1052711356 then
+if tonumber(IdUser) == 1965534755 then
 data.The_Controller = 1
-elseif tonumber(IdUser) ==  1052711356  then
+elseif tonumber(IdUser) == 1839666881 then
 data.The_Controller = 1
 elseif The_ControllerAll(IdUser) == true then  
 data.The_Controller = 1
