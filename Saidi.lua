@@ -25482,7 +25482,7 @@ end
 
 if Text and Text:match('(%d+)/tag/admin') and data.Manger then
 local UserId = {Text:match('(%d+)/tag/admin(%d+)')}
-local Info_Members = bot.searchChatMembers(msg_chat_id, "*", 200)
+local Info_Members = bot.searchChatMembers(UserId, "*", 200)
 local List_Members = Info_Members.members
 listall = '\n* ✫ قائمه الاعضاء \n ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n'
 for k, v in pairs(Info_Members) do
