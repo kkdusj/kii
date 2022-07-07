@@ -4933,6 +4933,11 @@ end
 if text == 'تعطيل' and msg.Dev then
 local Get_Chat = bot.getChat(msg_chat_id)
 local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
+local Info_Members = Redis:smembers(Saidi.."Admin:Group"..msg_chat_id) 
+if #Info_Members == 0 then
+return send(msg_chat_id,msg_id,"✫ لا يوجد ادمنيه حاليا , ","md",true)  
+end
+Redis:del(Saidi.."Admin:Group"..msg_chat_id) 
 if not Redis:sismember(Saidi.."ChekBotAdd",msg_chat_id) then
 return send(msg_chat_id,msg_id,'\n* ✫ الـبوت مـعطـل مـن قبـل*',"md",true)  
 else
@@ -4967,7 +4972,7 @@ data = {
 send(Sudo_Id,0,'*\n ✫ تم تعطيل كروب جديده \n ✫ من قام بتعطيلها : {*['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')*} \n ✫ معلومات الجروب :\n ✫ عدد الاعضاء : '..Info_Chats.member_count..'\n ✫ عدد الادمنيه : '..Info_Chats.administrator_count..'\n ✫ عدد المطرودين : '..Info_Chats.banned_count..'\n ✫ عدد المقيدين : '..Info_Chats.restricted_count..'*',"md",true, false, false, false, reply_markup)
 end
 Redis:srem(Saidi.."ChekBotAdd",msg_chat_id)
-return send(msg_chat_id,msg_id,'\n*تم تعطيل المجموعه بنجاح ✅\nتم تنزيل '..y..' من الادمن ✫*','md',true)
+return send(msg_chat_id,msg_id,'\n*تم تعطيل المجموعه بنجاح ✅\nتم تنزيل '..#Info_Members..' من الادمن ✫*','md',true)
 end
 end
 
