@@ -4781,26 +4781,25 @@ y = y + 1
 end
 end
 end
-local GetLink = Redis:get(Saidi.."Group:Link"..msg_chat_id) 
 local Get_Chat = bot.getChat(msg_chat_id)
 local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
 if tonumber(Info_Chats.member_count) < tonumber((Redis:get(Saidi..'Num:Add:Bot') or 0)) and not msg.Asasy then
 return send(msg_chat_id,msg_id,' ✫ عدد الاعضاء قليل لا يمكن تفعيل الجروب  يجب ان يكون اكثر من :'..Redis:get(Saidi..'Num:Add:Bot'),"md",true)  
 end
 if Redis:sismember(Saidi.."ChekBotAdd",msg_chat_id) then
-return send(msg_chat_id,msg_id,'\n*تم تفعيل المجموعه بنجاح ✅\nتم ترقيته '..y..' من الادمن •*',"md",true)  
+return send(msg_chat_id,msg_id,'\n*✫ الـجـروب مـفعـل مـن قبـل*',"md",true)  
 else
 local reply_markup = bot.replyMarkup{
 type = 'inline',
 data = {
 {
-{text =Get_Chat.title, url = GetLink},
+{text = 'ترتيب الاوامر 🌐', data = msg.sender_id.user_id..'/trtep@'..msg_chat_id},{text = 'اوامر البوت ⚙', data =msg.sender_id.user_id..'/LockAllGroup@'..msg_chat_id},
 },
 {
-{text = '- قفل جميع الاوامر ', data =msg.sender_id.user_id..'/LockAllGroup@'..msg_chat_id},
+{text = Get_Chat.title, url = Info_Chats.invite_link.invite_link}, 
 },
 {
-{text = '- ترتيب الاوامر', data = msg.sender_id.user_id..'/trtep@'..msg_chat_id},
+{text = 'قفل جميع الاوامر ❇️', data =msg.sender_id.user_id..'/LockAllGroup@'..msg_chat_id},{text = 'فتح جميع الاوامر 🔧', data =msg.sender_id.user_id..'/LockAllGroup@'..msg_chat_id},
 },
 }
 }
@@ -4844,7 +4843,7 @@ Redis:del(Saidi.."spammkick"..msg.chat_id)
 Redis:set(Saidi.."Lock:edit"..msg_chat_id,true) 
 Redis:sadd(Saidi.."ChekBotAdd",msg_chat_id)
 Redis:set(Saidi.."Status:Id"..msg_chat_id,true) ;Redis:set(Saidi.."Status:Reply"..msg_chat_id,true) ;Redis:set(Saidi.."Status:ReplySudo"..msg_chat_id,true) ;Redis:set(Saidi.."Status:BanId"..msg_chat_id,true) ;Redis:set(Saidi.."Status:SetId"..msg_chat_id,true) 
-return send(msg_chat_id,msg_id,'\n* ✫ الجروب : {*['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')*}\n ✫ تم تفعيل الجروب *','md', true, false, false, false, reply_markup)
+return send(msg_chat_id,msg_id,'\n*تم تفعيل المجموعه بنجاح ✅\nتم ترقيته '..y..' من الادمن ✫*','md', true, false, false, false, reply_markup)
 end
 end 
 if text == 'تفعيل' and not msg.Dev then
