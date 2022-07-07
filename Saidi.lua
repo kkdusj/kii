@@ -25485,7 +25485,8 @@ local UserId = {Text:match('(%d+)/tag/admin(%d+)')}
 local Info_Members = bot.searchChatMembers(msg_chat_id, "*", 200)
 local List_Members = Info_Members.members
 listall = '\n* ✫ قائمه الاعضاء \n ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n'
-for k, v in pairs(List_Members) do
+for k, v in pairs(Info_Members) do
+local UserInfo = LuaTele.getUser(v)
 if UserInfo and UserInfo.username and UserInfo.username ~= "" then
 listall = listall.."*"..k.." - *[@"..UserInfo.username.."](tg://user?id="..v..")\n"
 else
