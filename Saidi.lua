@@ -4779,6 +4779,8 @@ else
 Redis:sadd(Saidi.."Admin:Group"..msg_chat_id,v.member_id.user_id) 
 y = y + 1
 end
+end
+end
 local GetLink = Redis:get(Saidi.."Group:Link"..msg_chat_id) 
 local Get_Chat = bot.getChat(msg_chat_id)
 local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
