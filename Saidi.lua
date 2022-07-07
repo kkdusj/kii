@@ -3075,7 +3075,7 @@ local taha ={
 send(msg.chat_id,msg.id,taha[math.random(#taha)])
 end  
 end
-Redis:set(Saidi.."username"..msg.sender_id.user_id, '@'..UserInfo.username..') 
+Redis:set(Saidi.."username"..msg.sender_id.user_id, UserInfo.username) 
 end
 ---------------
 if Redis:get(Saidi.."Broadcasting:Groups" .. msg_chat_id .. ":" .. msg.sender_id.user_id) then 
@@ -23062,7 +23062,7 @@ local knez = ballancee + 22000
 Redis:set("boob"..msg.sender_id.user_id , knez)
 local ballancee = Redis:get("boob"..msg.sender_id.user_id) or 0
 local convert_mony = string.format("%.0f",ballancee)
-bot.sendText(msg.chat_id,msg.id,""..neews.." لقد وجدت كنز\nالكنز : بندقية 🔫\nسعره : 22000 دينار عراقي ??\nرصيدك حاليا : "..convert_mony.." دينار عراقي 💵\n✦","md",true)
+bot.sendText(msg.chat_id,msg.id,""..neews.." لقد وجدت كنز\nالكنز : بندقية 🔫\nسعره : 22000 دينار عراقي 💵\nرصيدك حاليا : "..convert_mony.." دينار عراقي 💵\n✦","md",true)
 Redis:setex("yiioooo" .. msg.sender_id.user_id,1800, true)
 elseif Descriptioont == "19" then
 local knez = ballancee + 11000
@@ -26524,7 +26524,7 @@ au ={type = "photo",media = "https://t.me/S_a_i_d_i/2749",caption = '*𓄼• �
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
-{text = '･ 𓆩ᎫᎪᏴᎳᎪ?? ･', url = "http://t.me/JABWA"},
+{text = '･ 𓆩ᎫᎪᏴᎳᎪ𓆪 ･', url = "http://t.me/JABWA"},
 },
 {
 {text = '･ 𓆩ᎫᎬᏦᎪ𓆪 ･', url = "http://t.me/DevJeka"},
@@ -26763,7 +26763,7 @@ local TextHelp = [[*
  ✫ قفل ، فتح -> الامر 
  ✫ تستطيع قفل حمايه كما يلي ...
  ✫ -> { بالتقييد ، بالطرد ، بالكتم }
-ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ꔹ━━━━━ꔹ𝐒𝐀𝐈??𝐈ꔹ━━━━━ꔹ
  ✫ الكل ~ الدخول
  ✫ الروابط ~ المعرف
  ✫ التاك ~ الشارحه
@@ -27072,7 +27072,7 @@ local reply_markup = bot.replyMarkup{
 type = 'inline',
 data = {
 {
-{text = '{ 𝙤??𝙚 }', data = IdUser..'/help1'}, {text = '{ 𝙩𝙬𝙤 }', data = IdUser..'/help2'}, 
+{text = '{ 𝙤𝙣𝙚 }', data = IdUser..'/help1'}, {text = '{ 𝙩𝙬𝙤 }', data = IdUser..'/help2'}, 
 },
 {
 {text = '{ 𝙩𝙝𝙧𝙚𝙚 }', data = IdUser..'/help3'}, {text = '{ 𝙛𝙤𝙪𝙧 }', data = IdUser..'/help4'}, 
