@@ -4793,7 +4793,7 @@ local reply_markup = bot.replyMarkup{
 type = 'inline',
 data = {
 {
-{text = 'ترتيب الاوامر 🌐', data = msg.sender_id.user_id..'/trtep@'..msg_chat_id},{text = 'اوامر البوت ⚙', data =msg.sender_id.user_id..'/LockAllGroup@'..msg_chat_id},
+{text = 'ترتيب الاوامر 🌐', data = msg.sender_id.user_id..'/trtep@'..msg_chat_id},{text = 'اوامر البوت ⚙', data =msg.sender_id.user_id..'/appbot@'..msg_chat_id},
 },
 {
 {text = Get_Chat.title, url = Info_Chats.invite_link.invite_link}, 
@@ -12690,7 +12690,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(
 return send(msg.chat_id,msg.id,'*\n ✫ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
 if Redis:get(Saidi.."tagall@all"..msg_chat_id) == "open" then
-local Info_Members = bot.searchChatMembers(msg_chat_id, "*", 200000)
+local Info_Members = bot.searchChatMembers(msg_chat_id, "*", 100000)
 x = 0
 tags = 0
 local list = Info_Members.members
@@ -15581,6 +15581,18 @@ return send(msg.chat_id,msg.id,'*\n ✫ عليك الاشتراك في قناة 
 end
 Redis:set(Saidi..'FilterText'..msg_chat_id..':'..msg.sender_id.user_id,'DelFilter')
 return send(msg_chat_id,msg_id,'\n* ✫ ارسل الان { ملصق ,متحركه ,صوره ,رساله } *',"md",true)  
+end
+
+if text == 'التاك' or text == 'تاج' then
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = 'تاك للكل •', data = msg.sender_id.user_id..'/tag/admin'},
+},
+}
+}
+return send(msg_chat_id,msg_id," ✫ الان ارسل لي الامر القديم ...", 'md', false, false, false, false, reply_markup)
 end
 
 if text == "اضف امر" then
@@ -25468,6 +25480,20 @@ if data.The_Controller == 1 or data.The_Controller == 2 or data.The_Controller =
 data.Special = true
 end
 
+if Text and Text:match('(%d+)/tag/admin') and data.Manger then
+local UserId = {Text:match('(%d+)/tag/admin(%d+)')}
+local Info_Members = bot.searchChatMembers(msg_chat_id, "*", 200)
+local List_Members = Info_Members.members
+listall = '\n* ✫ قائمه الاعضاء \n ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n'
+for k, v in pairs(List_Members) do
+if UserInfo and UserInfo.username and UserInfo.username ~= "" then
+listall = listall.."*"..k.." - *[@"..UserInfo.username.."](tg://user?id="..v..")\n"
+else
+listall = listall.."*"..k.." -* ["..v.."](tg://user?id="..v..")\n"
+end
+return edit(ChatId,Msg_id,listall, 'md')
+end
+end
 if Text and Text:match("(%d+)/idomery/(%d+)") then
 local UserId = {Text:match("(%d+)/idomery/(%d+)")}
 if tonumber(IdUser) == tonumber(UserId[1]) then
