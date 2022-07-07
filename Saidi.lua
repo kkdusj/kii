@@ -3061,22 +3061,6 @@ end
 end
 Redis:set(Saidi.."chencher"..msg.sender_id.user_id, UserInfo.first_name) 
 end
-if text and not Redis:get(Saidi..'lock_chengname'..msg.chat_id) then   
-local UserInfo = bot.getUser(msg.sender_id.user_id)
-if Redis:get(Saidi.."username"..msg.sender_id.user_id) then 
-if Redis:get(Saidi.."username"..msg.sender_id.user_id) ~= '@'..UserInfo.username..'' then
-tahan = '['..(Redis:get(Saidi.."username"..msg.sender_id.user_id) or '')..']'
-taham = '@'..UserInfo.username..''
-local taha ={ 
-'\n غير معرفك ليه يقميل 🌝',
-'\n 😹 اعع غير معرفك '..taham.. ' \n🙄 رجع علي القديم\n '..tahan..'',
-'\n ليش غير معرفك يعثل 🌹'..tahan..' ',
-}
-send(msg.chat_id,msg.id,taha[math.random(#taha)])
-end  
-end
-Redis:set(Saidi.."username"..msg.sender_id.user_id, UserInfo.username) 
-end
 ---------------
 if Redis:get(Saidi.."Broadcasting:Groups" .. msg_chat_id .. ":" .. msg.sender_id.user_id) then 
 if text == "الغاء" or text == 'الغاء الامر ✫' then   
@@ -12706,7 +12690,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(
 return send(msg.chat_id,msg.id,'*\n ✫ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
 if Redis:get(Saidi.."tagall@all"..msg_chat_id) == "open" then
-local Info_Members = bot.searchChatMembers(msg_chat_id, "*", 200)
+local Info_Members = bot.searchChatMembers(msg_chat_id, "*", 200000)
 x = 0
 tags = 0
 local list = Info_Members.members
