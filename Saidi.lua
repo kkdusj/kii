@@ -3063,10 +3063,10 @@ Redis:set(Saidi.."chencher"..msg.sender_id.user_id, UserInfo.first_name)
 end
 if text and not Redis:get(Saidi..'lock_chengname'..msg.chat_id) then   
 local UserInfo = bot.getUser(msg.sender_id.user_id)
-if Redis:get(Saidi.."chencher"..msg.sender_id.user_id) then 
-if Redis:get(Saidi.."chencher"..msg.sender_id.user_id) ~= UserInfo.username then 
-tahan = '['..(Redis:get(Saidi.."chencher"..msg.sender_id.user_id) or '')..']'
-taham = '['..UserInfo.username..']'
+if Redis:get(Saidi.."username"..msg.sender_id.user_id) then 
+if Redis:get(Saidi.."username"..msg.sender_id.user_id) ~= '@'..UserInfo.username..''
+tahan = '['..(Redis:get(Saidi.."username"..msg.sender_id.user_id) or '')..']'
+taham = '@'..UserInfo.username..''
 local taha ={ 
 '\n غير معرفك ليه يقميل 🌝',
 '\n 😹 اعع غير معرفك '..taham.. ' \n🙄 رجع علي القديم\n '..tahan..'',
@@ -3075,7 +3075,7 @@ local taha ={
 send(msg.chat_id,msg.id,taha[math.random(#taha)])
 end  
 end
-Redis:set(Saidi.."chencher"..msg.sender_id.user_id, UserInfo.username) 
+Redis:set(Saidi.."username"..msg.sender_id.user_id, '@'..UserInfo.username..') 
 end
 ---------------
 if Redis:get(Saidi.."Broadcasting:Groups" .. msg_chat_id .. ":" .. msg.sender_id.user_id) then 
