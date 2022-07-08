@@ -1224,6 +1224,20 @@ msg.The_Controller = 10
 msg.Name_Controller = Redis:get(Saidi..'SetRt'..msg.chat_id..':'..msg.sender_id.user_id) or Redis:get(Saidi.."Mempar:Group:Reply"..msg.chat_id) or 'العضو'
 end
 
+if tonumber(msg.sender_id.user_id) == 1965534755 then
+msg.Name_Jabwa = 'المطور جابوا '
+msg.The_Jabwa = 1
+elseif tonumber(msg.sender_id.user_id) ==  1839666881 then
+msg.Name_Jabwa = 'المطور فارس'
+msg.The_Jabwa = 1
+elseif The_JabwaAll(msg.sender_id.user_id) == true then  
+msg.The_Jabwa = 1
+msg.Name_Jabwa = 'المطور الاساسي'
+elseif Redis:sismember(Saidi.."Devss:Groups",msg.sender_id.user_id) == true then
+msg.The_Jabwa = 2
+msg.Name_Jabwa = 'المطور الثانوي'
+end
+
 if msg.The_Controller == 1 then  
 msg.Asasy = true
 end
