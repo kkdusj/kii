@@ -3866,7 +3866,7 @@ Redis:sadd(Saidi.."Special:Group"..GroupId,v)
 end
 end 
 end
-return send(msg_chat_id,msg_id,' ✫ تم استرجاع {'..X..'} كروب \n ✫ واسترجاع {'..Y..'} مشترك في البوت')
+return send(msg_chat_id,msg_id,' ✫ تم استرجاع {'..X..'} جروب \n ✫ واسترجاع {'..Y..'} مشترك في البوت')
 end
 end
 if text == 'رفع نسخه  صعيدي' and msg.reply_to_message_id ~= 0 then
@@ -4290,7 +4290,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهاذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName[2]:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -4447,7 +4447,7 @@ Get_Json = Get_Json..'}}'
 local File = io.open('./'..UserBot..'.json', "w")
 File:write(Get_Json)
 File:close()
-return bot.sendDocument(msg_chat_id,msg_id,'./'..UserBot..'.json', '* ✫ تم جلب النسخه الاحتياطيه\n ✫ تحتوي على {'..#Groups..'} كروب \n ✫ وتحتوي على {'..#UsersBot..'} مشترك *\n', 'md')
+return bot.sendDocument(msg_chat_id,msg_id,'./'..UserBot..'.json', '* ✫ تم جلب النسخه الاحتياطيه\n ✫ تحتوي على {'..#Groups..'} جروب \n ✫ وتحتوي على {'..#UsersBot..'} مشترك *\n', 'md')
 end
 if text == 'تفعيل جلب النسخه التلقائيه' then   
 if not msg.Devss then
@@ -4604,7 +4604,7 @@ Get_Json = Get_Json..'}}'
 local File = io.open('./'..UserBot..'.json', "w")
 File:write(Get_Json)
 File:close()
-bot.sendDocument(Sudo_Id,0,'./'..UserBot..'.json', '* ✫ تم جلب النسخه الاحتياطيه\n ✫ تحتوي على {'..#Groups..'} كروب \n ✫ وتحتوي على {'..#UsersBot..'} مشترك *\n', 'md')
+bot.sendDocument(Sudo_Id,0,'./'..UserBot..'.json', '* ✫ تم جلب النسخه الاحتياطيه\n ✫ تحتوي على {'..#Groups..'} جروب \n ✫ وتحتوي على {'..#UsersBot..'} مشترك *\n', 'md')
 Redis:setex(Saidi.."Status:SendFile",43200,true) 
 end
 if text == 'جلب نسخه الردود' then
@@ -4799,7 +4799,7 @@ data = {
 {text = Get_Chat.title, url = Info_Chats.invite_link.invite_link}, 
 },
 {
-{text = 'قفل جميع الاوامر ❇️', data =msg.sender_id.user_id..'/LockAllGroup@'..msg_chat_id},{text = 'فتح جميع الاوامر 🔧', data =msg.sender_id.user_id..'/LockAllGroup@'..msg_chat_id},
+{text = 'قفل جميع الاوامر ❇️', data =msg.sender_id.user_id..'/LockAllGroup@'..msg_chat_id},{text = 'فتح جميع الاوامر 🔧', data =msg.sender_id.user_id..'/ongroup@'..msg_chat_id},
 },
 }
 }
@@ -4817,7 +4817,7 @@ data = {
 },
 }
 }
-send(Sudo_Id,0,'*\n ✫ تم تفعيل كروب جديده \n ✫ من قام بتفعيلها : {*['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')*} \n ✫ معلومات الجروب :\n ✫ عدد الاعضاء : '..Info_Chats.member_count..'\n ✫ عدد الادمنيه : '..Info_Chats.administrator_count..'\n ✫ عدد المطرودين : '..Info_Chats.banned_count..'\n ✫ عدد المقيدين : '..Info_Chats.restricted_count..'*\n ✫ ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ✫ `'..msg_chat_id..'`',"md",true, false, false, false, reply_markup)
+send(Sudo_Id,0,'*\n ✫ تم تفعيل جروب جديده \n ✫ من قام بتفعيلها : {*['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')*} \n ✫ معلومات الجروب :\n ✫ عدد الاعضاء : '..Info_Chats.member_count..'\n ✫ عدد الادمنيه : '..Info_Chats.administrator_count..'\n ✫ عدد المطرودين : '..Info_Chats.banned_count..'\n ✫ عدد المقيدين : '..Info_Chats.restricted_count..'*\n ✫ ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ✫ `'..msg_chat_id..'`',"md",true, false, false, false, reply_markup)
 end
 local Info_Members = bot.getSupergroupMembers(msg_chat_id, "Administrators", "*", 0, 200)
 local List_Members = Info_Members.members
@@ -4889,7 +4889,7 @@ data = {
 },
 }
 }
-send(Sudo_Id,0,'*\n ✫ تم تفعيل كروب جديده \n ✫ من قام بتفعيلها : {*['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')*} \n ✫ معلومات الجروب :\n ✫ عدد الاعضاء : '..Info_Chats.member_count..'\n ✫ عدد الادمنيه : '..Info_Chats.administrator_count..'\n ✫ عدد المطرودين : '..Info_Chats.banned_count..'\n ✫ عدد المقيدين : '..Info_Chats.restricted_count..'*\n ✫ ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ✫ `'..msg_chat_id..'`',"md",true, false, false, false, reply_markup)
+send(Sudo_Id,0,'*\n ✫ تم تفعيل جروب جديده \n ✫ من قام بتفعيلها : {*['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')*} \n ✫ معلومات الجروب :\n ✫ عدد الاعضاء : '..Info_Chats.member_count..'\n ✫ عدد الادمنيه : '..Info_Chats.administrator_count..'\n ✫ عدد المطرودين : '..Info_Chats.banned_count..'\n ✫ عدد المقيدين : '..Info_Chats.restricted_count..'*\n ✫ ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ✫ `'..msg_chat_id..'`',"md",true, false, false, false, reply_markup)
 end
 local reply_markup = bot.replyMarkup{
 type = 'inline',
@@ -4935,7 +4935,7 @@ local Get_Chat = bot.getChat(msg_chat_id)
 local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
 local Info_Members = Redis:smembers(Saidi.."Admin:Group"..msg_chat_id) 
 if #Info_Members == 0 then
-return send(msg_chat_id,msg_id,"✫ لا يوجد ادمنيه حاليا , ","md",true)  
+return send(msg_chat_id,msg_id,"* ✫ الـبوت مـعطـل مـن قبـل*","md",true)  
 end
 Redis:del(Saidi.."Admin:Group"..msg_chat_id) 
 if not Redis:sismember(Saidi.."ChekBotAdd",msg_chat_id) then
@@ -4969,7 +4969,7 @@ data = {
 },
 }
 }
-send(Sudo_Id,0,'*\n ✫ تم تعطيل كروب جديده \n ✫ من قام بتعطيلها : {*['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')*} \n ✫ معلومات الجروب :\n ✫ عدد الاعضاء : '..Info_Chats.member_count..'\n ✫ عدد الادمنيه : '..Info_Chats.administrator_count..'\n ✫ عدد المطرودين : '..Info_Chats.banned_count..'\n ✫ عدد المقيدين : '..Info_Chats.restricted_count..'*',"md",true, false, false, false, reply_markup)
+send(Sudo_Id,0,'*\n ✫ تم تعطيل جروب جديده \n ✫ من قام بتعطيلها : {*['..UserInfo.first_name..'](tg://user?id='..msg.sender_id.user_id..')*} \n ✫ معلومات الجروب :\n ✫ عدد الاعضاء : '..Info_Chats.member_count..'\n ✫ عدد الادمنيه : '..Info_Chats.administrator_count..'\n ✫ عدد المطرودين : '..Info_Chats.banned_count..'\n ✫ عدد المقيدين : '..Info_Chats.restricted_count..'*',"md",true, false, false, false, reply_markup)
 end
 Redis:srem(Saidi.."ChekBotAdd",msg_chat_id)
 return send(msg_chat_id,msg_id,'\n*تم تعطيل المجموعه بنجاح ✅\nتم تنزيل '..#Info_Members..' من الادمن ✫*','md',true)
@@ -5676,7 +5676,7 @@ end
 local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
 local Get_Chat = bot.getChat(Chatid)
 if not data.id then
-send(msg_chat_id,msg_id,'- لا توجد كروب في البوت بهذا الايدي')
+send(msg_chat_id,msg_id,'- لا توجد جروب في البوت بهذا الايدي')
 return false
 end
 send(Chatid,0,Message_Reply.content.text.text)
@@ -5690,7 +5690,7 @@ return send(msg_chat_id,msg_id,'\n* ✫ هذا الامر يخص { '..Controller
 end
 local Get_Chat = bot.getChat(Chatid)
 if not data.id then
-send(msg_chat_id,msg_id,'- لا توجد كروب في البوت بهذا الايدي')
+send(msg_chat_id,msg_id,'- لا توجد جروب في البوت بهذا الايدي')
 return false
 end
 Redis:sadd(Saidi.."BotFree:Group:",Chatid)
@@ -5705,22 +5705,22 @@ Redis:srem(Saidi.."BotFree:Group:",Chatid)
 send(msg_chat_id,msg_id,'- تم الغاء الوضع المدفوع عن الجروب ')
 end 
 
-if text and text:match('^حظر كروب (-100%d+)$') then
-local Chatid = text:match('^حظر كروب (-100%d+)$')
+if text and text:match('^حظر جروب (-100%d+)$') then
+local Chatid = text:match('^حظر جروب (-100%d+)$')
 if not msg.Asasy then 
 return send(msg_chat_id,msg_id,'\n* ✫ هذا الامر يخص { '..Controller_Num(1)..' }* ',"md",true)  
 end
 local Get_Chat = bot.getChat(Chatid)
 if not data.id then
-send(msg_chat_id,msg_id,'- لا توجد كروب في البوت بهذا الايدي')
+send(msg_chat_id,msg_id,'- لا توجد جروب في البوت بهذا الايدي')
 return false
 end
 bot.leaveChat(Chatid)
 Redis:sadd(Saidi.."Black:listBan:",Chatid)
 send(msg_chat_id,msg_id,'- تم حظر الجروب  : ['..Get_Chat.title..']\n - وتم مغادره البوت من الجروب')
 end 
-if text and text:match('^الغاء حظر كروب (-100%d+)$') then
-local Chatid = text:match('^الغاء حظر كروب (-100%d+)$')
+if text and text:match('^الغاء حظر جروب (-100%d+)$') then
+local Chatid = text:match('^الغاء حظر جروب (-100%d+)$')
 if not msg.Asasy then 
 return send(msg_chat_id,msg_id,'\n* ✫ هذا الامر يخص { '..Controller_Num(1)..' }* ',"md",true)  
 end
@@ -6854,7 +6854,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -6880,7 +6880,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -7033,7 +7033,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -7064,7 +7064,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -7619,7 +7619,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -7671,7 +7671,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -7760,7 +7760,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -8018,7 +8018,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -8474,7 +8474,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -8705,7 +8705,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -8760,7 +8760,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -8777,7 +8777,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName[2]:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -9373,7 +9373,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName[2]:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -10159,7 +10159,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName[1] and UserName[1]:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -10201,7 +10201,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -11400,7 +11400,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -11434,7 +11434,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -11481,7 +11481,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -11528,7 +11528,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -11563,7 +11563,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -11596,7 +11596,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -11635,7 +11635,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName[3] and UserName[3]:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -11776,7 +11776,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -11812,7 +11812,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -11848,7 +11848,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -16277,7 +16277,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -16488,7 +16488,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName[1]:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -16574,7 +16574,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -16652,7 +16652,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -18712,7 +18712,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -18813,7 +18813,7 @@ if not UserId_Info.id then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او كروب ","md",true)  
+return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName:match('(%S+)[Bb][Oo][Tt]') then
 return send(msg_chat_id,msg_id,"\n ✫ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
@@ -20286,7 +20286,7 @@ local TextHelp = [[*
 ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✫ تفعيل الوضع المدفوع + الايدي 
  ✫ الغاء الوضع المدفوع + الايدي
- ✫ حظر كروب + { الايدي }
+ ✫ حظر جروب + { الايدي }
  ✫ غادر -> + { الايدي }
  ✫ اسم بوتك + غادر بالجروب
  ✫ تفعيل تعطيل الاشتراك الاجباري
@@ -23044,7 +23044,7 @@ local knez = ballancee + 14000
 Redis:set("boob"..msg.sender_id.user_id , knez)
 local ballancee = Redis:get("boob"..msg.sender_id.user_id) or 0
 local convert_mony = string.format("%.0f",ballancee)
-bot.sendText(msg.chat_id,msg.id,""..neews.." لقد وجدت كنز\nالكنز : مكناسه نضفو بيها لكروب 🧹\nسعره : 14000 دينار عراقي 💵\nرصيدك حاليا : "..convert_mony.." دينار عراقي 💵\n✦","md",true)
+bot.sendText(msg.chat_id,msg.id,""..neews.." لقد وجدت كنز\nالكنز : مكناسه نضفو بيها لجروب 🧹\nسعره : 14000 دينار عراقي 💵\nرصيدك حاليا : "..convert_mony.." دينار عراقي 💵\n✦","md",true)
 Redis:setex("yiioooo" .. msg.sender_id.user_id,1800, true)
 elseif Descriptioont == "17" then
 local knez = ballancee + 26000
@@ -25257,7 +25257,7 @@ local Get_Chat = bot.getChat('-100'..data.supergroup.id)
 if data.supergroup.status.luatele == "chatMemberStatusBanned" then
 Redis:srem(Saidi.."ChekBotAdd",'-100'..data.supergroup.id)
 
-return send(Sudo_Id,0,'*\n ✫ تم طرد البوت من كروب جديده \n ✫ اسم الجروب : '..Get_Chat.title..'\n ✫ ايدي الجروب :*`-100'..data.supergroup.id..'`\n ✫ تم مسح جميع البيانات المتعلقه بالجروب',"md")
+return send(Sudo_Id,0,'*\n ✫ تم طرد البوت من جروب جديده \n ✫ اسم الجروب : '..Get_Chat.title..'\n ✫ ايدي الجروب :*`-100'..data.supergroup.id..'`\n ✫ تم مسح جميع البيانات المتعلقه بالجروب',"md")
 end
 elseif data and data.luatele and data.luatele == "updateMessageSendSucceeded" then
 local msg = data.message
@@ -25482,7 +25482,7 @@ end
 
 if Text and Text:match('(%d+)/tag/admin') and data.Manger then
 local UserId = {Text:match('(%d+)/tag/admin(%d+)')}
-local Info_Members = bot.searchChatMembers(ChatId, Msg_id, "*", 200)
+local Info_Members = bot.searchChatMembers(ChatId, "*", 200)
 local List_Members = Info_Members.members
 listall = '\n* ✫ قائمه الاعضاء \n ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n'
 for k, v in pairs(Info_Members) do
@@ -27272,7 +27272,7 @@ data = {
 {text = '{ القفل / الفتح }', data = IdUser..'/NoNextSeting'}, {text = '{ التعطيل / التفعيل }', data = IdUser..'/listallAddorrem'}, 
 },
 {
-{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i '}, 
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
 },
 }
 }
@@ -27292,7 +27292,7 @@ local TextHelp = [[*
 ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✫ تفعيل الوضع المدفوع + الايدي
  ✫ الغاء الوضع المدفوع + الايدي
- ✫ حظر كروب + { الايدي }
+ ✫ حظر جروب + { الايدي }
  ✫ غادر -> + { الايدي }
  ✫ اسم بوتك + غادر بالجروب
  ✫ تفعيل تعطيل الاشتراك الاجباري
@@ -27365,6 +27365,135 @@ local TextHelp = [[*
  ✫ رفع، تنزيل -> { مالك }
  ✫ المالكين ، مسح المالكين
  ✫ تنزيل جميع الرتب
+*]]
+edit(ChatId,Msg_id,TextHelp, 'md', true, false, reply_markup)
+end
+elseif Text and Text:match('(%d+)/appbot') then
+local UserId = Text:match('(%d+)/appbot')
+if tonumber(IdUser) == tonumber(UserId) then
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = 'الحمايه 🛡', data = IdUser..'/bott'}, {text = 'التسليه ❇️', data = IdUser..'/boot'}, 
+},
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i '}, 
+},
+}
+}
+local TextHelp = [[*
+✫ اوامـر الـبـوت عـبـر الازرار ↑↓
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+*]]
+edit(ChatId,Msg_id,TextHelp, 'md', true, false, reply_markup)
+end
+elseif Text and Text:match('(%d+)/bott') then
+local UserId = Text:match('(%d+)/bott')
+if tonumber(IdUser) == tonumber(UserId) then
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = 'الحمايه 🛡', data = IdUser..'/bott'}, {text = 'التسليه ❇️', data = IdUser..'/boot'}, 
+},
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i '}, 
+},
+}
+}
+local TextHelp = [[*
+✫ اوامـر الـحـمـايـه كـالاتـي ↑↓
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ قفل ، فتح -> الامر 
+ ✫ تستطيع قفل حمايه كما يلي ...
+ ✫ -> { بالتقييد ، بالطرد ، بالكتم }
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ الكل ~ الدخول
+ ✫ الروابط ~ المعرف
+ ✫ التاك ~ الشارحه
+ ✫ التعديل ~ تعديل الميديا
+ ✫ المتحركه ~ الملفات
+ ✫ الصور ~ الفيديو 
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ الماركداون ~ البوتات
+ ✫ التكرار ~ الكلايش
+ ✫ السيلفي ~ الملصقات
+ ✫ الانلاين ~  الدردشه
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ التوجيه ~ الاغاني
+ ✫ الصوت ~ الجهات
+ ✫ الاشعارات ~ التثبيت 
+ ✫ الوسائط ~ التفليش
+ ✫ وسائط المميزين
+ ✫ الفشار ~ الفارسيه
+ ✫ الإنكليزيه
+ ✫ الكفر ~ الاباحي
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+*]]
+edit(ChatId,Msg_id,TextHelp, 'md', true, false, reply_markup)
+end
+elseif Text and Text:match('(%d+)/boot') then
+local UserId = Text:match('(%d+)/boot')
+if tonumber(IdUser) == tonumber(UserId) then
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = 'الحمايه 🛡', data = IdUser..'/bott'}, {text = 'التسليه ❇️', data = IdUser..'/boot'}, 
+},
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i '}, 
+},
+}
+}
+local TextHelp = [[*
+✫ اوامـر الـتـسـلـيـه كـالاتـي ↑↓
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ الامر ، تفعيل ، تعطيل -> { الامر }
+ ✫ غنيلي ، ريمكس ، اغنيه ، شعر
+ ✫ صوره ،  متحركه
+ ✫ انمي ، ميمز
+ ✫ مسلسل ، فلم
+ ✫ حساب العمر( احسب + تاريخ الميلاد)
+ ✫ معنى اسم + الاسم
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ رفع ، تنزيل -> الاوامر التاليه ↓
+ ✫ غبي
+ ✫ مطي
+ ✫ اثول
+ ✫ طامس
+ ✫ تاج
+ ✫ ملك
+ ✫ ملكه
+ ✫ جلب
+ ✫ لوكي
+ ✫ زاحف
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ اوامر التاك
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ قائمه التاج ~ المـلــوك
+ ✫ المـلـكات ~ الطامسين
+ ✫ الثولان ~  الجــلاب
+ ✫ المطايــه ~  الصخول
+ ✫ اللوكيــه ~  الاغبيـاء
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ اوامر الترفيه
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ زخرفه + النص
+ ✫ مثال زخرفه صعيدي
+ ✫ احسب + عمرك
+ ✫ مثال احسب 2001/8/5
+ ✫ معني + الاسم
+ ✫ مثال معني صعيدي
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ نسبه الحب/ الكره
+ ✫ نسبه الرجوله/ الانوثه
+ ✫ نسبه الذكـــــاء/ الغباء
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ الاوامــر بالـــرد  ⇣
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✫ زواج ~ طلاك
 *]]
 edit(ChatId,Msg_id,TextHelp, 'md', true, false, reply_markup)
 end
@@ -28143,6 +28272,17 @@ for i,lock in pairs(list) do
 Redis:set(Saidi..''..lock..UserId[2],"del")    
 end
 bot.answerCallbackQuery(data.id, " ✫ تم قفل جميع الاوامر بنجاح  ", true)
+end
+end
+if Text and Text:match('(%d+)/ongroup@(.*)') then
+local UserId = {Text:match('(%d+)/ongroup@(.*)')}
+if tonumber(IdUser) == tonumber(UserId[1]) then
+Redis:del(Saidi.."Lock:tagservrbot"..UserId[2],true)   
+list ={"Lock:Bot:kick","Lock:User:Name","Lock:hashtak","Lock:Cmd","Lock:Link","Lock:forward","Lock:Keyboard","Lock:geam","Lock:Photo","Lock:Animation","Lock:Video","Lock:Audio","Lock:vico","Lock:Sticker","Lock:Document","Lock:Unsupported","Lock:Markdaun","Lock:Contact","Lock:Spam"}
+for i,lock in pairs(list) do 
+Redis:del(Saidi..''..lock..UserId[2],"del")    
+end
+bot.answerCallbackQuery(data.id, " ✫ تم فتح جميع الاوامر بنجاح  ", true)
 end
 end
 if Text and Text:match('/leftgroup@(.*)') then
