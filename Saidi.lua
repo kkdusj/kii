@@ -459,7 +459,6 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 }
 return edit(chat,msgid,'*\n ✫ تحكم برتب الشخص *', 'md', true, false, reply_markup)
 end
-end
 function GetAdminsNum(ChatId,UserId)
 local GetMemberStatus = rights(bot.getChatMember(ChatId,UserId))
 if GetMemberStatus.can_change_info then
