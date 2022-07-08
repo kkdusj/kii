@@ -1071,7 +1071,7 @@ return Status
 end 
 
 function GetInfoBot(msg)
-local GetMemberStatus = rights(bot.getChatMember(msg.chat_id,Saidi))
+local GetMemberStatus = bot.getChatMember(msg.chat_id,Saidi))
 if GetMemberStatus.can_change_info then
 change_info = true else change_info = false
 end
@@ -22534,7 +22534,7 @@ local coniss = coin(UserName)
 local Remsg = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
 local UserInfo = bot.getUser(Remsg.sender_id.user_id)
 if msg.sender_id.user_id == Remsg.sender_id.user_id then
-bot.sendText(msg.chat_id,msg.id,"\n*⇜ زوجتك نفسي 🤣😒*","md",true)  
+bot.sendText(msg.chat_id,msg.id,"\n*⇜ زوجتك نفسي ??😒*","md",true)  
 return false
 end
 if tonumber(coniss) < 10000 then
