@@ -1224,46 +1224,6 @@ msg.The_Controller = 10
 msg.Name_Controller = Redis:get(Saidi..'SetRt'..msg.chat_id..':'..msg.sender_id.user_id) or Redis:get(Saidi.."Mempar:Group:Reply"..msg.chat_id) or 'العضو'
 end
 
-if tonumber(msg.sender_id.user_id) == 1965534755 then
-msg.Name_Jabwa = 'المطور جابوا '
-msg.The_Jabwa = 1
-elseif tonumber(msg.sender_id.user_id) ==  1839666881 then
-msg.Name_Jabwa = 'المطور فارس'
-msg.The_Jabwa = 1
-elseif The_ControllerAll(msg.sender_id.user_id) == true then  
-msg.The_Jabwa = 1
-msg.Name_Jabwa = 'المطور الاساسي'
-elseif Redis:sismember(Saidi.."Devss:Groups",msg.sender_id.user_id) == true then
-msg.The_Jabwa = 2
-msg.Name_Jabwa = 'المطور الثانوي'
-elseif Redis:sismember(Saidi.."Dev:Groups",msg.sender_id.user_id) == true then
-msg.The_Controller = 3
-msg.Name_Controller = Redis:get(Saidi..'SetRt'..msg.chat_id..':'..msg.sender_id.user_id) or Redis:get(Saidi.."Developer:Bot:Reply"..msg.chat_id) or 'المطور'
-elseif Redis:sismember(Saidi.."Ownerss:Group"..msg.chat_id,msg.sender_id.user_id) == true then
-msg.The_Controller = 44
-msg.Name_Controller = Redis:get(Saidi..'SetRt'..msg.chat_id..':'..msg.sender_id.user_id) or Redis:get(Saidi.."PresidentQ:Group:Reply"..msg.chat_id) or 'المالك'
-elseif Redis:sismember(Saidi.."SuperCreator:Group"..msg.chat_id,msg.sender_id.user_id) == true then
-msg.The_Controller = 4
-msg.Name_Controller = Redis:get(Saidi..'SetRt'..msg.chat_id..':'..msg.sender_id.user_id) or Redis:get(Saidi.."President:Group:Reply"..msg.chat_id) or 'المنشئ الاساسي'
-elseif Redis:sismember(Saidi.."Creator:Group"..msg.chat_id,msg.sender_id.user_id) == true then
-msg.The_Controller = 5
-msg.Name_Controller = Redis:get(Saidi..'SetRt'..msg.chat_id..':'..msg.sender_id.user_id) or Redis:get(Saidi.."Constructor:Group:Reply"..msg.chat_id) or 'المنشئ'
-elseif Redis:sismember(Saidi.."Manger:Group"..msg.chat_id,msg.sender_id.user_id) == true then
-msg.The_Controller = 6
-msg.Name_Controller = Redis:get(Saidi..'SetRt'..msg.chat_id..':'..msg.sender_id.user_id) or Redis:get(Saidi.."Manager:Group:Reply"..msg.chat_id) or 'المدير'
-elseif Redis:sismember(Saidi.."Admin:Group"..msg.chat_id,msg.sender_id.user_id) == true then
-msg.The_Controller = 7
-msg.Name_Controller = Redis:get(Saidi..'SetRt'..msg.chat_id..':'..msg.sender_id.user_id) or Redis:get(Saidi.."Admin:Group:Reply"..msg.chat_id) or 'الادمن'
-elseif Redis:sismember(Saidi.."Special:Group"..msg.chat_id,msg.sender_id.user_id) == true then
-msg.The_Controller = 8
-msg.Name_Controller = Redis:get(Saidi..'SetRt'..msg.chat_id..':'..msg.sender_id.user_id) or Redis:get(Saidi.."Vip:Group:Reply"..msg.chat_id) or 'المميز'
-elseif tonumber(msg.sender_id.user_id) == tonumber(Saidi) then
-msg.The_Controller = 9
-else
-msg.The_Controller = 10
-msg.Name_Controller = Redis:get(Saidi..'SetRt'..msg.chat_id..':'..msg.sender_id.user_id) or Redis:get(Saidi.."Mempar:Group:Reply"..msg.chat_id) or 'العضو'
-end
-
 if msg.The_Controller == 1 then  
 msg.Asasy = true
 end
@@ -1305,7 +1265,7 @@ end
 end
 if msg.content.luatele == "messageChatJoinByLink" or msg.content.luatele == "messageChatAddMembers" then
 if Redis:get(Saidi.."Status:Welcome"..msg_chat_id) then
-local RinkBot = ''..msg.Name_Jabwa
+local RinkBot = ''..msg.Name_Controller
 local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
 local Get_Chat = bot.getChat(msg_chat_id)
 local UserInfo = bot.getUser(msg.sender_id.user_id)
@@ -22138,7 +22098,7 @@ local ratpep = ballancee + 3700
 Redis:set("boob"..msg.sender_id.user_id , math.floor(ratpep))
 local ballancee = Redis:get("boob"..msg.sender_id.user_id) or 0
 local convert_mony = string.format("%.0f",ballancee)
-bot.sendText(msg.chat_id,msg.id,"اشعار ايداع "..neews.."\nالمبلغ : 3700 دينار عراقي 💵\nوظيفتك : كهربائي ??\nنوع العملية : اضافة راتب\nرصيدك حاليا : "..convert_mony.." دينار عراقي 💵","md",true)
+bot.sendText(msg.chat_id,msg.id,"اشعار ايداع "..neews.."\nالمبلغ : 3700 دينار عراقي 💵\nوظيفتك : كهربائي 💡\nنوع العملية : اضافة راتب\nرصيدك حاليا : "..convert_mony.." دينار عراقي 💵","md",true)
 Redis:setex("iiioo" .. msg.sender_id.user_id,600, true)
 elseif Descriptioont == "12" then
 local ratpep = ballancee + 3600
@@ -25522,7 +25482,7 @@ end
 
 if Text and Text:match('(%d+)/tag/admin') and data.Manger then
 local UserId = {Text:match('(%d+)/tag/admin(%d+)')}
-local Info_Members = bot.searchChatMembers(UserId, "*", 200)
+local Info_Members = bot.searchChatMembers(ChatId, Msg_id, "*", 200)
 local List_Members = Info_Members.members
 listall = '\n* ✫ قائمه الاعضاء \n ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n'
 for k, v in pairs(Info_Members) do
