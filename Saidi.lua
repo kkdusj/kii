@@ -1279,7 +1279,7 @@ end
 end
 if msg.content.luatele == "messageChatJoinByLink" or msg.content.luatele == "messageChatAddMembers" then
 if Redis:get(Saidi.."Status:Welcome"..msg_chat_id) then
-local RinkBot = ''..msg.Name_Controller
+local RinkBot = ''..msg.Name_Jabwa
 local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
 local Get_Chat = bot.getChat(msg_chat_id)
 local UserInfo = bot.getUser(msg.sender_id.user_id)
