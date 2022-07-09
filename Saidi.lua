@@ -12834,51 +12834,7 @@ end
 end
 send(msg_chat_id,msg_id,listall,"md",true)  
 end
-if Redis:get(Saidi.."addchannel"..msg.sender_id.user_id) == "on" then
-if text and text:match("^@[%a%d_]+$") then
-local m , res = https.request("http://api.telegram.org/bot"..Token.."/getchat?chat_id="..text)
-data = json:decode(m)
-if res == 200 then
-ch = data.result.id
-Redis:set(Saidi.."chadmin"..msg_chat_id,ch) 
-send(msg_chat_id,msg_id," ✧ تم حفظ ايدي القناه","md",true)  
-else
-send(msg_chat_id,msg_id," ✧ المعرف خطأ","md",true)  
-end
-elseif text and text:match('^-100(%d+)$') then
-ch = text
-Redis:set(Saidi.."chadmin"..msg_chat_id,ch) 
-send(msg_chat_id,msg_id," ✧ تم حفظ ايدي القناه","md",true)  
-elseif text and not text:match('^-100(%d+)$') then
-send(msg_chat_id,msg_id," ✧ الايدي خطأ","md",true)  
-end
-Redis:del(Saidi.."addchannel"..msg.sender_id.user_id)
-end
-if text == "القناه المضافه" then
-if Redis:get(Saidi.."chadmin"..msg_chat_id) then
-send(msg_chat_id,msg_id,Redis:get(Saidi.."chadmin"..msg_chat_id),"md",true)  
-else 
-send(msg_chat_id,msg_id," ✧ لا توجد قناه ","md",true)  
-end 
-end
-if text == "حذف القناه" then
-if not msg.Admin then
-return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص '..Controller_Num(7)..' * ',"md",true)  
-end
-if Redis:get(Saidi.."chadmin"..msg_chat_id) then
-Redis:del(Saidi.."chadmin"..msg_chat_id) 
-send(msg_chat_id,msg_id," ✧ تم حذف القناه بنجاح","md",true)  
-else 
-send(msg_chat_id,msg_id," ✧ لا توجد قناه ","md",true)  
-end 
-end
-if text == "اضف قناه" then
-if not msg.Admin then
-return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص '..Controller_Num(7)..' * ',"md",true)  
-end
-Redis:set(Saidi.."addchannel"..msg.sender_id.user_id,"on") 
-send(msg_chat_id,msg_id," ✧ ارسل يوزر او ايدي القناه","md",true)  
-end
+
 if text == "قفل ارسال القناة" or text == "قفل القناه" or text == "قفل القنوات" then 
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
@@ -23104,7 +23060,7 @@ local knez = ballancee + 100000
 Redis:set("boob"..msg.sender_id.user_id , knez)
 local ballancee = Redis:get("boob"..msg.sender_id.user_id) or 0
 local convert_mony = string.format("%.0f",ballancee)
-bot.sendText(msg.chat_id,msg.id,""..neews.." لقد وجدت كنز\nالكنز : قناع ماسك 🗿\nسعره : 100000 دولار 💵\nرصيدك حاليا : "..convert_mony.." دولار 💵\n✦","md",true)
+bot.sendText(msg.chat_id,msg.id,""..neews.." لقد وجدت كنز\nالكنز : قناع ماسك 🗿\nسعره : 100000 دولار ??\nرصيدك حاليا : "..convert_mony.." دولار 💵\n✦","md",true)
 Redis:setex("yiioooo" .. msg.sender_id.user_id,1800, true)
 elseif Descriptioont == "9" then
 local knez = ballancee + 50000
