@@ -5762,21 +5762,6 @@ send(msg.chat_id,msg.id,"عذرآ هذا الامر للمطورين فقط")
 end
 end
 
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"ميسد"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[بسحك فيه 😹💖](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"مور"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[اي شغل المحن ده 🙄](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-
 if text and text:match('^ذيع (-100%d+)$') and tonumber(msg.reply_to_message_id) ~= 0 then
 local Chatid = text:match('^ذيع (-100%d+)$') 
 if not msg.Devss then 
@@ -27515,7 +27500,7 @@ local TextHelp = [[*
  ✧ مسح موسيقى بالرد
  ✧ قائمة الموسيقى
  ✧ مسح قائمه الموسيقى
-ꔹ━━━━━ꔹ𝐒𝐀??𝐃𝐈ꔹ━━━━━ꔹ
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✧ تفعيل ، تعطيل ← الاوامر التاليه↓
  ✧ البوت الخدمي ، المغادرة ، الاذاعه
  ✧ التواصل ، الاحصائيات
