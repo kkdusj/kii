@@ -8277,42 +8277,42 @@ if Redis:get(Saidi.."Status:IdPhoto"..msg_chat_id) then
 if photo.total_count > 0 then
 if not msg.Special and Redis:get(Saidi..'idnotmem'..msg.chat_id)  then
 return send(msg_chat_id,msg_id,
-'\n* ✧ ايديك : ❪'..UserId..
-'❫\n ✧  معرفك : ❪*['..UserInfousername..
-']*❫\n ✧  رتبتك : ❪'..RinkBot..
-'❫\n ✧  رسائلك : ❪'..TotalMsg..
-'❫\n ✧  تعديلاتك : ❪'..TotalEdit..
-'❫\n ✧  تفاعلك : ❪'..TotalMsgT..
-'❫\n ✧  البايو : ❪*['..Bio..
-']*❫*', "md")
+'\n*✧ ايديك -> '..UserId..
+'\n✧ معرفك -> '..UserInfousername..
+'\n✧ رتبتك -> '..RinkBot..
+'\n✧ رسائلك -> '..TotalMsg..
+'\n✧ تعديلاتك -> '..TotalEdit..
+'\n✧ تفاعلك -> '..TotalMsgT..
+'\n✧ البايو -> '..Bio..
+'*', "md")
 end
 return bot.sendPhoto(msg.chat_id, msg.id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id,
-'\n* ✧ ايديه : '..UserId..
-'\n ✧  معرفه : '..UserInfousername..
-'\n ✧  رتبته : '..RinkBot..
-'\n ✧  رسائله : '..TotalMsg..
-'\n ✧  تعديلاته : '..TotalEdit..
-'\n ✧  تفاعله : '..TotalMsgT..
+'\n*✧ ايديه -> '..UserId..
+'\n✧ معرفه -> '..UserInfousername..
+'\n✧ رتبته -> '..RinkBot..
+'\n✧ رسائله -> '..TotalMsg..
+'\n✧ تعديلاته -> '..TotalEdit..
+'\n✧ تفاعله -> '..TotalMsgT..
 '*', "md")
 else
 return send(msg_chat_id,msg_id,
-'\n* ✧ ايديه : '..UserId..
-'\n ✧  معرفه : '..UserInfousername..
-'\n ✧  رتبته : '..RinkBot..
-'\n ✧  رسائله : '..TotalMsg..
-'\n ✧  تعديلاته : '..TotalEdit..
-'\n ✧  تفاعله : '..TotalMsgT..
-'*',"md",true) 
+'\n*✧ ايديه -> '..UserId..
+'\n✧ معرفه -> '..UserInfousername..
+'\n✧ رتبته -> '..RinkBot..
+'\n✧ رسائله -> '..TotalMsg..
+'\n✧ تعديلاته -> '..TotalEdit..
+'\n✧ تفاعله -> '..TotalMsgT..
+'*', "md")
 end
 else
 return send(msg_chat_id,msg_id,
-'\n* ✧ ايديه : '..UserId..
-'\n ✧  معرفه : '..UserInfousername..
-'\n ✧  رتبته : '..RinkBot..
-'\n ✧  رسائله : '..TotalMsg..
-'\n ✧  تعديلاته : '..TotalEdit..
-'\n ✧  تفاعله : '..TotalMsgT..
-'*',"md",true) 
+'\n*✧ ايديه -> '..UserId..
+'\n✧ معرفه -> '..UserInfousername..
+'\n✧ رتبته -> '..RinkBot..
+'\n✧ رسائله -> '..TotalMsg..
+'\n✧ تعديلاته -> '..TotalEdit..
+'\n✧ تفاعله -> '..TotalMsgT..
+'*', "md")
 end
 end
 if text == "تفعيل متحركه" then
@@ -8520,15 +8520,15 @@ if UserInfo.luatele  == "error" and UserInfo.code == 6 then
 return send(msg_chat_id,msg_id,"\n ✧  عذرآ لا تستطيع استخدام ايدي خطأ ","md",true)  
 end 
 return send(msg_chat_id,msg_id,
-'◂ اسمه ↫ '..Name_User..
-'\n◂ ايديه ↫ '..UserId..
-'\n◂ معرفه ↫ ['..UserName..']'..
-'\n◂ رتبته ↫ '..RinkBot..
-'\n◂ عدد رسايله ↫ '..TotalMsg..
-'\n◂ عدد تعديلاته ↫ '..TotalEdit..
-'\n◂ تفاعله ↫ '..TotalMsgT..
-'\n◂ البايو ↫ *'..FlterBio(getbio(UserId))..'*'..
-'\n𓆩✧𓆪',"md",true) 
+'\n*✧ اسمه -> '..Name_User..
+'\n✧ ايديه -> '..UserId..
+'\n✧ معرفه -> ['..UserName..']'..
+'\n✧ رتبته -> '..RinkBot..
+'\n✧ عدد رسايله -> '..TotalMsg..
+'\n✧ عدد تعديلاته -> '..TotalEdit..
+'\n✧ تفاعله -> '..TotalMsgT..
+'\n✧ البايو -> *'..FlterBio(getbio(UserId))..
+'*', "md")
 end
 if text == 'كشف'  and msg.reply_to_message_id ~= 0 then
 if ChannelJoinch(msg) == false then
@@ -8553,12 +8553,12 @@ local TotalMsg = Redis:get(Saidi..'Num:Message:User'..msg_chat_id..':'..Message_
 local TotalEdit = Redis:get(Saidi..'Num:Message:Edit'..msg_chat_id..Message_Reply.sender_id.user_id) or 0
 local TotalMsgT = Total_message(TotalMsg) 
 return send(msg_chat_id,msg_id,
-'\n* ✧ ايديه : '..UserId..
-'\n ✧  معرفه : '..UserInfousername..
-'\n ✧  رتبته : '..RinkBot..
-'\n ✧  رسائله : '..TotalMsg..
-'\n ✧  تعديلاته : '..TotalEdit..
-'\n ✧  تفاعله : '..TotalMsgT..
+'\n*✧ ايديه -> '..UserId..
+'\n✧ معرفه -> '..UserInfousername..
+'\n✧ رتبته -> '..RinkBot..
+'\n✧ رسائله -> '..TotalMsg..
+'\n✧ تعديلاته -> '..TotalEdit..
+'\n✧ تفاعله -> '..TotalMsgT..
 '*',"md",true) 
 end
 if text and text:match('^ايدي @(%S+)$') or text and text:match('^كشف @(%S+)$') then
@@ -8587,12 +8587,12 @@ local TotalMsg = Redis:get(Saidi..'Num:Message:User'..msg_chat_id..':'..UserId_I
 local TotalEdit = Redis:get(Saidi..'Num:Message:Edit'..msg_chat_id..UserId_Info.id) or 0
 local TotalMsgT = Total_message(TotalMsg) 
 return send(msg_chat_id,msg_id,
-'\n* ✧ ايديه : '..UserId..
-'\n ✧  معرفه : @'..UserName..
-'\n ✧  رتبته : '..RinkBot..
-'\n ✧  رسائله : '..TotalMsg..
-'\n ✧  تعديلاته : '..TotalEdit..
-'\n ✧  تفاعله : '..TotalMsgT..
+'\n*✧ ايديه -> '..UserId..
+'\n✧ معرفه -> @'..UserName..
+'\n✧ رتبته -> '..RinkBot..
+'\n✧ رسائله -> '..TotalMsg..
+'\n✧ تعديلاته -> '..TotalEdit..
+'\n✧ تفاعله -> '..TotalMsgT..
 '*',"md",true) 
 end
 if text == 'رتبتي' then
@@ -8661,13 +8661,13 @@ end
 PermissionsUser = '*\n ✧  صلاحيات المستخدم :\nꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ'..'\n ✧  تغيير المعلومات : '..change_info..'\n ✧  تثبيت الرسائل : '..pin_messages..'\n ✧  اضافه مستخدمين : '..invite_users..'\n ✧  مسح الرسائل : '..delete_messages..'\n ✧  حظر المستخدمين : '..restrict_members..'\n ✧  اضافه المشرفين : '..promote..'\n\n*'
 end
 return send(msg_chat_id,msg_id,
-'\n* ✧ ايديك : '..UserId..
-'\n ✧  معرفك : '..UserInfousername..
-'\n ✧  رتبتك : '..RinkBot..
-'\n ✧  رتبته الجروب: '..StatusMemberChat..
-'\n ✧  رسائلك : '..TotalMsg..
-'\n ✧  تعديلاتك : '..TotalEdit..
-'\n ✧  تفاعلك : '..TotalMsgT..
+'\n*✧ ايديك -> '..UserId..
+'\n ✧ معرفك -> '..UserInfousername..
+'\n ✧ رتبتك -> '..RinkBot..
+'\n ✧ رتبته الجروب -> '..StatusMemberChat..
+'\n ✧ رسائلك -> '..TotalMsg..
+'\n ✧ تعديلاتك -> '..TotalEdit..
+'\n ✧ تفاعلك -> '..TotalMsgT..
 '*'..(PermissionsUser or '') ,"md",true) 
 end
 if text == 'لقبي' then
@@ -8678,9 +8678,9 @@ else
 Lakb = 'مشرف'
 end
 if (StatusMember.status.luatele == "chatMemberStatusCreator") then
-return send(msg_chat_id,msg_id,'\n* ✧ لقبك { '..Lakb..' }* ',"md",true)  
+return send(msg_chat_id,msg_id,'\n* ✧ لقبك〘 '..Lakb..' 〙* ',"md",true)  
 elseif (StatusMember.status.luatele == "chatMemberStatusAdministrator") then
-return send(msg_chat_id,msg_id,'\n* ✧ لقبك { '..Lakb..' }* ',"md",true)  
+return send(msg_chat_id,msg_id,'\n* ✧ لقبك〘 '..Lakb..' 〙* ',"md",true)  
 else
 return send(msg_chat_id,msg_id,'\n* ✧ انت عضو في الجروب* ',"md",true)  
 end
