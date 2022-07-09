@@ -1188,17 +1188,28 @@ end
 return JoinChannel
 end
 
-function File_Bot_Run(msg,data) 
-local msg_chat_id = msg.chat_id local msg_reply_id = msg.reply_to_message_id local msg_user_send_id = msg.sender_id.user_id 
-local msg_id = msg.id 
-local text = nil
-if msg.sender_id.luatele == "messageSenderChat" then 
-bot.deleteMessages(msg.chat_id,{[1]= msg.id}) 
+function File_Bot_Run(msg,data)  
+local msg_chat_id = msg.chat_id
+local msg_reply_id = msg.reply_to_message_id
+local msg_user_send_id = msg.sender_id.user_id
+local msg_id = msg.id
+--
+--
+if data.sender.luatele == "messageSenderChat" then
+if Redis:get(Saidi.."Lock:channell"..msg_chat_id) then
+local m = Redis:get(Saidi.."chadmin"..msg_chat_id) 
+if data.sender.chat_id == tonumber(m) then
+return false
+else
+return bot.deleteMessages(msg.chat_id,{[1]= msg.id})
+end
+end
 return false 
 end
-if msg.date and msg.date < tonumber(os.time() - 15) then 
-print("->> Old Message End <<-") 
-return false 
+Redis:incr(Saidi..'Num:Message:User'..msg.chat_id..':'..msg.sender_id.user_id) 
+if msg.date and msg.date < tonumber(os.time() - 15) then
+print("->> Old Message End <<-")
+return false
 end
 
 if data.content.text then
@@ -4793,6 +4804,40 @@ keyboard.inline_keyboard = {
 }
 msgg = msg.id/2097152/0.5
 https.request("https://api.telegram.org/bot"..Token.."/sendMessage?chat_id=" .. msg_chat_id .. "&text=".. URL.escape(news).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
+end
+if text == 'الجروبات' or text == 'الجروبات ✧' then
+if not msg.Asasy then 
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(1)..' }* ',"md",true)  
+end
+if ChannelJoinch(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Saidi..'Chat:Channel:Join'..msg.chat_id)}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+if ChannelJoin(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+local G = "جروبات البوت ✧ \n"
+local list = Redis:smembers(Saidi..'ChekBotAdd')  
+for k,v in pairs(list) do  
+local Get_Chat = bot.getChat(v)
+local Info_Chats = bot.getSupergroupFullInfo(v)
+if Info_Chats and Info_Chats.invite_link then
+link = Info_Chats.invite_link.invite_link
+else
+link = "لا يوجد" 
+end
+if Get_Chat and Get_Chat.title then
+title = Get_Chat.title
+else 
+title = "لا يوجد" 
+end
+G = G.." اسم الجروب -> "..title.."\n ايدي الجروب -> "..v.."\n رابط الجروب -> "..link.."\n\n"
+end
+local File = io.open('./'..UserBot..'.txt', "w")
+File:write(G)
+File:close()
+bot.sendDocument(msg_chat_id,msg_id,'./'..UserBot..'.txt','* ✧ تم جلب الجروبات*\n', 'md')
 end
 if text == 'تفعيل' and msg.Dev then
 if msg.can_be_deleted_for_all_users == false then
@@ -12803,7 +12848,51 @@ end
 end
 send(msg_chat_id,msg_id,listall,"md",true)  
 end
-
+if Redis:get(Saidi.."addchannel"..msg.sender_id.user_id) == "on" then
+if text and text:match("^@[%a%d_]+$") then
+local m , res = https.request("http://api.telegram.org/bot"..Token.."/getchat?chat_id="..text)
+data = json:decode(m)
+if res == 200 then
+ch = data.result.id
+Redis:set(Saidi.."chadmin"..msg_chat_id,ch) 
+send(msg_chat_id,msg_id," ✧ تم حفظ ايدي القناه","md",true)  
+else
+send(msg_chat_id,msg_id," ✧ المعرف خطأ","md",true)  
+end
+elseif text and text:match('^-100(%d+)$') then
+ch = text
+Redis:set(Saidi.."chadmin"..msg_chat_id,ch) 
+send(msg_chat_id,msg_id," ✧ تم حفظ ايدي القناه","md",true)  
+elseif text and not text:match('^-100(%d+)$') then
+send(msg_chat_id,msg_id," ✧ الايدي خطأ","md",true)  
+end
+Redis:del(Saidi.."addchannel"..msg.sender_id.user_id)
+end
+if text == "القناه المضافه" then
+if Redis:get(Saidi.."chadmin"..msg_chat_id) then
+send(msg_chat_id,msg_id,Redis:get(Saidi.."chadmin"..msg_chat_id),"md",true)  
+else 
+send(msg_chat_id,msg_id," ✧ لا توجد قناه ","md",true)  
+end 
+end
+if text == "حذف القناه" then
+if not msg.Admin then
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص '..Controller_Num(7)..' * ',"md",true)  
+end
+if Redis:get(Saidi.."chadmin"..msg_chat_id) then
+Redis:del(Saidi.."chadmin"..msg_chat_id) 
+send(msg_chat_id,msg_id," ✧ تم حذف القناه بنجاح","md",true)  
+else 
+send(msg_chat_id,msg_id," ✧ لا توجد قناه ","md",true)  
+end 
+end
+if text == "اضف قناه" then
+if not msg.Admin then
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص '..Controller_Num(7)..' * ',"md",true)  
+end
+Redis:set(Saidi.."addchannel"..msg.sender_id.user_id,"on") 
+send(msg_chat_id,msg_id," ✧ ارسل يوزر او ايدي القناه","md",true)  
+end
 if text == "قفل ارسال القناة" or text == "قفل القناه" or text == "قفل القنوات" then 
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
@@ -19270,16 +19359,16 @@ end
 end
 
 if text == "ثنائي اليوم" and ChCheck(msg) and not Redis:get(Saidi..'2nd:Chat'..msg.chat_id)  then
-  local Info_Members = LuaTele.searchChatMembers(msg.chat_id, "*", 200)
+  local Info_Members = bot.searchChatMembers(msg.chat_id, "*", 200)
   local List_Members = Info_Members.members
   local NumRand1 = math.random(1, #List_Members); 
   local NumRand2 = math.random(1, #List_Members); 
   local user1 = List_Members[NumRand1].member_id.user_id
   local user2 = List_Members[NumRand2].member_id.user_id
-  local UserInfo = LuaTele.getUser(user1)
-  local UserInfoo = LuaTele.getUser(user2)
+  local UserInfo = bot.getUser(user1)
+  local UserInfoo = bot.getUser(user2)
   local listTow = "✧ ثنائي اليوم ↑↓\nꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ\n ["..UserInfo.first_name.."](tg://user?id="..UserInfo.id..") + ["..UserInfoo.first_name.."](tg://user?id="..UserInfoo.id..")\n"
-  return LuaTele.sendText(msg.chat_id,msg.id,listTow,"md",true)  
+  return bot.sendText(msg.chat_id,msg.id,listTow,"md",true)  
   end
 ----------
 if text == "زخرفه" or text == "زخرفة" then
@@ -24537,7 +24626,7 @@ data = {
 {text = 'تفعيل الاشتراك الاجباري ✧',type = 'text'},{text = 'تعطيل الاشتراك الاجباري ✧',type = 'text'},
 },
 {
-{text = 'الاحصائيات ✧',type = 'text'},
+{text = 'الاحصائيات ✧',type = 'text'},{text = 'الجروبات ✧',type = 'text'},
 },
 {
 {text = "ضع صوره للترحيب ✧",type = 'text'},{text = 'معلومات التنصيب ✧',type = 'text'},
@@ -28332,6 +28421,17 @@ for i,lock in pairs(list) do
 Redis:set(Saidi..''..lock..UserId[2],"del")    
 end
 bot.answerCallbackQuery(data.id, " ✧ تم قفل جميع الاوامر بنجاح  ", true)
+end
+end
+if Text and Text:match('(%d+)/ongroup@(.*)') then
+local UserId = {Text:match('(%d+)/ongroup@(.*)')}
+if tonumber(IdUser) == tonumber(UserId[1]) then
+Redis:del(Saidi.."Lock:tagservrbot"..UserId[2],true)   
+list ={"Lock:Bot:kick","Lock:User:Name","Lock:hashtak","Lock:Cmd","Lock:Link","Lock:forward","Lock:Keyboard","Lock:geam","Lock:Photo","Lock:Animation","Lock:Video","Lock:Audio","Lock:vico","Lock:Sticker","Lock:Document","Lock:Unsupported","Lock:Markdaun","Lock:Contact","Lock:Spam"}
+for i,lock in pairs(list) do 
+Redis:del(Saidi..''..lock..UserId[2],"del")    
+end
+bot.answerCallbackQuery(data.id, " ✧ تم فتح جميع الاوامر بنجاح  ", true)
 end
 end
 if Text and Text:match('/leftgroup@(.*)') then
