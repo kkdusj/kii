@@ -4380,19 +4380,39 @@ local msg_id = msg.id/2097152/0.5
 end
 end
 end
-if text == "تيست" then
-local UserInfo = bot.getUser(1965534755) 
-local photo = bot.getUserProfilePhotos(UserInfo.id)
-local ANUBIS = "تيست"
-if photo.total_count > 0 then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{
-{text = UserInfo.first_name , url = 't.me/'..UserInfo.username }
-},
-}
-}
-return bot.sendPhoto(msg.chat_id, msg.id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id,"\n ـꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹـ\n"..ANUBIS[math.random(#ANUBIS)].."\n ـꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹـ"  , "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup )
+if text == 'الجروبات' or text == 'الجروبات ✧' then
+if not msg.Asasy then 
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(1)..' }* ',"md",true)  
 end
+if ChannelJoinch(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Saidi..'Chat:Channel:Join'..msg.chat_id)}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+if ChannelJoin(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+local G = "جروبات البوت ✧ \n"
+local list = Redis:smembers(Saidi..'ChekBotAdd')  
+for k,v in pairs(list) do  
+local Get_Chat = bot.getChat(v)
+local Info_Chats = bot.getSupergroupFullInfo(v)
+if Info_Chats and Info_Chats.invite_link then
+link = Info_Chats.invite_link.invite_link
+else
+link = "لا يوجد" 
+end
+if Get_Chat and Get_Chat.title then
+title = Get_Chat.title
+else 
+title = "لا يوجد" 
+end
+G = G.." اسم الجروب -> "..title.."\n ايدي الجروب -> "..v.."\n رابط الجروب -> "..link.."\n\n"
+end
+local File = io.open('./'..UserBot..'.txt', "w")
+File:write(G)
+File:close()
+bot.sendDocument(msg_chat_id,msg_id,'./'..UserBot..'.txt','* ✧ تم جلب الجروبات*\n', 'md')
 end
 if text == 'جلب النسخه الاحتياطيه ✧' or text == 'جلب النسخه الاحتياطيه' or text == 'جلب النسخه العامه' then
 if not msg.Asasy then 
@@ -4804,40 +4824,6 @@ keyboard.inline_keyboard = {
 }
 msgg = msg.id/2097152/0.5
 https.request("https://api.telegram.org/bot"..Token.."/sendMessage?chat_id=" .. msg_chat_id .. "&text=".. URL.escape(news).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
-end
-if text == 'الجروبات' or text == 'الجروبات ✧' then
-if not msg.Asasy then 
-return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(1)..' }* ',"md",true)  
-end
-if ChannelJoinch(msg) == false then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Saidi..'Chat:Channel:Join'..msg.chat_id)}, },}}
-return send(msg.chat_id,msg.id,'*\n ✧ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
-end
-if ChannelJoin(msg) == false then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
-return send(msg.chat_id,msg.id,'*\n ✧ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
-end
-local G = "جروبات البوت ✧ \n"
-local list = Redis:smembers(Saidi..'ChekBotAdd')  
-for k,v in pairs(list) do  
-local Get_Chat = bot.getChat(v)
-local Info_Chats = bot.getSupergroupFullInfo(v)
-if Info_Chats and Info_Chats.invite_link then
-link = Info_Chats.invite_link.invite_link
-else
-link = "لا يوجد" 
-end
-if Get_Chat and Get_Chat.title then
-title = Get_Chat.title
-else 
-title = "لا يوجد" 
-end
-G = G.." اسم الجروب -> "..title.."\n ايدي الجروب -> "..v.."\n رابط الجروب -> "..link.."\n\n"
-end
-local File = io.open('./'..UserBot..'.txt', "w")
-File:write(G)
-File:close()
-bot.sendDocument(msg_chat_id,msg_id,'./'..UserBot..'.txt','* ✧ تم جلب الجروبات*\n', 'md')
 end
 if text == 'تفعيل' and msg.Dev then
 if msg.can_be_deleted_for_all_users == false then
