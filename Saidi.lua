@@ -1187,7 +1187,6 @@ return false, send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في �
 end
 return JoinChannel
 end
-
 function File_Bot_Run(msg,data)  
 local msg_chat_id = msg.chat_id
 local msg_reply_id = msg.reply_to_message_id
@@ -1195,6 +1194,10 @@ local msg_user_send_id = msg.sender_id.user_id
 local msg_id = msg.id
 --
 --
+if tonumber(msg.sender_id.user_id) == tonumber(Saidi) then
+print('This is reply for Bot')
+return false
+end
 if data.sender.luatele == "messageSenderChat" then
 if Redis:get(Saidi.."Lock:channell"..msg_chat_id) then
 local m = Redis:get(Saidi.."chadmin"..msg_chat_id) 
@@ -1214,6 +1217,8 @@ end
 
 if data.content.text then
 text = data.content.text.text
+else
+text = nil
 end
 if tonumber(msg.sender_id.user_id) == tonumber(Saidi) then
 return false
@@ -23970,7 +23975,7 @@ name = string.gsub(name,"⛈","🌨🌨🌨??🌨⛈🌨🌨🌨🌨")
 name = string.gsub(name,"🌥","⛅️⛅️⛅️⛅️⛅️⛅️🌥⛅️⛅️⛅️⛅️")
 name = string.gsub(name,"⛄️","☃☃☃☃☃☃⛄️☃☃☃☃")
 name = string.gsub(name,"👨‍🔬","👩‍🔬👩‍🔬👩‍🔬👩‍🔬👩‍🔬👩‍🔬👩‍🔬👩‍🔬👨‍🔬👩‍🔬👩‍🔬👩‍🔬")
-name = string.gsub(name,"👨‍💻","👩‍💻👩‍??👩‍‍💻👩‍‍??👩‍‍💻👨‍💻??‍💻👩‍💻👩‍💻")
+name = string.gsub(name,"👨‍💻","👩‍💻👩‍??👩‍‍💻👩‍‍??👩‍‍??👨‍💻??‍💻👩‍💻👩‍💻")
 name = string.gsub(name,"👨‍🔧","👩‍🔧👩‍🔧??‍🔧👩‍🔧👩‍🔧👩‍🔧👨‍🔧👩‍🔧")
 name = string.gsub(name,"👩‍??","👨‍🍳👨‍🍳👨‍🍳👨‍🍳👨‍🍳👩‍🍳👨‍🍳👨‍🍳??‍🍳")
 name = string.gsub(name,"🧚‍♀","🧚‍♂🧚‍♂🧚‍♂??‍♂🧚‍♀🧚‍♂🧚‍♂")
