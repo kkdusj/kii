@@ -19377,7 +19377,7 @@ data = {
 },
 }
 }
-return send(msg_chat_id,msg_id,* ✧ ارسل الان الكلمه لاضافتها في الردود *","md",false, false, false, false, reply_markup)
+return send(msg_chat_id,msg_id,"* ✧ ارسل الان الكلمه لاضافتها في الردود *","md",false, false, false, false, reply_markup)
 end
 if text and text:match("^(.*)$") and tonumber(msg.sender_id.user_id) ~= tonumber(Saidi) then
 if Redis:get(Saidi.."Set:Manager:rd:inline"..msg.sender_id.user_id..":"..msg_chat_id) == "true" then
