@@ -1296,18 +1296,6 @@ elseif Statusrestricted(msg.chat_id,msg.sender_id.user_id).SilentGroup == true t
 return bot.deleteMessages(msg.chat_id,{[1]= msg.id})
 end
 end
-if msg.content.luatele == "messageChatJoinByLink" or msg.content.luatele == "messageChatAddMembers" then
-if Redis:get(Saidi.."Status:Welcome"..msg_chat_id) then
-local RinkBot = ''..msg.Name_Controller
-local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
-local Get_Chat = bot.getChat(msg_chat_id)
-local UserInfo = bot.getUser(msg.sender_id.user_id)
-local photo = bot.getUserProfilePhotos(msg.sender_id.user_id)
-local Jabwa = '✧ مرحبا سيدي -> '..RinkBot..'\n✧ نورت الجروب -> ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ['..UserInfo.first_name..'](tg://user?id='..UserInfo.id..') '
-local msgg = msg_id/2097152/0.5
-https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id=" .. msg_chat_id .. "&photo="..photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id.."&caption=".. URL.escape(Jabwa).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(data))
-end
-end
 
 if (Redis:get(Saidi..'All:FilterText'..msg_chat_id..':'..msg.sender_id.user_id) == 'DelFilterq') then   
 if text or msg.content.photo or msg.content.animation or msg.content.sticker then
@@ -1666,7 +1654,18 @@ bot.deleteMessages(msg.chat_id,{[1]= msg.id})
 return false
 end
 end
-
+if msg.content.luatele == "messageChatJoinByLink" or msg.content.luatele == "messageChatAddMembers" then
+if Redis:get(Saidi.."Status:Welcome"..msg_chat_id) then
+local RinkBot = ''..msg.Name_Controller
+local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
+local Get_Chat = bot.getChat(msg_chat_id)
+local UserInfo = bot.getUser(msg.sender_id.user_id)
+local photo = bot.getUserProfilePhotos(msg.sender_id.user_id)
+local Jabwa = '✧ مرحبا سيدي -> '..RinkBot..'\n✧ نورت الجروب -> ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ['..UserInfo.first_name..'](tg://user?id='..UserInfo.id..') '
+local msgg = msg_id/2097152/0.5
+https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id=" .. msg_chat_id .. "&photo="..photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id.."&caption=".. URL.escape(Jabwa).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(data))
+end
+end
 if msg.content.luatele == "messageChatDeleteMember" and not Redis:get(Saidi.."spammkick"..msg.chat_id) then 
 if msg.sender_id.user_id ~= Saidi then
 Num_Msg_Max = 4
@@ -1675,6 +1674,10 @@ local names = UserInfo.first_name
 local monsha = Redis:smembers(Saidi.."Ownerss:Group"..msg_chat_id) 
 if Redis:ttl(Saidi.."mkal:setex:" .. msg.chat_id .. ":" .. msg.sender_id.user_id) < 0 then
 Redis:del(Saidi.."delmembars"..msg.chat_id..msg.sender_id.user_id)
+end
+if text and Redis:sismember("banserver",msg.sender_id.user_id) then
+bot.deleteMessages(msg.chat_id,{[1]= msg.id})
+bot.setChatMemberStatus(msg.chat_id,msg.sender_id.user_id,'banned',0)
 end
 local ttsaa = (Redis:get(Saidi.."delmembars"..msg.chat_id..msg.sender_id.user_id) or 0)
 if tonumber(ttsaa) >= tonumber(3) then 
@@ -5066,7 +5069,7 @@ Count,Kount,i = 8 , 0 , 1
 for _ in pairs(GroupAllRtbaL) do Kount = Kount + 1 end
 table.sort(GroupAllRtbaL, function(a, b) return tonumber(a[1]) > tonumber(b[1]) end)
 if Count >= Kount then Count = Kount end
-Text = "* ✧ قائمه ترند الجروبات 📊 \nꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n"
+Text = "* ✧ قائمه ترند الجروبات 📊 \nꔹ━━━━━ꔹ??𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n"
 for k,v in pairs(GroupAllRtbaL) do
 if v[2] and v[2]:match("(-100%d+)") then
 local InfoChat = bot.getChat(v[2])
@@ -5708,6 +5711,49 @@ Redis:set(Saidi..'lock_chengname'..msg.chat_id,true)
 return send(msg_chat_id,msg_id," ✧ أهلا عزيزي "..msg.Name_Controller.."\n ✧  تم تعطيل تنبيه الاسماء\nꪤ" )
 end   
 end
+if text then
+if text:match("^حظر من السيرفر (%d+)$") then
+if tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
+local iduser = tonumber(text:match("^حظر من السيرفر (%d+)$"))
+Redis:sadd("banserver",iduser)
+send(msg.chat_id,msg.id,"✧ تم حظر العضو من السيرفر")
+else
+send(msg.chat_id,msg.id,"عذرآ هذا الامر للمطورين فقط")
+end
+end
+end
+if text then
+if text:match("^الغاء حظر من السيرفر (%d+)$") then
+if tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
+local iduser = tonumber(text:match("^الغاء حظر من السيرفر (%d+)$"))
+Redis:srem("banserver",iduser)
+send(msg.chat_id,msg.id,"✧ تم الغاء حظر العضو من السيرفر")
+else
+send(msg.chat_id,msg.id,"عذرآ هذا الامر للمطورين فقط")
+end
+end
+end
+if text == "المحظورين من السيرفر" then
+if tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
+local list = Redis:smembers("banserver")
+if #list == 0 then
+return send(msg.chat_id,msg.id,"✧ لا يوجد احد محظور ")
+end
+local txx = "المحظورين من السيرفر \n"
+for k,v in pairs(list) do 
+xx = bot.getUser(v)
+if xx.username then 
+users = "@"..xx.username
+else
+users = v
+end
+txx = txx..' k -> '..users..'\n'
+end
+send(msg.chat_id,msg.id,txx)
+else
+send(msg.chat_id,msg.id,"عذرآ هذا الامر للمطورين فقط")
+end
+end
 
 if text and text:match('^ذيع (-100%d+)$') and tonumber(msg.reply_to_message_id) ~= 0 then
 local Chatid = text:match('^ذيع (-100%d+)$') 
@@ -5768,49 +5814,7 @@ end
 Redis:srem(Saidi.."Black:listBan:",Chatid)
 send(msg_chat_id,msg_id,'✧ تم الغاء حظر الجروب ')
 end 
-if text then
-if text:match("^حظر من السيرفر (%d+)$") then
-if tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
-local iduser = tonumber(text:match("^حظر من السيرفر (%d+)$"))
-Redis:sadd("banserver",iduser)
-send(msg.chat_id,msg.id,"✧ تم حظر العضو من السيرفر")
-else
-send(msg.chat_id,msg.id,"عذرآ هذا الامر للمطورين فقط")
-end
-end
-end
-if text then
-if text:match("^الغاء حظر من السيرفر (%d+)$") then
-if tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
-local iduser = tonumber(text:match("^الغاء حظر من السيرفر (%d+)$"))
-Redis:srem("banserver",iduser)
-send(msg.chat_id,msg.id,"✧ تم الغاء حظر العضو من السيرفر")
-else
-send(msg.chat_id,msg.id,"عذرآ هذا الامر للمطورين فقط")
-end
-end
-end
-if text == "المحظورين من السيرفر" then
-if tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
-local list = Redis:smembers("banserver")
-if #list == 0 then
-return send(msg.chat_id,msg.id,"✧ لا يوجد احد محظور ")
-end
-local txx = "المحظورين من السيرفر \n"
-for k,v in pairs(list) do 
-xx = bot.getUser(v)
-if xx.username then 
-users = "@"..xx.username
-else
-users = v
-end
-txx = txx..' k -> '..users..'\n'
-end
-send(msg.chat_id,msg.id,txx)
-else
-send(msg.chat_id,msg.id,"عذرآ هذا الامر للمطورين فقط")
-end
-end
+
 if text == 'الروليت' then
 if not Redis:get(Saidi.."Status:Games"..msg.chat_id) then
 return false
