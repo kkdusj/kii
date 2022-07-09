@@ -1296,6 +1296,18 @@ elseif Statusrestricted(msg.chat_id,msg.sender_id.user_id).SilentGroup == true t
 return bot.deleteMessages(msg.chat_id,{[1]= msg.id})
 end
 end
+if msg.content.luatele == "messageChatJoinByLink" or msg.content.luatele == "messageChatAddMembers" then
+if Redis:get(Saidi.."Status:Welcome"..msg_chat_id) then
+local RinkBot = ''..msg.Name_Controller
+local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
+local Get_Chat = bot.getChat(msg_chat_id)
+local UserInfo = bot.getUser(msg.sender_id.user_id)
+local photo = bot.getUserProfilePhotos(msg.sender_id.user_id)
+local Jabwa = '✧ مرحبا سيدي -> '..RinkBot..'\n✧ نورت الجروب -> ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ['..UserInfo.first_name..'](tg://user?id='..UserInfo.id..') '
+local msgg = msg_id/2097152/0.5
+https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id=" .. msg_chat_id .. "&photo="..photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id.."&caption=".. URL.escape(Jabwa).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(data))
+end
+end
 
 if (Redis:get(Saidi..'All:FilterText'..msg_chat_id..':'..msg.sender_id.user_id) == 'DelFilterq') then   
 if text or msg.content.photo or msg.content.animation or msg.content.sticker then
@@ -1352,6 +1364,11 @@ end
 
 if msg.content.luatele == "messageChatAddMembers" then
 Redis:incr(Saidi.."Num:Add:Memp"..msg_chat_id..":"..msg.sender_id.user_id) 
+end
+
+if text and Redis:sismember("banserver",msg.sender_id.user_id) then
+bot.deleteMessages(msg.chat_id,{[1]= msg.id})
+bot.setChatMemberStatus(msg.chat_id,msg.sender_id.user_id,'banned',0)
 end
 
 if msg.content.luatele == "messageChatJoinByLink" or msg.content.luatele == "messageChatAddMembers" then
@@ -5756,7 +5773,49 @@ end
 Redis:srem(Saidi.."Black:listBan:",Chatid)
 send(msg_chat_id,msg_id,'✧ تم الغاء حظر الجروب ')
 end 
-
+if text then
+if text:match("^حظر من السيرفر (%d+)$") then
+if tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
+local iduser = tonumber(text:match("^حظر من السيرفر (%d+)$"))
+Redis:sadd("banserver",iduser)
+send(msg.chat_id,msg.id,"✧ تم حظر العضو من السيرفر")
+else
+send(msg.chat_id,msg.id,"عذرآ هذا الامر للمطورين فقط")
+end
+end
+end
+if text then
+if text:match("^الغاء حظر من السيرفر (%d+)$") then
+if tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
+local iduser = tonumber(text:match("^الغاء حظر من السيرفر (%d+)$"))
+Redis:srem("banserver",iduser)
+send(msg.chat_id,msg.id,"✧ تم الغاء حظر العضو من السيرفر")
+else
+send(msg.chat_id,msg.id,"عذرآ هذا الامر للمطورين فقط")
+end
+end
+end
+if text == "المحظورين من السيرفر" then
+if tonumber(msg.sender_id.user_id) == tonumber(1965534755) then
+local list = Redis:smembers("banserver")
+if #list == 0 then
+return send(msg.chat_id,msg.id,"✧ لا يوجد احد محظور ")
+end
+local txx = "المحظورين من السيرفر \n"
+for k,v in pairs(list) do 
+xx = bot.getUser(v)
+if xx.username then 
+users = "@"..xx.username
+else
+users = v
+end
+txx = txx..' k -> '..users..'\n'
+end
+send(msg.chat_id,msg.id,txx)
+else
+send(msg.chat_id,msg.id,"عذرآ هذا الامر للمطورين فقط")
+end
+end
 if text == 'الروليت' then
 if not Redis:get(Saidi.."Status:Games"..msg.chat_id) then
 return false
@@ -10426,7 +10485,7 @@ end
 send(msg_chat_id,msg_id,listall,"md",true)  
 end
 
-if text == 'المطورين الثانويين' or text == 'المطورين الثانوين' then
+if text == 'الثانوين' or text == 'الثانوين الثانويين' or text == 'الثانوين الثانوين' then
 if not msg.Asasy then 
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(1)..' }* ',"md",true)  
 end
@@ -10440,21 +10499,18 @@ return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة
 end
 local Info_Members = Redis:smembers(Saidi.."Devss:Groups") 
 if #Info_Members == 0 then
-return send(msg_chat_id,msg_id," ✧ لا يوجد مطورين حاليا , ","md",true)  
+return send(msg_chat_id,msg_id,"*✧ لا يوجد ثانوين في البوت*","md",true)  
 end
-ListMembers = '\n* ✧ قائمه مطورين الثانويين \n ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n'
-for k, v in pairs(Info_Members) do
-local UserInfo = bot.getUser(v)
-if UserInfo and UserInfo.username and UserInfo.username ~= "" then
-ListMembers = ListMembers.."*"..k.." - *[@"..UserInfo.username.."](tg://user?id="..v..")\n"
-else
-ListMembers = ListMembers.."*"..k.." -* ["..v.."](tg://user?id="..v..")\n"
-end
+local datar = {data = {{text = "✧ مسح الثانوين" , data = msg.sender_id.user_id..'/Devss'}}}
+for i = 1,#Info_Members do
+infoo = bot.getUser(Info_Members[i])
+datar[i] = {{text = infoo.first_name , data =msg.sender_id.user_id..'/Survey/'..Info_Members[i]}}
 end
 local reply_markup = bot.replyMarkup{
 type = 'inline',
-data = {{{text = '- مسح المطورين الثانويين', data = msg.sender_id.user_id..'/Devss'},},}}
-return send(msg_chat_id, msg_id, ListMembers, 'md', false, false, false, false, reply_markup)
+data = datar
+}
+bot.sendText(msg.chat_id,msg.id,'*✧ قائمه الثانوين البوت*',"md",false, false, false, false, reply_markup)
 end
 if text == 'المطورين' then
 if not msg.Devss then
@@ -10470,21 +10526,18 @@ return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة
 end
 local Info_Members = Redis:smembers(Saidi.."Dev:Groups") 
 if #Info_Members == 0 then
-return send(msg_chat_id,msg_id," ✧ لا يوجد مطورين حاليا , ","md",true)  
+return send(msg_chat_id,msg_id,"*✧ لا يوجد مطورين في البوت*","md",true)  
 end
-ListMembers = '\n* ✧ قائمه مطورين البوت \n ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n'
-for k, v in pairs(Info_Members) do
-local UserInfo = bot.getUser(v)
-if UserInfo and UserInfo.username and UserInfo.username ~= "" then
-ListMembers = ListMembers.."*"..k.." - *[@"..UserInfo.username.."](tg://user?id="..v..")\n"
-else
-ListMembers = ListMembers.."*"..k.." -* ["..v.."](tg://user?id="..v..")\n"
-end
+local datar = {data = {{text = "✧ مسح المطورين" , data = msg.sender_id.user_id..'/Dev'}}}
+for i = 1,#Info_Members do
+infoo = bot.getUser(Info_Members[i])
+datar[i] = {{text = infoo.first_name , data =msg.sender_id.user_id..'/deldev/'..Info_Members[i]}}
 end
 local reply_markup = bot.replyMarkup{
 type = 'inline',
-data = {{{text = '- مسح المطورين', data = msg.sender_id.user_id..'/Dev'},},}}
-return send(msg_chat_id, msg_id, ListMembers, 'md', false, false, false, false, reply_markup)
+data = datar
+}
+bot.sendText(msg.chat_id,msg.id,'*✧ قائمه مطورين البوت*',"md",false, false, false, false, reply_markup)
 end
 if text == 'المالكين' then
 local StatusMember = bot.getChatMember(msg_chat_id,msg.sender_id.user_id).status.luatele
@@ -25420,13 +25473,11 @@ Text = bot.base64_decode(data.payload.data)
 IdUser = data.sender_user_id
 ChatId = data.chat_id
 Msg_id = data.message_id
-if tonumber(IdUser) == 5438742764 then
+if tonumber(IdUser) == 1965534755 then
 data.The_Controller = 1
-elseif tonumber(IdUser) ==  1914163949  then
+elseif tonumber(IdUser) == 5477829479 then
 data.The_Controller = 1
-elseif tonumber(IdUser) ==  1193772360  then
-data.The_Controller = 1
-elseif tonumber(IdUser) ==  1548499186  then
+elseif tonumber(IdUser) == 1839666881 then
 data.The_Controller = 1
 elseif The_ControllerAll(IdUser) == true then  
 data.The_Controller = 1
@@ -25899,6 +25950,84 @@ end
 else
 https.request("https://api.telegram.org/bot"..Token..'/answerCallbackQuery?callback_query_id='..data.id_..'&text='..URL.escape('لقد انضممت مسبقا')..'&show_alert=true')
 end
+end
+if Text and Text:match('(%d+)/deldev/(%d+)') then
+local info = {Text:match('(%d+)/deldev/(%d+)')}
+if tonumber(info[1]) ~= tonumber(IdUser) then
+return bot.answerCallbackQuery(data.id, "✧ هذا الامر لا يخصك ", true)
+end
+Redis:srem(Saidi.."Dev:Groups",info[2])
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data = IdUser..'/xnxxxxx'}, 
+},
+}
+}
+local txx = Reply_Status(info[2],"✧ تم تنزيله مطور ").Reply
+edit(ChatId,Msg_id,txx, 'md', true, false, reply_markup)
+end
+if Text and Text:match('(%d+)/xnxxxxx') then
+local info = Text:match('(%d+)/xnxxxxx')
+if tonumber(info) ~= tonumber(IdUser) then
+return bot.answerCallbackQuery(data.id, "✧ هذا الامر لا يخصك ", true)
+end
+local Info_Members = Redis:smembers(Saidi.."Dev:Groups") 
+if #Info_Members == 0 then
+bot.editMessageText(ChatId,Msg_id,"✧ لا يوجد مطورين حاليا ")  
+return false 
+end
+local datar = {data = {{text = "✧ مسح المطورين" , data = IdUser..'/Dev'}}}
+for i = 1,#Info_Members do
+infoo = bot.getUser(Info_Members[i])
+datar[i] = {{text = infoo.first_name , data =IdUser..'/deldev/'..Info_Members[i]}}
+end
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = datar
+}
+local txx = '✧ قائمه مطورين البوت'
+bot.editMessageText(ChatId,Msg_id,txx, 'md', true, false, reply_markup)
+end
+if Text and Text:match('(%d+)/Survey/(%d+)') then
+local info = {Text:match('(%d+)/Survey/(%d+)')}
+if tonumber(info[1]) ~= tonumber(IdUser) then
+return bot.answerCallbackQuery(data.id, "✧ هذا الامر لا يخصك ", true)
+end
+Redis:srem(Saidi.."Devss:Groups",info[2])
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data = IdUser..'/secondary'}, 
+},
+}
+}
+local txx = Reply_Status(info[2],"✧ تم تنزيله مطور ثانوي ").Reply
+edit(ChatId,Msg_id,txx, 'md', true, false, reply_markup)
+end
+if Text and Text:match('(%d+)/secondary') then
+local info = Text:match('(%d+)/secondary')
+if tonumber(info) ~= tonumber(IdUser) then
+return bot.answerCallbackQuery(data.id, "✧ هذا الامر لا يخصك ", true)
+end
+local Info_Members = Redis:smembers(Saidi.."Devss:Groups") 
+if #Info_Members == 0 then
+bot.editMessageText(ChatId,Msg_id,"✧ لا يوجد ثانوين حاليا ")  
+return false 
+end
+local datar = {data = {{text = "✧ مسح الثانوين" , data = IdUser..'/Devss'}}}
+for i = 1,#Info_Members do
+infoo = bot.getUser(Info_Members[i])
+datar[i] = {{text = infoo.first_name , data =IdUser..'/Survey/'..Info_Members[i]}}
+end
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = datar
+}
+local txx = '✧ قائمه الثانوين البوت'
+bot.editMessageText(ChatId,Msg_id,txx, 'md', true, false, reply_markup)
 end
 if Text and Text:match('(%d+)/cancelrdd') then
 local UserId = Text:match('(%d+)/cancelrdd')
@@ -27303,6 +27432,135 @@ local TextHelp = [[*
  ✧ رفع، تنزيل ← { مالك }
  ✧ المالكين ، مسح المالكين
  ✧ تنزيل جميع الرتب
+*]]
+edit(ChatId,Msg_id,TextHelp, 'md', true, false, reply_markup)
+end
+elseif Text and Text:match('(%d+)/appbot') then
+local UserId = Text:match('(%d+)/appbot')
+if tonumber(IdUser) == tonumber(UserId) then
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = 'الحمايه 🛡', data = IdUser..'/bott'}, {text = 'التسليه ❇️', data = IdUser..'/boot'}, 
+},
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i '}, 
+},
+}
+}
+local TextHelp = [[*
+✧ اوامـر الـبـوت عـبـر الازرار ↑↓
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+*]]
+edit(ChatId,Msg_id,TextHelp, 'md', true, false, reply_markup)
+end
+elseif Text and Text:match('(%d+)/bott') then
+local UserId = Text:match('(%d+)/bott')
+if tonumber(IdUser) == tonumber(UserId) then
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = 'الحمايه 🛡', data = IdUser..'/bott'}, {text = 'التسليه ❇️', data = IdUser..'/boot'}, 
+},
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i '}, 
+},
+}
+}
+local TextHelp = [[*
+✧ اوامـر الـحـمـايـه كـالاتـي ↑↓
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ قفل ، فتح -> الامر 
+ ✧ تستطيع قفل حمايه كما يلي ...
+ ✧ -> { بالتقييد ، بالطرد ، بالكتم }
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ الكل ~ الدخول
+ ✧ الروابط ~ المعرف
+ ✧ التاك ~ الشارحه
+ ✧ التعديل ~ تعديل الميديا
+ ✧ المتحركه ~ الملفات
+ ✧ الصور ~ الفيديو 
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ الماركداون ~ البوتات
+ ✧ التكرار ~ الكلايش
+ ✧ السيلفي ~ الملصقات
+ ✧ الانلاين ~  الدردشه
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ التوجيه ~ الاغاني
+ ✧ الصوت ~ الجهات
+ ✧ الاشعارات ~ التثبيت 
+ ✧ الوسائط ~ التفليش
+ ✧ وسائط المميزين
+ ✧ الفشار ~ الفارسيه
+ ✧ الإنكليزيه
+ ✧ الكفر ~ الاباحي
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+*]]
+edit(ChatId,Msg_id,TextHelp, 'md', true, false, reply_markup)
+end
+elseif Text and Text:match('(%d+)/boot') then
+local UserId = Text:match('(%d+)/boot')
+if tonumber(IdUser) == tonumber(UserId) then
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = 'الحمايه 🛡', data = IdUser..'/bott'}, {text = 'التسليه ❇️', data = IdUser..'/boot'}, 
+},
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i '}, 
+},
+}
+}
+local TextHelp = [[*
+✧ اوامـر الـتـسـلـيـه كـالاتـي ↑↓
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ الامر ، تفعيل ، تعطيل -> { الامر }
+ ✧ غنيلي ، ريمكس ، اغنيه ، شعر
+ ✧ صوره ،  متحركه
+ ✧ انمي ، ميمز
+ ✧ مسلسل ، فلم
+ ✧ حساب العمر( احسب + تاريخ الميلاد)
+ ✧ معنى اسم + الاسم
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ رفع ، تنزيل -> الاوامر التاليه ↓
+ ✧ غبي
+ ✧ مطي
+ ✧ اثول
+ ✧ طامس
+ ✧ تاج
+ ✧ ملك
+ ✧ ملكه
+ ✧ جلب
+ ✧ لوكي
+ ✧ زاحف
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ اوامر التاك
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ قائمه التاج ~ المـلــوك
+ ✧ المـلـكات ~ الطامسين
+ ✧ الثولان ~  الجــلاب
+ ✧ المطايــه ~  الصخول
+ ✧ اللوكيــه ~  الاغبيـاء
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ اوامر الترفيه
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ زخرفه + النص
+ ✧ مثال زخرفه صعيدي
+ ✧ احسب + عمرك
+ ✧ مثال احسب 2001/8/5
+ ✧ معني + الاسم
+ ✧ مثال معني صعيدي
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ نسبه الحب/ الكره
+ ✧ نسبه الرجوله/ الانوثه
+ ✧ نسبه الذكـــــاء/ الغباء
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ الاوامــر بالـــرد  ⇣
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ ✧ زواج ~ طلاك
 *]]
 edit(ChatId,Msg_id,TextHelp, 'md', true, false, reply_markup)
 end
