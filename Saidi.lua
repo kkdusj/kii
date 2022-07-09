@@ -1145,17 +1145,6 @@ end
 return s
 end
 end
-function ChannelJoinSource(msg)
-JoinChannel = true
-if BotTokenSource and UserChannelSource then
-local url , res = https.request('https://api.telegram.org/bot'..BotTokenSource..'/getchatmember?chat_id=@'..UserChannelSource..'&user_id='..msg.sender_id.user_id)
-local ChannelJoin = JSON.decode(url)
-if ChannelJoin.ok ~= true or ChannelJoin.result.status == "left" then
-JoinChannel = false
-end
-end
-return JoinChannel
-end
 function ChannelJoinch(msg)
 JoinChannel = true
 local Channel = Redis:get(Saidi..'Chat:Channel:Join'..msg.chat_id)
@@ -1180,45 +1169,26 @@ JoinChannel = false
 end
 end
 end
-if ChannelJoinSource(msg) == false then
-local ChannelInfo = bot.searchPublicChat(UserChannelSource)
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = ChannelInfo.title, url = "https://t.me/"..UserChannelSource}, },}}
-return false, send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة السورس لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
-end
 return JoinChannel
 end
-function File_Bot_Run(msg,data)  
+
+function File_Bot_Run(msg,data) 
 local msg_chat_id = msg.chat_id
-local msg_reply_id = msg.reply_to_message_id
-local msg_user_send_id = msg.sender_id.user_id
-local msg_id = msg.id
---
---
-if tonumber(msg.sender_id.user_id) == tonumber(Saidi) then
-print('This is reply for Bot')
-return false
-end
-if data.sender.luatele == "messageSenderChat" then
-if Redis:get(Saidi.."Lock:channell"..msg_chat_id) then
-local m = Redis:get(Saidi.."chadmin"..msg_chat_id) 
-if data.sender.chat_id == tonumber(m) then
-return false
-else
-return bot.deleteMessages(msg.chat_id,{[1]= msg.id})
-end
-end
+ local msg_reply_id = msg.reply_to_message_id 
+local msg_user_send_id = msg.sender_id.user_id 
+local msg_id = msg.id 
+local text = nil
+if msg.sender_id.luatele == "messageSenderChat" then 
+bot.deleteMessages(msg.chat_id,{[1]= msg.id}) 
 return false 
 end
-Redis:incr(Saidi..'Num:Message:User'..msg.chat_id..':'..msg.sender_id.user_id) 
-if msg.date and msg.date < tonumber(os.time() - 15) then
-print("->> Old Message End <<-")
-return false
+if msg.date and msg.date < tonumber(os.time() - 15) then 
+print("->> Old Message End <<-") 
+return false 
 end
 
 if data.content.text then
 text = data.content.text.text
-else
-text = nil
 end
 if tonumber(msg.sender_id.user_id) == tonumber(Saidi) then
 return false
@@ -6059,7 +6029,7 @@ if not msg.Devss then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(2)..' }* ',"md",true)  
 end
 local list = Redis:smembers(Saidi.."lkz:gamebot:new1")
-t = " ✧ الالغاز ↑↓ \n ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ "
+t = " ✧ الالغاز ↑↓ \n ꔹ━━━━━ꔹ𝐒𝐀𝐈??𝐈ꔹ━━━━━ꔹ "
 for k,v in pairs(list) do
 t = t..""..k.."-> (["..v.."])\n"
 end
