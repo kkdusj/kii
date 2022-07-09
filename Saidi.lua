@@ -4366,6 +4366,20 @@ local msg_id = msg.id/2097152/0.5
 end
 end
 end
+if text == "تيست" then
+local UserInfo = bot.getUser(1965534755) 
+local photo = bot.getUserProfilePhotos(UserInfo.id)
+local ANUBIS = "تيست"
+if photo.total_count > 0 then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{
+{text = UserInfo.first_name , url = 't.me/'..UserInfo.username }
+},
+}
+}
+return bot.sendPhoto(msg.chat_id, msg.id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id,"\n ـꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹـ\n"..ANUBIS[math.random(#ANUBIS)].."\n ـꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹـ"  , "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup )
+end
+end
 if text == 'جلب النسخه الاحتياطيه ✧' or text == 'جلب النسخه الاحتياطيه' or text == 'جلب النسخه العامه' then
 if not msg.Asasy then 
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(1)..' }* ',"md",true)  
@@ -24785,14 +24799,17 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
 Redis:setex(Saidi.."Broadcasting:Users" .. msg_chat_id .. ":" .. msg.sender_id.user_id, 600, true) 
-send(msg_chat_id,msg_id,[[
-↯︙ارسل لي سواء كان 
-❨ ملف  ✧ ملصق  ✧ متحركه  ✧ صوره
-  ✧ فيديو  ✧ بصمه الفيديو  ✧ بصمه  ✧ صوت  ✧ رساله ❩
+send(msg_chat_id,msg_id,[[*
+▱▰▱▰▱▰▱▰▱▰▱▰▱▰
+, حسنا ارسل الان الاذاعه ،
+, ملصق ، متحركه ، صوره ،
+, فيديو بصمه ، الفيديو ، ملف ،
+, بصمه ، صوت ، رساله ،
 ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
-↯︙للخروج ارسل ( الغاء )
- ꪤ
-]],"md",true)  
+, ليتم نشرها للمشتركين ،
+, للخروج ارسل ( الغاء ) ،
+▱▰▱▰▱▰▱▰▱▰▱▰▱▰
+*]],"md",true)  
 return false
 end
 
@@ -24809,14 +24826,17 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
 Redis:setex(Saidi.."Broadcasting:Groups" .. msg_chat_id .. ":" .. msg.sender_id.user_id, 600, true) 
-send(msg_chat_id,msg_id,[[
-↯︙ارسل لي سواء كان 
-❨ ملف  ✧ ملصق  ✧ متحركه  ✧ صوره
-  ✧ فيديو  ✧ بصمه الفيديو  ✧ بصمه  ✧ صوت  ✧ رساله ❩
+send(msg_chat_id,msg_id,[[*
+▱▰▱▰▱▰▱▰▱▰▱▰▱▰
+, حسنا ارسل الان الاذاعه ،
+, ملصق ، متحركه ، صوره ،
+, فيديو بصمه ، الفيديو ، ملف ،
+, بصمه ، صوت ، رساله ،
 ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
-↯︙للخروج ارسل ( الغاء )
- ꪤ
-]],"md",true)  
+, ليتم نشرها للجروبات ،
+, للخروج ارسل ( الغاء ) ،
+▱▰▱▰▱▰▱▰▱▰▱▰▱▰
+*]],"md",true)  
 return false
 end
 
@@ -24833,14 +24853,17 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
 Redis:setex(Saidi.."Broadcasting:Groups:Pin" .. msg_chat_id .. ":" .. msg.sender_id.user_id, 600, true) 
-send(msg_chat_id,msg_id,[[
-↯︙ارسل لي سواء كان 
-❨ ملف  ✧ ملصق  ✧ متحركه  ✧ صوره
-  ✧ فيديو  ✧ بصمه الفيديو  ✧ بصمه  ✧ صوت  ✧ رساله ❩
+send(msg_chat_id,msg_id,[[*
+▱▰▱▰▱▰▱▰▱▰▱▰▱▰
+, حسنا ارسل الان الاذاعه ،
+, ملصق ، متحركه ، صوره ،
+, فيديو بصمه ، الفيديو ، ملف ،
+, بصمه ، صوت ، رساله ،
 ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
-↯︙للخروج ارسل ( الغاء )
- ꪤ
-]],"md",true)  
+, ليتم نشرها للجروبات ،
+, للخروج ارسل ( الغاء ) ،
+▱▰▱▰▱▰▱▰▱▰▱▰▱▰
+*]],"md",true)  
 return false
 end
 
@@ -24857,30 +24880,9 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
 Redis:setex(Saidi.."Broadcasting:Groups:Fwd" .. msg_chat_id .. ":" .. msg.sender_id.user_id, 600, true) 
-send(msg_chat_id,msg_id," ✧ ارسل لي التوجيه الان\n ✧  ليتم نشره في المجموعات","md",true)  
+send(msg_chat_id,msg_id,"* ✧ ارسل لي التوجيه الان*\n* ✧ ليتم نشره في المجموعات*\n* ✧ للخروج من الامر ارسل〘الغاء〙*","md",true)  
 return false
 end
-
-if text == "سلطان" then
-  local UserInfo = bot.getUser( 1914163949 ) 
-  local photo = bot.getUserProfilePhotos(UserInfo.id)
-  local ANUBIS = {
-      "معاك الحج سطلطان للسياحه",
-      "ايوا معاك سلطان ",
-      "يارب تكون بتجيب سيرتي بالخير",
-      "استر يارب هولي شيت"
-  }
-  if photo.total_count > 0 then
-  local reply_markup = bot.replyMarkup{type = 'inline',data = {
-      {
-        {text = UserInfo.first_name , url = 't.me/'..UserInfo.username }
-      },
-    }
-    }
-  return bot.sendPhoto(msg.chat_id, msg.id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id,"\n ـꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹـ\n"..ANUBIS[math.random(#ANUBIS)].."\n ـꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹـ"  , "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup )
-  end
-  end
-
 
 if text=='اذاعه بالتوجيه خاص ✧' then 
 if not msg.Asasy then 
@@ -24895,7 +24897,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
 Redis:setex(Saidi.."Broadcasting:Users:Fwd" .. msg_chat_id .. ":" .. msg.sender_id.user_id, 600, true) 
-send(msg_chat_id,msg_id," ✧ ارسل لي التوجيه الان\n ✧  ليتم نشره الى المشتركين","md",true)  
+send(msg_chat_id,msg_id,"* ✧ ارسل لي التوجيه الان*\n* ✧ ليتم نشره الى اعضاء خاص البوت*\n* ✧ للخروج من الامر ارسل〘الغاء〙*","md",true)  
 return false
 end
 
@@ -27354,7 +27356,7 @@ data = {
 {text = 'اوامر التسليه', data = IdUser..'/helpts'},
 },
 {
-{t ext = 'القفل والفتح ⚙️', data = IdUser..'/NoNextSeting'}, {text = 'التعطيل والتفعيل 📢', data = IdUser..'/listallAddorrem'}, 
+{text = 'القفل والفتح ⚙️', data = IdUser..'/NoNextSeting'}, {text = 'التعطيل والتفعيل 📢', data = IdUser..'/listallAddorrem'}, 
 },
 {
 {text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
