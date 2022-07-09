@@ -1356,18 +1356,6 @@ end
 
 if msg.content.luatele == "messageChatJoinByLink" or msg.content.luatele == "messageChatAddMembers" then
 if Redis:get(Saidi.."Status:Welcome"..msg_chat_id) then
-local RinkBot = ''..msg.Name_Controller
-local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
-local Get_Chat = bot.getChat(msg_chat_id)
-local UserInfo = bot.getUser(msg.sender_id.user_id)
-local photo = bot.getUserProfilePhotos(msg.sender_id.user_id)
-local Jabwa = '✧ مرحبا سيدي -> '..RinkBot..'\n✧ نورت الجروب -> ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ['..UserInfo.first_name..'](tg://user?id='..UserInfo.id..') '
-local msgg = msg_id/2097152/0.5
-https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id=" .. msg_chat_id .. "&photo="..photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id.."&caption=".. URL.escape(Jabwa).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(data))
-end
-end
-if msg.content.luatele == "messageChatJoinByLink" or msg.content.luatele == "messageChatAddMembers" then
-if Redis:get(Saidi.."Status:Welcome"..msg_chat_id) then
 local UserInfo = bot.getUser(msg.sender_id.user_id)
 local Get_Chat = bot.getChat(msg_chat_id)
 local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
