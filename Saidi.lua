@@ -13243,6 +13243,7 @@ local MSGID = 0
 https.request("https://api.telegram.org/bot"..Token..'/sendVoice?chat_id=' .. msg.chat_id .. '&voice=https://t.me/meromp3/'..Abs..'&caption=' .. URL.escape(Text).."&reply_to_message_id="..MSGID.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard)) 
 end
 end 
+
 if text then
 list = {"همسه"}
 for k,v in pairs(list) do
@@ -13627,6 +13628,7 @@ return bot.sendText(msg_chat_id,msg_id,'[اي شغل المحن ده 🙄](t.me/
 end
 end
 end
+
 if text == "قفل التفليش" then 
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
