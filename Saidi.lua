@@ -464,7 +464,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = '- عضو  ', data =user..'/statusmem/'..useri},
 },
 {
-{text = '- اخفاء الامر ', data ='/delAmr1'}
+{text = 'اخفاء الامر 🔰', data ='/delAmr1'}
 }
 }
 }
@@ -963,7 +963,7 @@ data = {
 {text = '- ارسال استفتاء : '..polls, data = UserId.. '/polls'}, 
 },
 {
-{text = '- اخفاء الامر ', data ='/delAmr'}
+{text = 'اخفاء الامر 🔰', data ='/delAmr'}
 },
 }
 }
@@ -1304,7 +1304,7 @@ Redis:del(Saidi.."All:Filter:Group:"..text)
 Filters = 'النص'
 end
 Redis:del(Saidi..'All:FilterText'..msg_chat_id..':'..msg.sender_id.user_id)
-return send(msg_chat_id,msg_id," ✧ تم الغاء منع عام ("..Filters..")","md",true)  
+return send(msg_chat_id,msg_id," ✧ تم الغاء منع عام『 "..Filters..")","md",true)  
 end
 end
 
@@ -1370,10 +1370,10 @@ GroupsWelcome = GroupsWelcome:gsub('{الاعضاء}',Info_Chats.member_count)
 GroupsWelcome = GroupsWelcome:gsub('{الادمنيه}',Info_Chats.administrator_count) 
 GroupsWelcome = GroupsWelcome:gsub('{الوقت}',os.date("%H:%M:%S")) 
 GroupsWelcome = GroupsWelcome:gsub('{التاريخ}',os.date("%Y/%m/%d")) 
-local TextWelcome = (GroupsWelcome or '* ✧ نورت الجروب يا قمر 💕.\n ْ'..(UserInfo.first_name or '---')..'\n ْ'..(Get_Chat.title or '---')..' \n ✧ يجب احترام الادمنية\n ✧ الالتزام بالقوانين في الوصف\n ✧ الاعضاء '..Info_Chats.member_count..' -> الادمنيه '..Info_Chats.administrator_count..' \n ✧ وقت الانضمام -> ('..os.date("%H:%M:%S")..')\n ✧ تاريخ الانضمام -> ('..os.date("%Y/%m/%d")..')*\n')
+local TextWelcome = (GroupsWelcome or '* ✧ نورت الجروب يا قمر 💕.\n ْ'..(UserInfo.first_name or '---')..'\n ْ'..(Get_Chat.title or '---')..' \n ✧ يجب احترام الادمنية\n ✧ الالتزام بالقوانين في الوصف\n ✧ الاعضاء '..Info_Chats.member_count..' -> الادمنيه '..Info_Chats.administrator_count..' \n ✧ وقت الانضمام ->『 '..os.date("%H:%M:%S")..')\n ✧ تاريخ الانضمام ->『 '..os.date("%Y/%m/%d")..')*\n')
 return send(msg_chat_id,msg_id,TextWelcome,"md")  
 else
-local TextWelcome = ('* ✧ نورت الجروب يا قمر 💕.\n ْ'..(UserInfo.first_name or '---')..'\n ْ'..(Get_Chat.title or '---')..' \n ✧ يجب احترام الادمنية\n ✧ الالتزام بالقوانين في الوصف\n ✧ الاعضاء '..Info_Chats.member_count..' -> الادمنيه '..Info_Chats.administrator_count..' \n ✧ وقت الانضمام -> ('..os.date("%H:%M:%S")..')\n ✧ تاريخ الانضمام -> ('..os.date("%Y/%m/%d")..')*\n')
+local TextWelcome = ('* ✧ نورت الجروب يا قمر 💕.\n ْ'..(UserInfo.first_name or '---')..'\n ْ'..(Get_Chat.title or '---')..' \n ✧ يجب احترام الادمنية\n ✧ الالتزام بالقوانين في الوصف\n ✧ الاعضاء '..Info_Chats.member_count..' -> الادمنيه '..Info_Chats.administrator_count..' \n ✧ وقت الانضمام ->『 '..os.date("%H:%M:%S")..')\n ✧ تاريخ الانضمام ->『 '..os.date("%Y/%m/%d")..')*\n')
 return send(msg_chat_id,msg_id,TextWelcome,"md")  
 end
 end
@@ -2556,7 +2556,7 @@ Redis:del(Saidi.."Filter:Group:"..text..msg_chat_id)
 Filters = 'النص'
 end
 Redis:del(Saidi..'FilterText'..msg_chat_id..':'..msg.sender_id.user_id)
-return send(msg_chat_id,msg_id," ✧ تم الغاء منع ("..Filters..")","md",true)  
+return send(msg_chat_id,msg_id," ✧ تم الغاء منع『 "..Filters..")","md",true)  
 end
 end
 if text or msg.content.photo or msg.content.animation or msg.content.sticker then
@@ -3706,7 +3706,7 @@ v = v:gsub('text:',"")
 Redis:del(Saidi.."All:Filter:Group:"..v)  
 Redis:srem(Saidi.."All:List:Filter",v)  
 end  
-return send(msg_chat_id,msg_id,"* ✧ تم مسح ("..#list..") كلمات ممنوعه *","md",true)   
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#list..") كلمات ممنوعه *","md",true)   
 end
 if text == "قائمه المنع عام" then   
 if not msg.Admin then
@@ -3894,7 +3894,7 @@ Redis:sadd(Saidi.."Special:Group"..GroupId,v)
 end
 end 
 end
-return send(msg_chat_id,msg_id,' ✧ تم استرجاع {'..X..'} جروب \n ✧  واسترجاع {'..Y..'} مشترك في البوت')
+return send(msg_chat_id,msg_id,' ✧ تم استرجاع『 '..X..' 』جروب \n ✧  واسترجاع『 '..Y..' 』مشترك في البوت')
 end
 end
 if text == 'رفع نسخه صعيدي' and msg.reply_to_message_id ~= 0 then
@@ -4344,17 +4344,17 @@ local DevJeka = "*𓄼•𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳�
 keyboardd = {} 
 keyboardd.inline_keyboard = {
 {
-{text = 'الــقــنــوات ⚙', callback_data=msg.sender_id.user_id.."/DevJeka1"},{text = 'الــبــارات ❇️', callback_data=msg.sender_id.user_id.."/DevJeka3"},
+{text = 'الــقــنــوات ⚙', callback_data=msg.sender_id.user_id.."/bssbldm"},{text = 'الــبــارات ❇️', callback_data=msg.sender_id.user_id.."/nkebsb"},
 },
 }
 local msg_id = msg.id/2097152/0.5 
  https.request("https://api.telegram.org/bot"..Token..'/sendPhoto?chat_id='..msg.chat_id..'&caption='..URL.escape(DevJeka)..'&photo='..photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id..'&reply_to_message_id='..msg_id..'&parse_mode=markdown&disable_web_page_preview=true&reply_markup='..JSON.encode(keyboardd))
 else
-local DevJeka = "*𓄼•𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰*\n*𓄼•𝙽𝙰𝙼𝙴 𝙹𝙴𝙺𝙰 -› *"..ban.first_name.."\n*𓄼•𝙸𝙳 𝙹𝙴𝙺𝙰 -› "..UserId_Info.id.."*\n*𓄼•??𝙸𝙾 𝙹𝙴𝙺𝙰 -›*  *"..Bio.." *"
+local DevJeka = "*𓄼•𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰*\n*𓄼•𝙽𝙰𝙼𝙴 𝙹𝙴𝙺𝙰 -› *"..ban.first_name.."\n*𓄼•𝙸𝙳 𝙹𝙴𝙺𝙰 -› "..UserId_Info.id.."*\n*𓄼•𝙱𝙸𝙾 𝙹𝙴𝙺𝙰 -›*  *"..Bio.." *"
 keyboardd = {} 
 keyboardd.inline_keyboard = {
 {
-{text = 'الــقــنــوات ⚙', callback_data=msg.sender_id.user_id.."/DevJeka1"},{text = 'الــبــارات ❇️', callback_data=msg.sender_id.user_id.."/DevJeka3"},
+{text = 'الــقــنــوات ⚙', callback_data=msg.sender_id.user_id.."/bssbldm"},{text = 'الــبــارات ❇️', callback_data=msg.sender_id.user_id.."/nkebsb"},
 },
 }
 local msg_id = msg.id/2097152/0.5 
@@ -6669,7 +6669,7 @@ return false
 end
 message = ' ✧ قائمه الصوتيات :\n     للتشغيل اختر اسم من الاتي:\nـــــــــــــــــــــــــــــــــــــــــــــــــــــــ\n'
 for k,v in pairs(list) do
-message = message..""..k.."- ("..v..")\n"
+message = message..""..k.."-『 "..v..")\n"
 end
 send(msg_chat_id,msg_id,message)
 end
@@ -6744,7 +6744,7 @@ return false
 end
 message = ' ✧ قائمه الصوتيات العامه \n✧ للتشغيل اختر اسم من الاتي \n ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ \n'
 for k,v in pairs(list) do
-message = message..""..k.."-> ("..v..")\n"
+message = message..""..k.."->『 "..v..")\n"
 end
 send(msg_chat_id,msg_id,message)
 end
@@ -7070,7 +7070,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id,"  ✧ لا يوجد مكتومين عام حاليا , ","md",true)  
 end
 Redis:del(Saidi.."KtmAll:Groups") 
-return send(msg_chat_id,msg_id,"*  ✧ تم مسح {"..#Info_Members.."} من المكتومين عام *","md",true)
+return send(msg_chat_id,msg_id,"*  ✧ تم مسح『 "..#Info_Members.." 』من المكتومين عام *","md",true)
 end
 
 if text == 'المكتومين عام' or text == 'قائمه المكتومين عام' then
@@ -7311,7 +7311,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id,"  ✧ لا يوجد مطورين اساسيين حاليا , ","md",true)  
 end
 Redis:del(Saidi.."ControlAll:Groups") 
-return send(msg_chat_id,msg_id,"*  ✧ تم مسح {"..#Info_Members.."} من المطورين الاساسيين *","md",true)
+return send(msg_chat_id,msg_id,"*  ✧ تم مسح『 "..#Info_Members.." 』من المطورين الاساسيين *","md",true)
 end
 if text == 'المطورين الاساسيين' then
 if tonumber(msg.sender_id.user_id) == tonumber(Sudo_Id) then
@@ -8155,7 +8155,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = '- عضو  ', data =msg.sender_id.user_id..'/statusmem/'..UserId_Info.id},
 },
 {
-{text = '- اخفاء الامر ', data ='/delAmr1'}
+{text = 'اخفاء الامر 🔰', data ='/delAmr1'}
 }
 }
 }
@@ -8233,7 +8233,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = '- عضو  ', data =msg.sender_id.user_id..'/statusmem/'..Message_Reply.sender_id.user_id},
 },
 {
-{text = '- اخفاء الامر ', data ='/delAmr1'}
+{text = 'اخفاء الامر 🔰', data ='/delAmr1'}
 }
 }
 }
@@ -13076,17 +13076,6 @@ Redis:del(Saidi.."myphoto"..msg.chat_id)
 return send(msg_chat_id,msg_id,' ✧ تم تفعيل صورتي\n ꪤ',"md")
 end
 end
-if text == 'قناة السورس' or text == 'قناه السورس' or text == 'قناه'  then
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{
-{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
-},
-}
-}
-return send(msg_chat_id,msg_id,"[𝐒𝐀𝐈𝐃𝐈](https://t.me/S_a_i_d_i)","md",true, false, false, true, reply_markup)
-end
 if text == "صورتي" then
 if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
 send(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
@@ -15815,9 +15804,9 @@ Command = " ✧ قائمه الاوامر المضافه  \nꔹ━━━━━�
 for k,v in pairs(list) do
 Commands = Redis:get(Saidi.."Get:Reides:Commands:Group"..msg_chat_id..":"..v)
 if Commands then 
-Command = Command..""..k..": ("..v..") ← {"..Commands.."}\n"
+Command = Command..""..k..":『 "..v..") ←『 "..Commands.."}\n"
 else
-Command = Command..""..k..": ("..v..") \n"
+Command = Command..""..k..":『 "..v..") \n"
 end
 end
 if #list == 0 then
@@ -15968,7 +15957,7 @@ data = {
 {text = 'تعطيل تنبيه الاسماء', data = msg.sender_id.user_id..'/'.. 'unmute_namemy'},{text = 'تفعيل تنبيه الاسماء', data = msg.sender_id.user_id..'/'.. 'mute_namemy'},
 },
 {
-{text = '- اخفاء الامر ', data ='/delAmr'}
+{text = 'اخفاء الامر 🔰', data ='/delAmr'}
 },
 }
 }
@@ -16105,10 +16094,10 @@ data = {
 {text = GetSetieng(msg_chat_id).alphsar, data = '&'},{text = 'الفشار : ', data =msg.sender_id.user_id..'/'.. 'Status_alphsar'},
 },
 {
-{text = '- التالي ... ', data =msg.sender_id.user_id..'/'.. 'NextSeting'}
+{text = 'التالي ↪️', data =msg.sender_id.user_id..'/'.. 'NextSeting'}
 },
 {
-{text = '- اخفاء الامر ', data ='/delAmr'}
+{text = 'اخفاء الامر 🔰', data ='/delAmr'}
 },
 }
 }
@@ -16235,7 +16224,7 @@ data = {
 {text = '- ارسال استفتاء : '..polls, data =msg.sender_id.user_id.. '/polls'}, 
 },
 {
-{text = '- اخفاء الامر ', data ='/delAmr'}
+{text = 'اخفاء الامر 🔰', data ='/delAmr'}
 },
 }
 }
@@ -17164,7 +17153,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد مطورين ثانوين حاليا , ","md",true)  
 end
 Redis:del(Saidi.."Devss:Groups") 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المطورين الثانويين*","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المطورين الثانويين*","md",true)
 end
 if TextMsg == 'المطورين' then
 if not msg.Devss then
@@ -17183,7 +17172,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد مطورين حاليا , ","md",true)  
 end
 Redis:del(Saidi.."Dev:Groups") 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المطورين *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المطورين *","md",true)
 end
 if TextMsg == 'المالكين' then
 local StatusMember = bot.getChatMember(msg_chat_id,msg.sender_id.user_id).status.luatele
@@ -17219,7 +17208,7 @@ Redis:sadd(Saidi.."Ownerss:Group"..msg_chat_id,v.member_id.user_id)
 end
 end
 end
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Memberss.."} من مالكين *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Memberss.." 』من مالكين *","md",true)
 end
 if TextMsg == 'المنشئين الاساسيين' then
 if not msg.Ownerss then
@@ -17238,7 +17227,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد منشئين اساسيين حاليا , ","md",true)  
 end
 Redis:del(Saidi.."SuperCreator:Group"..msg_chat_id) 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المنشؤين الاساسيين *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المنشؤين الاساسيين *","md",true)
 end
 if TextMsg == 'المنشئين' then
 if not msg.SuperCreator then
@@ -17257,7 +17246,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد منشئين حاليا , ","md",true)  
 end
 Redis:del(Saidi.."Creator:Group"..msg_chat_id) 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المنشئين *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المنشئين *","md",true)
 end
 if TextMsg == 'المدراء' then
 if not msg.Creator then
@@ -17276,7 +17265,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد مدراء حاليا , ","md",true)  
 end
 Redis:del(Saidi.."Manger:Group"..msg_chat_id) 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المدراء *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المدراء *","md",true)
 end
 if TextMsg == 'الادمنيه' then
 if not msg.Manger then
@@ -17295,7 +17284,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد ادمنيه حاليا , ","md",true)  
 end
 Redis:del(Saidi.."Admin:Group"..msg_chat_id) 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من الادمنيه *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من الادمنيه *","md",true)
 end
 if TextMsg == 'المميزين' then
 if not msg.Admin then
@@ -17314,7 +17303,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد مميزين حاليا , ","md",true)  
 end
 Redis:del(Saidi.."Special:Group"..msg_chat_id) 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المميزين *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المميزين *","md",true)
 end
 if TextMsg == 'المحظورين عام' or TextMsg == 'قائمه العام' then
 if not msg.Devss then
@@ -17333,7 +17322,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد محظورين عام حاليا , ","md",true)  
 end
 Redis:del(Saidi.."BanAll:Groups") 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المحظورين عام *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المحظورين عام *","md",true)
 end
 if TextMsg == 'المحظورين' then
 if not msg.Manger then
@@ -17352,7 +17341,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد محظورين حاليا , ","md",true)  
 end
 Redis:del(Saidi.."BanGroup:Group"..msg_chat_id) 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المحظورين *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المحظورين *","md",true)
 end
 if TextMsg == 'المكتومين' then
 if not msg.Manger then
@@ -17371,7 +17360,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد مكتومين حاليا , ","md",true)  
 end
 Redis:del(Saidi.."SilentGroup:Group"..msg_chat_id) 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المكتومين *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المكتومين *","md",true)
 end
 if TextMsg == 'المقيدين' then
 if not msg.Manger then
@@ -17403,7 +17392,7 @@ y = true
 end
 end
 if y == true then
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..x.."} من المقيديين *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..x.." 』من المقيديين *","md",true)
 else
 send(msg_chat_id,msg_id,' ✧ لا يوجد مقيدين ',"md",true)  
 end
@@ -17648,7 +17637,7 @@ if text == ("الردود") then
   elseif Redis:get(Saidi.."Add:Rd:Manager:video_note"..v..msg_chat_id) then
   db = "بصمه فيديو "
   end
-  rd_list = rd_list..""..k.." » {"..v.."} » {"..db.."}\n"
+  rd_list = rd_list..""..k.." »『 "..v.." 』»『 "..db.."}\n"
   end
   local list_mz = Redis:smembers(Saidi.."List:Rd:mz"..msg_chat_id.."")
   if #list_mz ~= 0 then 
@@ -17673,7 +17662,7 @@ if text == ("الردود") then
   elseif Redis:get(Saidi.."Add:Rd:mz:video_note"..v..msg_chat_id) then
   db = "بصمه فيديو "
   end
-  mz_text = mz_text..""..k.." » {"..v.."} » {"..db.."}\n"
+  mz_text = mz_text..""..k.." »『 "..v.." 』»『 "..db.."}\n"
   end
   end
   if #list == 0 and #list_mz == 0 then
@@ -18925,7 +18914,7 @@ else
 SilentGroup = ''
 end
 bot.setChatMemberStatus(msg.chat_id,Message_Reply.sender_id.user_id,'restricted',{1,1,1,1,1,1,1,1,1})
-send(msg_chat_id,msg_id,"\n* ✧ تم رفع القيود عنه : {"..BanAll..BanGroup..SilentGroup..Restricted..'}*',"md",true)  
+send(msg_chat_id,msg_id,"\n* ✧ تم رفع القيود عنه :『 "..BanAll..BanGroup..SilentGroup..Restricted..'}*',"md",true)  
 end
 if text and text:match('^رفع القيود @(%S+)$') then
 local UserName = text:match('^رفع القيود @(%S+)$')
@@ -18980,7 +18969,7 @@ else
 SilentGroup = ''
 end
 bot.setChatMemberStatus(msg.chat_id,UserId_Info.id,'restricted',{1,1,1,1,1,1,1,1,1})
-send(msg_chat_id,msg_id,"\n* ✧ تم رفع القيود عنه : {"..BanAll..BanGroup..SilentGroup..Restricted..'}*',"md",true)  
+send(msg_chat_id,msg_id,"\n* ✧ تم رفع القيود عنه :『 "..BanAll..BanGroup..SilentGroup..Restricted..'}*',"md",true)  
 end
 
 if text == 'ضع كليشه المطور' then
@@ -23376,7 +23365,7 @@ name = string.gsub(name,"حاسوب","س ا ح و ب")
 name = string.gsub(name,"انترنيت","ا ت ن ر ن ي ت")
 name = string.gsub(name,"ساحه","ح ا ه س")
 name = string.gsub(name,"جسر","ر ج س")
-return send(msg_chat_id,msg_id," ✧ اسرع واحد يرتبها ~ {"..name.."}","md",true)  
+return send(msg_chat_id,msg_id," ✧ اسرع واحد يرتبها ~『 "..name.."}","md",true)  
 end
 end
 if text == "حزوره" then
@@ -23425,7 +23414,7 @@ name = string.gsub(name,"الثلج","انا ابن الماء فان تركون
 name = string.gsub(name,"الاسفنج","كلي ثقوب ومع ذالك احفض الماء فمن اكون ؟")
 name = string.gsub(name,"الصوت","اسير بلا رجلين ولا ادخل الا بالاذنين فمن انا ؟")
 name = string.gsub(name,"بلم","حامل ومحمول نصف ناشف ونصف مبلول فمن اكون ؟ ")
-return send(msg_chat_id,msg_id," ✧ اسرع واحد يحل الحزوره ↓\n {"..name.."}","md",true)  
+return send(msg_chat_id,msg_id," ✧ اسرع واحد يحل الحزوره ↓\n『 "..name.."}","md",true)  
 end
 end
 if text == "معاني" then
@@ -23467,7 +23456,7 @@ name = string.gsub(name,"زرافه","🦒")
 name = string.gsub(name,"قنفذ","🦔")
 name = string.gsub(name,"تفاحه","🍎")
 name = string.gsub(name,"باذنجان","🍆")
-return send(msg_chat_id,msg_id," ✧ اسرع واحد يدز معنى السمايل ~ {"..name.."}","md",true)  
+return send(msg_chat_id,msg_id," ✧ اسرع واحد يدز معنى السمايل ~『 "..name.."}","md",true)  
 end
 end
 if text == "العكس" then
@@ -23509,7 +23498,7 @@ name = string.gsub(name,"موعطشان","عطشان")
 name = string.gsub(name,"خوش ولد","موخوش ولد")
 name = string.gsub(name,"اني","مطي")
 name = string.gsub(name,"هادئ","عصبي")
-return send(msg_chat_id,msg_id," ✧ اسرع واحد يدز العكس ~ {"..name.."}","md",true)  
+return send(msg_chat_id,msg_id," ✧ اسرع واحد يدز العكس ~『 "..name.."}","md",true)  
 end
 end
 if text == "بات" or text == "محيبس" then   
@@ -23920,7 +23909,7 @@ name = string.gsub(name,'5','8 - 3 = ?') name = string.gsub(name,'4','40 ÷ 10 =
 name = string.gsub(name,'25','30 - 5 = ?') name = string.gsub(name,'10','100 ÷ 10 = ?')
 name = string.gsub(name,'17','10 + 5 + 2 = ?') name = string.gsub(name,'15','25 - 10 = ?')
 name = string.gsub(name,'39','44 - 5 = ?') name = string.gsub(name,'5','12 + 1 - 8 = ?') name = string.gsub(name,'16','16 + 16 - 16 = ?')
-send(msg_chat_id,msg_id,' ✧ اكمل المعادله ،\n - {'..name..'} .')     
+send(msg_chat_id,msg_id,' ✧ اكمل المعادله ،\n -『 '..name..' 』.')     
 end 
 end
 if text == 'انكليزي' then
@@ -23935,7 +23924,7 @@ name = string.gsub(name,'نقود','money') name = string.gsub(name,'اعلم','
 name = string.gsub(name,'تمساح','crocodile') name = string.gsub(name,'شاطئ','Beach')
 name = string.gsub(name,'غبي','Stupid') name = string.gsub(name,'صداقه','Friendchip')
 name = string.gsub(name,'ذكي','Smart') 
-send(msg_chat_id,msg_id,'  ✧ ما معنى كلمه {'..name..'} ، ')     
+send(msg_chat_id,msg_id,'  ✧ ما معنى كلمه『 '..name..' 』')     
 end
 end
 if text == 'روليت' then
@@ -23958,7 +23947,7 @@ local data = bot.searchPublicChat(UserName)
 Redis:incrby(Saidi.."Num:Add:Games"..msg.chat_id..msg.sender_id.user_id, 5)  
 Redis:del(Saidi..':List_Rolet:'..msg.chat_id) 
 Redis:del(Saidi..":Witting_StartGame:"..msg.chat_id..msg.sender_id.user_id)
-return send(msg_chat_id,msg_id,' ✧ تم اختيار الشخص الاتي\n ✧  صاحب الحظ {'..UserName..'}\n ✧  ربحت معنا 5 نقاط' )
+return send(msg_chat_id,msg_id,' ✧ تم اختيار الشخص الاتي\n ✧  صاحب الحظ『 '..UserName..'}\n ✧  ربحت معنا 5 نقاط' )
 end
 if text == 'الاعبين' then
 local list = Redis:smembers(Saidi..':List_Rolet:'..msg.chat_id) 
@@ -24046,7 +24035,7 @@ name = string.gsub(name,"🕒","🕒🕒🕒🕒🕒🕒🕓🕒🕒🕒")
 name = string.gsub(name,"🕤","🕥🕥🕥🕥🕥🕤🕥🕥🕥")
 name = string.gsub(name,"⌛️","⏳⏳⏳⏳⏳⏳⌛️⏳⏳")
 name = string.gsub(name,"📅","📆📆📆📆📆📆📅????")
-return send(msg_chat_id,msg_id," ✧ اسرع واحد يدز الاختلاف ~ {"..name.."}","md",true)  
+return send(msg_chat_id,msg_id," ✧ اسرع واحد يدز الاختلاف ~『 "..name.."}","md",true)  
 end
 end
 if text == "امثله" then
@@ -24082,7 +24071,7 @@ name = string.gsub(name,"شهر","امشي__ولا تعبر نهر")
 name = string.gsub(name,"شكه","يامن تعب يامن__يا من على الحاضر لكة")
 name = string.gsub(name,"القرد","__بعين امه غزال")
 name = string.gsub(name,"يكحله","اجه___عماها")
-return send(msg_chat_id,msg_id," ✧ اسرع واحد يكمل المثل ~ {"..name.."}","html",true)  
+return send(msg_chat_id,msg_id," ✧ اسرع واحد يكمل المثل ~『 "..name.."}","html",true)  
 end
 end
 if text == 'مسح رسائله' and msg.reply_to_message_id ~= 0 then
@@ -24273,7 +24262,7 @@ data = {
 {text="المكتومين",data=msg.sender_id.user_id..'/SilentGroupGroup'},{text="المحظورين",data=msg.sender_id.user_id..'/BanGroup'},
 },
 {
-{text = "- اخفاء الامر ", data =msg.sender_id.user_id.."/delAmr"}
+{text = "اخفاء الامر 🔰", data =msg.sender_id.user_id.."/delAmr"}
 },
 }
 }
@@ -25046,7 +25035,7 @@ db = "اغنيه 🎵"
 elseif Redis:get(Saidi.."Add:Rd:Sudo:video_note"..v) then
 db = "بصمه فيديو 🎥"
 end
-text = text..""..k.." » {"..v.."} » {"..db.."}\n"
+text = text..""..k.." »『 "..v.." 』»『 "..db.."}\n"
 end
 if #list == 0 then
 text = " ✧ لا توجد ردود للمطور"
@@ -25097,7 +25086,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد مطورين حاليا , ","md",true)  
 end
 Redis:del(Saidi.."Dev:Groups") 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المطورين *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المطورين *","md",true)
 end
 if text == 'مسح المطورين الثانويين ✧' then
 if not msg.Asasy then 
@@ -25116,7 +25105,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد مطورين حاليا , ","md",true)  
 end
 Redis:del(Saidi.."Devss:Groups") 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المطورين *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المطورين *","md",true)
 end
 if text == 'مسح قائمه العام ✧' then
 if not msg.Asasy then 
@@ -25135,7 +25124,7 @@ if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد محظورين عام حاليا , ","md",true)  
 end
 Redis:del(Saidi.."BanAll:Groups") 
-return send(msg_chat_id,msg_id,"* ✧ تم مسح {"..#Info_Members.."} من المحظورين عام *","md",true)
+return send(msg_chat_id,msg_id,"* ✧ تم مسح『 "..#Info_Members.." 』من المحظورين عام *","md",true)
 end
 if text == 'تعطيل البوت الخدمي ✧' then
 if not msg.Asasy then 
@@ -25805,63 +25794,63 @@ if Text and Text:match('(%d+)/mute_thshesh') and data.Creator then
 local UserId = Text:match('(%d+)/mute_thshesh')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."amrthshesh"..ChatId)
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر التسليه").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_kicknum') and data.SuperCreator then
 local UserId = Text:match('(%d+)/mute_kicknum')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."spammkick"..ChatId)
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر منع التصفيه").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_seck') and data.Creator then
 local UserId = Text:match('(%d+)/mute_seck')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."kadmeat"..ChatId)
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الصيغ").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_knile') and data.Manger then
 local UserId = Text:match('(%d+)/mute_knile')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."knele"..ChatId)
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر غنيلي").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_brj') and data.Manger then
 local UserId = Text:match('(%d+)/mute_brj')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."brjj"..ChatId)
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الابراج").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_audio') and data.Manger then
 local UserId = Text:match('(%d+)/mute_audio')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi..'lock_geamsAudio1'..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الصوتيات").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_audioall') and data.Manger then
 local UserId = Text:match('(%d+)/mute_audioall')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi..'lock_geamsAudio'..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الصوتيات العامه").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_takall') and data.Creator then
 local UserId = Text:match('(%d+)/mute_takall')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi..'tagall@all'..ChatId,'open')
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر التاك عام").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_namemy') and data.Manger then
 local UserId = Text:match('(%d+)/mute_namemy')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi..'lock_chengname'..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر تنبيه الاسماء").unLock, 'md', true, false, reply_markup)
 end
 end
@@ -25871,63 +25860,63 @@ if Text and Text:match('(%d+)/unmute_thshesh') and data.Creator then
 local UserId = Text:match('(%d+)/unmute_thshesh')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."amrthshesh"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر التسليه").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_kicknum') and data.Creator then
 local UserId = Text:match('(%d+)/unmute_kicknum')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."spammkick"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر منع التصفيه").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_seck') and data.Creator then
 local UserId = Text:match('(%d+)/unmute_seck')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."kadmeat"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الصيغ").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_knile') and data.Manger then
 local UserId = Text:match('(%d+)/unmute_knile')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."knele"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر غنيلي").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_brj') and data.Manger then
 local UserId = Text:match('(%d+)/unmute_brj')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."brjj"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الابراج").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_audio') and data.Manger then
 local UserId = Text:match('(%d+)/unmute_audio')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi..'lock_geamsAudio1'..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الصوتيات").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_audioall') and data.Creator then
 local UserId = Text:match('(%d+)/unmute_audioall')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi..'lock_geamsAudio'..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الصوتيات العامه").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_takall') and data.Creator then
 local UserId = Text:match('(%d+)/unmute_takall')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi..'tagall@all'..ChatId,'close')
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر التاك عام").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_namemy') and data.Manger then
 local UserId = Text:match('(%d+)/unmute_namemy')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi..'lock_chengname'..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر تنبيه الاسماء").unLock, 'md', true, false, reply_markup)
 end
 end
@@ -26659,7 +26648,7 @@ if Text and Text:match('(%d+)/zar') then
 if Text and Text:match('(%d+)/sour') then
 local UserId = Text:match('(%d+)/sour')
 if tonumber(IdUser) == tonumber(UserId) then
-au ={type = "photo",media = "https://t.me/S_a_i_d_i/2749",caption = '*𓄼• ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹*\n',parse_mode = "Markdown"}     
+au ={type = "photo",media = "https://t.me/DEV_JABWA/190",caption = '*𓄼• ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹*\n',parse_mode = "Markdown"}     
 local Jabwa = bot.getUser(Sudo_Id) 
 local bain = bot.getUser(IdUser)
 keyboard = {} 
@@ -26668,7 +26657,7 @@ keyboard.inline_keyboard = {
 {text = '𓄼• ᴍʏ ᴅᴇᴠ •𓄹', callback_data=IdUser.."/sodev"},{text = '𓄼• ᴍʏ ᴄʜᴀɴɴᴇʟ •𓄹', callback_data=IdUser.."/soch"},
 },
 {
-{text = '𓄼• الــبــوت •𓄹', url = "t.me/"..UserBot.."?start"},{text = '𓄼• الـمـطـور •??', url = "https://t.me/"..Jabwa.username..""},
+{text = '𓄼• الــبــوت •𓄹', url = "t.me/"..UserBot.."?start"},{text = '𓄼• الـمـطـور •𓄹', url = "https://t.me/"..Jabwa.username..""},
 },
 {
 {text = bain.first_name, url = "https://t.me/"..bain.username..""},
@@ -26684,7 +26673,7 @@ end
 if Text and Text:match('(%d+)/sodev') then
 local UserId = Text:match('(%d+)/sodev')
 if tonumber(IdUser) == tonumber(UserId) then
-au ={type = "photo",media = "https://t.me/S_a_i_d_i/2749",caption = '*𓄼• ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹*\n',parse_mode = "Markdown"}     
+au ={type = "photo",media = "https://t.me/DEV_JABWA/190",caption = '*𓄼• ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹*\n',parse_mode = "Markdown"}     
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
@@ -26704,7 +26693,7 @@ end
 if Text and Text:match('(%d+)/soch') then
 local UserId = Text:match('(%d+)/soch')
 if tonumber(IdUser) == tonumber(UserId) then
-au ={type = "photo",media = "https://t.me/S_a_i_d_i/2749٨٧٨٧٧٨٨٩",caption = '*𓄼• ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹*\n',parse_mode = "Markdown"}     
+au ={type = "photo",media = "https://t.me/DEV_JABWA/190",caption = '*𓄼• ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹*\n',parse_mode = "Markdown"}     
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
@@ -26813,22 +26802,22 @@ local mm = Msg_id/2097152/0.5
 https.request("http://api.telegram.org/bot"..Token.."/editmessagemedia?chat_id="..ChatId.."&message_id="..mm.."&media="..JSON.encode(au).."&reply_markup="..JSON.encode(keyboard))
 end 
 end
-if Text and Text:match('(%d+)/MyJeka') then
-local UserId = Text:match('(%d+)/MyJeka')
+if Text and Text:match('(%d+)/bansn') then
+local UserId = Text:match('(%d+)/bansn')
 if tonumber(IdUser) == tonumber(UserId) then
 au ={type = "photo",media = "https://t.me/Jeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
-{text = 'الــقــنــوات ⚙', callback_data=IdUser.."/Jeka1"},{text = 'الــبــارات ❇️', callback_data=IdUser.."/Jeka2"},
+{text = 'الــقــنــوات ⚙', callback_data=IdUser.."/bssbldm"},{text = 'الــبــارات ❇️', callback_data=IdUser.."/nkebsb"},
 },
 }
 local mm = Msg_id/2097152/0.5
 https.request("http://api.telegram.org/bot"..Token.."/editmessagemedia?chat_id="..ChatId.."&message_id="..mm.."&media="..JSON.encode(au).."&reply_markup="..JSON.encode(keyboard))
 end 
 end
-if Text and Text:match('(%d+)/Jeka1') then
-local UserId = Text:match('(%d+)/Jeka1')
+if Text and Text:match('(%d+)/bssbldm') then
+local UserId = Text:match('(%d+)/bssbldm')
 if tonumber(IdUser) == tonumber(UserId) then
 au ={type = "photo",media = "https://t.me/Jeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
 keyboard = {} 
@@ -26837,15 +26826,15 @@ keyboard.inline_keyboard = {
 {text = '･ َِᥴُ ِِِꪋَٖ ꪶَِٰ ꪑَٖ ☕️َِٖ🌿.', url = "http://t.me/UUJEA"},
 },
 {
-{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', callback_data=IdUser.."/MyJeka"},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', callback_data=IdUser.."/bansn"},
 },
 }
 local mm = Msg_id/2097152/0.5
 https.request("http://api.telegram.org/bot"..Token.."/editmessagemedia?chat_id="..ChatId.."&message_id="..mm.."&media="..JSON.encode(au).."&reply_markup="..JSON.encode(keyboard))
 end 
 end
-if Text and Text:match('(%d+)/Jeka2') then
-local UserId = Text:match('(%d+)/Jeka2')
+if Text and Text:match('(%d+)/nkebsb') then
+local UserId = Text:match('(%d+)/nkebsb')
 if tonumber(IdUser) == tonumber(UserId) then
 au ={type = "photo",media = "https://t.me/Jeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
 keyboard = {} 
@@ -26854,7 +26843,7 @@ keyboard.inline_keyboard = {
 {text = '⌯ 𓆩✘𝑻𝑬𝑨𝑴 𝑲𝑨𝑹𝑴𝑶𝒁✘𓆪 ⌯', url = "http://t.me/TEAM_KARMOOZ"},
 },
 {
-{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', callback_data=IdUser.."/MyJeka"},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', callback_data=IdUser.."/bansn"},
 },
 }
 local mm = Msg_id/2097152/0.5
@@ -26868,9 +26857,9 @@ local UserInfo = bot.getUser(IdUser)
 local Teext = '- ['..UserInfo.first_name..'](tg://user?id='..IdUser..')'
 if tonumber(GetMahibes) == tonumber(NumMahibes) then
 Redis:incrby(Saidi.."Num:Add:Games"..ChatId..IdUser, 1)  
-MahibesText = Teext..'\n* ✧ الف مبروك حظك حلو اليوم\n ✧  فزت ويانه وطلعت المحيبس  باليد رقم {'..NumMahibes..'}*'
+MahibesText = Teext..'\n* ✧ الف مبروك حظك حلو اليوم\n ✧  فزت ويانه وطلعت المحيبس  باليد رقم『 '..NumMahibes..'}*'
 else
-MahibesText = Teext..'\n* ✧ للاسف لقد خسرت المحيبس باليد رقم {'..NumMahibes..'}\n ✧  جرب حضك ويانه مره اخره*'
+MahibesText = Teext..'\n* ✧ للاسف لقد خسرت المحيبس باليد رقم『 '..NumMahibes..'}\n ✧  جرب حضك ويانه مره اخره*'
 end
 return edit(ChatId,Msg_id,MahibesText, 'md', true, false, reply_markup)
 end
@@ -26962,7 +26951,7 @@ data = {
 {text = 'اوامر التسليه', data = IdUser..'/helpts'},
 },
 {
-{text = 'القائمه الرئيسيه', data = IdUser..'/helpall'},
+{text = 'القائمه الرئيسيه ⚙️', data = IdUser..'/helpall'},
 },
 {
 {text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
@@ -27022,7 +27011,7 @@ data = {
 {text = 'اوامر التسليه', data = IdUser..'/helpts'},
 },
 {
-{text = 'القائمه الرئيسيه', data = IdUser..'/helpall'},
+{text = 'القائمه الرئيسيه ⚙️', data = IdUser..'/helpall'},
 },
 {
 {text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
@@ -27111,7 +27100,7 @@ data = {
 {text = 'اوامر التسليه', data = IdUser..'/helpts'},
 },
 {
-{text = 'القائمه الرئيسيه', data = IdUser..'/helpall'},
+{text = 'القائمه الرئيسيه ⚙️', data = IdUser..'/helpall'},
 },
 {
 {text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
@@ -27196,7 +27185,7 @@ data = {
 {text = 'اوامر التسليه', data = IdUser..'/helpts'},
 },
 {
-{text = 'القائمه الرئيسيه', data = IdUser..'/helpall'},
+{text = 'القائمه الرئيسيه ⚙️', data = IdUser..'/helpall'},
 },
 {
 {text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
@@ -27255,7 +27244,7 @@ data = {
 {text = 'اوامر التسليه', data = IdUser..'/helpts'},
 },
 {
-{text = 'القائمه الرئيسيه', data = IdUser..'/helpall'},
+{text = 'القائمه الرئيسيه ⚙️', data = IdUser..'/helpall'},
 },
 {
 {text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
@@ -27299,7 +27288,7 @@ data = {
 {text = 'اوامر التسليه', data = IdUser..'/helpts'},
 },
 {
-{text = 'القائمه الرئيسيه', data = IdUser..'/helpall'},
+{text = 'القائمه الرئيسيه ⚙️', data = IdUser..'/helpall'},
 },
 {
 {text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
@@ -27355,7 +27344,7 @@ data = {
 {text = 'اوامر التسليه', data = IdUser..'/helpts'},
 },
 {
-{text = 'القائمه الرئيسيه', data = IdUser..'/helpall'},
+{text = 'القائمه الرئيسيه ⚙️', data = IdUser..'/helpall'},
 },
 {
 {text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
@@ -27747,175 +27736,175 @@ if Text and Text:match('(%d+)/lock_link') then
 local UserId = Text:match('(%d+)/lock_link')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Link"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الروابط").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_spam') then
 local UserId = Text:match('(%d+)/lock_spam')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Spam"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الكلايش").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_keypord') then
 local UserId = Text:match('(%d+)/lock_keypord')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Keyboard"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الكيبورد").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_voice') then
 local UserId = Text:match('(%d+)/lock_voice')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:vico"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الاغاني").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_gif') then
 local UserId = Text:match('(%d+)/lock_gif')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Animation"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل المتحركات").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_files') then
 local UserId = Text:match('(%d+)/lock_files')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Document"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الملفات").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_text') then
 local UserId = Text:match('(%d+)/lock_text')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:text"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الدردشه").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_video') then
 local UserId = Text:match('(%d+)/lock_video')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Video"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الفيديو").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_photo') then
 local UserId = Text:match('(%d+)/lock_photo')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Photo"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الصور").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_username') then
 local UserId = Text:match('(%d+)/lock_username')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:User:Name"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل المعرفات").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_tags') then
 local UserId = Text:match('(%d+)/lock_tags')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:hashtak"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التاك").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_bots') then
 local UserId = Text:match('(%d+)/lock_bots')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Bot:kick"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل البوتات").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_fwd') then
 local UserId = Text:match('(%d+)/lock_fwd')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:forward"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التوجيه").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_audio') then
 local UserId = Text:match('(%d+)/lock_audio')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Audio"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الصوت").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_stikear') then
 local UserId = Text:match('(%d+)/lock_stikear')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Sticker"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الملصقات").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_phone') then
 local UserId = Text:match('(%d+)/lock_phone')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Contact"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الجهات").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_joine') then
 local UserId = Text:match('(%d+)/lock_joine')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Join"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الدخول").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_addmem') then
 local UserId = Text:match('(%d+)/lock_addmem')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:AddMempar"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الاضافه").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_videonote') then
 local UserId = Text:match('(%d+)/lock_videonote')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Unsupported"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل بصمه الفيديو").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_pin') then
 local UserId = Text:match('(%d+)/lock_pin')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."lockpin"..ChatId,(bot.getChatPinnedMessage(ChatId).id or true)) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التثبيت").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_tgservir') then
 local UserId = Text:match('(%d+)/lock_tgservir')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:tagservr"..ChatId,true)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الاشعارات").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_markdaun') then
 local UserId = Text:match('(%d+)/lock_markdaun')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Markdaun"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الماركدون").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_edits') and data.Creator then
 local UserId = Text:match('(%d+)/lock_edits')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:edit"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التعديل").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_games') then
 local UserId = Text:match('(%d+)/lock_games')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:geam"..ChatId,"del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الالعاب").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_flood') then
 local UserId = Text:match('(%d+)/lock_flood')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:hset(Saidi.."Spam:Group:User"..ChatId ,"Spam:User","del")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التكرار").Lock, 'md', true, false, reply_markup)
 end
 end
@@ -27924,126 +27913,126 @@ if Text and Text:match('(%d+)/lock_linkkid') then
 local UserId = Text:match('(%d+)/lock_linkkid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Link"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الروابط").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_spamkid') then
 local UserId = Text:match('(%d+)/lock_spamkid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Spam"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الكلايش").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_keypordkid') then
 local UserId = Text:match('(%d+)/lock_keypordkid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Keyboard"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الكيبورد").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_voicekid') then
 local UserId = Text:match('(%d+)/lock_voicekid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:vico"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الاغاني").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_gifkid') then
 local UserId = Text:match('(%d+)/lock_gifkid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Animation"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل المتحركات").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_fileskid') then
 local UserId = Text:match('(%d+)/lock_fileskid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Document"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الملفات").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_videokid') then
 local UserId = Text:match('(%d+)/lock_videokid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Video"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الفيديو").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_photokid') then
 local UserId = Text:match('(%d+)/lock_photokid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Photo"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الصور").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_usernamekid') then
 local UserId = Text:match('(%d+)/lock_usernamekid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:User:Name"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل المعرفات").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_tagskid') then
 local UserId = Text:match('(%d+)/lock_tagskid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:hashtak"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التاك").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_fwdkid') then
 local UserId = Text:match('(%d+)/lock_fwdkid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:forward"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التوجيه").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_audiokid') then
 local UserId = Text:match('(%d+)/lock_audiokid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Audio"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الصوت").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_stikearkid') then
 local UserId = Text:match('(%d+)/lock_stikearkid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Sticker"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الملصقات").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_phonekid') then
 local UserId = Text:match('(%d+)/lock_phonekid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Contact"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الجهات").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_videonotekid') then
 local UserId = Text:match('(%d+)/lock_videonotekid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Unsupported"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل بصمه الفيديو").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_markdaunkid') then
 local UserId = Text:match('(%d+)/lock_markdaunkid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Markdaun"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الماركدون").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_gameskid') then
 local UserId = Text:match('(%d+)/lock_gameskid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:geam"..ChatId,"ked")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الالعاب").lockKid, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_floodkid') then
 local UserId = Text:match('(%d+)/lock_floodkid')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:hset(Saidi.."Spam:Group:User"..ChatId ,"Spam:User","keed")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التكرار").lockKid, 'md', true, false, reply_markup)
 end
 end
@@ -28051,126 +28040,126 @@ if Text and Text:match('(%d+)/lock_linkktm') then
 local UserId = Text:match('(%d+)/lock_linkktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Link"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الروابط").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_spamktm') then
 local UserId = Text:match('(%d+)/lock_spamktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Spam"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الكلايش").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_keypordktm') then
 local UserId = Text:match('(%d+)/lock_keypordktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Keyboard"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الكيبورد").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_voicektm') then
 local UserId = Text:match('(%d+)/lock_voicektm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:vico"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الاغاني").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_gifktm') then
 local UserId = Text:match('(%d+)/lock_gifktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Animation"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل المتحركات").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_filesktm') then
 local UserId = Text:match('(%d+)/lock_filesktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Document"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الملفات").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_videoktm') then
 local UserId = Text:match('(%d+)/lock_videoktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Video"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الفيديو").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_photoktm') then
 local UserId = Text:match('(%d+)/lock_photoktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Photo"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الصور").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_usernamektm') then
 local UserId = Text:match('(%d+)/lock_usernamektm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:User:Name"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل المعرفات").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_tagsktm') then
 local UserId = Text:match('(%d+)/lock_tagsktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:hashtak"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التاك").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_fwdktm') then
 local UserId = Text:match('(%d+)/lock_fwdktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:forward"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التوجيه").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_audioktm') then
 local UserId = Text:match('(%d+)/lock_audioktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Audio"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الصوت").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_stikearktm') then
 local UserId = Text:match('(%d+)/lock_stikearktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Sticker"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الملصقات").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_phonektm') then
 local UserId = Text:match('(%d+)/lock_phonektm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Contact"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الجهات").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_videonotektm') then
 local UserId = Text:match('(%d+)/lock_videonotektm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Unsupported"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل بصمه الفيديو").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_markdaunktm') then
 local UserId = Text:match('(%d+)/lock_markdaunktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Markdaun"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الماركدون").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_gamesktm') then
 local UserId = Text:match('(%d+)/lock_gamesktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:geam"..ChatId,"ktm")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الالعاب").lockKtm, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_floodktm') then
 local UserId = Text:match('(%d+)/lock_floodktm')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:hset(Saidi.."Spam:Group:User"..ChatId ,"Spam:User","mute")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التكرار").lockKtm, 'md', true, false, reply_markup)
 end
 end
@@ -28178,126 +28167,126 @@ if Text and Text:match('(%d+)/lock_linkkick') then
 local UserId = Text:match('(%d+)/lock_linkkick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Link"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الروابط").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_spamkick') then
 local UserId = Text:match('(%d+)/lock_spamkick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Spam"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الكلايش").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_keypordkick') then
 local UserId = Text:match('(%d+)/lock_keypordkick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Keyboard"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الكيبورد").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_voicekick') then
 local UserId = Text:match('(%d+)/lock_voicekick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:vico"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الاغاني").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_gifkick') then
 local UserId = Text:match('(%d+)/lock_gifkick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Animation"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل المتحركات").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_fileskick') then
 local UserId = Text:match('(%d+)/lock_fileskick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Document"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الملفات").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_videokick') then
 local UserId = Text:match('(%d+)/lock_videokick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Video"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الفيديو").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_photokick') then
 local UserId = Text:match('(%d+)/lock_photokick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Photo"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الصور").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_usernamekick') then
 local UserId = Text:match('(%d+)/lock_usernamekick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:User:Name"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل المعرفات").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_tagskick') then
 local UserId = Text:match('(%d+)/lock_tagskick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:hashtak"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التاك").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_fwdkick') then
 local UserId = Text:match('(%d+)/lock_fwdkick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:forward"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التوجيه").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_audiokick') then
 local UserId = Text:match('(%d+)/lock_audiokick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Audio"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الصوت").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_stikearkick') then
 local UserId = Text:match('(%d+)/lock_stikearkick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Sticker"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الملصقات").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_phonekick') then
 local UserId = Text:match('(%d+)/lock_phonekick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Contact"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الجهات").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_videonotekick') then
 local UserId = Text:match('(%d+)/lock_videonotekick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Unsupported"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل بصمه الفيديو").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_markdaunkick') then
 local UserId = Text:match('(%d+)/lock_markdaunkick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Markdaun"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الماركدون").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_gameskick') then
 local UserId = Text:match('(%d+)/lock_gameskick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:geam"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الالعاب").lockKick, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_floodkick') then
 local UserId = Text:match('(%d+)/lock_floodkick')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:hset(Saidi.."Spam:Group:User"..ChatId ,"Spam:User","kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل التكرار").lockKick, 'md', true, false, reply_markup)
 end
 end
@@ -28305,70 +28294,70 @@ if Text and Text:match('(%d+)/unmute_link') then
 local UserId = Text:match('(%d+)/unmute_link')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Status:Link"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الرابط").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_welcome') then
 local UserId = Text:match('(%d+)/unmute_welcome')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Status:Welcome"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الترحيب").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_Id') then
 local UserId = Text:match('(%d+)/unmute_Id')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Status:Id"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الايدي").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_IdPhoto') then
 local UserId = Text:match('(%d+)/unmute_IdPhoto')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Status:IdPhoto"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الايدي بالصوره").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_ryple') then
 local UserId = Text:match('(%d+)/unmute_ryple')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Status:Reply"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الردود").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_ryplesudo') then
 local UserId = Text:match('(%d+)/unmute_ryplesudo')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Status:ReplySudo"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الردود العامه").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_setadmib') then
 local UserId = Text:match('(%d+)/unmute_setadmib')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Status:SetId"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الرفع").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_kickmembars') then
 local UserId = Text:match('(%d+)/unmute_kickmembars')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Status:BanId"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الطرد - الحظر").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_games') then
 local UserId = Text:match('(%d+)/unmute_games')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Status:Games"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر الالعاب").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unmute_kickme') then
 local UserId = Text:match('(%d+)/unmute_kickme')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Status:KickMe"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تعطيل امر اطردني").unLock, 'md', true, false, reply_markup)
 end
 end
@@ -28376,70 +28365,70 @@ if Text and Text:match('(%d+)/mute_link') then
 local UserId = Text:match('(%d+)/mute_link')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Status:Link"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الرابط").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_welcome') then
 local UserId = Text:match('(%d+)/mute_welcome')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Status:Welcome"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الترحيب").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_Id') then
 local UserId = Text:match('(%d+)/mute_Id')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Status:Id"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الايدي").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_IdPhoto') then
 local UserId = Text:match('(%d+)/mute_IdPhoto')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Status:IdPhoto"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الايدي بالصوره").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_ryple') then
 local UserId = Text:match('(%d+)/mute_ryple')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Status:Reply"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الردود").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_ryplesudo') then
 local UserId = Text:match('(%d+)/mute_ryplesudo')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Status:ReplySudo"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الردود العامه").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_setadmib') then
 local UserId = Text:match('(%d+)/mute_setadmib')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Status:SetId"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الرفع").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_kickmembars') then
 local UserId = Text:match('(%d+)/mute_kickmembars')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Status:BanId"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الطرد - الحظر").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_games') then
 local UserId = Text:match('(%d+)/mute_games')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Status:Games"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر الالعاب").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/mute_kickme') then
 local UserId = Text:match('(%d+)/mute_kickme')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Status:KickMe"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'listallAddorrem'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'listallAddorrem'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر اطردني").unLock, 'md', true, false, reply_markup)
 end
 end
@@ -28461,7 +28450,7 @@ y = y + 1
 end
 end
 end
-bot.answerCallbackQuery(data.id, " ✧ تم ترقيه {"..y.."} ادمنيه \n ✧  تم ترقية المالك ", true)
+bot.answerCallbackQuery(data.id, " ✧ تم ترقيه『 "..y.." 』ادمنيه \n ✧ تم ترقية المالك ", true)
 end
 end
 if Text and Text:match('(%d+)/LockAllGroup@(.*)') then
@@ -28769,10 +28758,10 @@ data = {
 {text = 'تعطيل تنبيه الاسماء', data = IdUser..'/'.. 'unmute_namemy'},{text = 'تفعيل تنبيه الاسماء', data = IdUser..'/'.. 'mute_namemy'},
 },
 {
-{text = 'القائمه الرئيسيه', data = IdUser..'/helpall'},
+{text = 'القائمه الرئيسيه ⚙️', data = IdUser..'/helpall'},
 },
 {
-{text = '- اخفاء الامر ', data ='/delAmr'}
+{text = 'اخفاء الامر 🔰', data ='/delAmr'}
 },
 }
 }
@@ -28826,13 +28815,13 @@ data = {
 {text = GetSetieng(ChatId).flood, data = '&'},{text = 'التكرار : ', data =IdUser..'/'.. 'Status_flood'},
 },
 {
-{text = '- الرجوع ... ', data =IdUser..'/'.. 'NoNextSeting'}
+{text = 'عوده 🔙', data =IdUser..'/'.. 'NoNextSeting'}
 },
 {
-{text = 'القائمه الرئيسيه', data = IdUser..'/helpall'},
+{text = 'القائمه الرئيسيه ⚙️', data = IdUser..'/helpall'},
 },
 {
-{text = '- اخفاء الامر ', data ='/delAmr'}
+{text = 'اخفاء الامر 🔰', data ='/delAmr'}
 },
 }
 }
@@ -28895,13 +28884,13 @@ data = {
 {text = GetSetieng(ChatId).alphsar, data = '&'},{text = 'الفشار : ', data =IdUser..'/'.. 'Status_alphsar'},
 },
 {
-{text = '- التالي ... ', data =IdUser..'/'.. 'NextSeting'}
+{text = 'التالي ↪️', data =IdUser..'/'.. 'NextSeting'}
 },
 {
-{text = 'القائمه الرئيسيه', data = IdUser..'/helpall'},
+{text = 'القائمه الرئيسيه ⚙️', data = IdUser..'/helpall'},
 },
 {
-{text = '- اخفاء الامر ', data ='/delAmr'}
+{text = 'اخفاء الامر 🔰', data ='/delAmr'}
 },
 }
 }
@@ -28929,7 +28918,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الروابط', data =UserId..'/'.. 'unlock_link'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -28946,7 +28935,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الفارسيه', data =UserId..'/'.. 'unlock_Status_farsia'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -28963,7 +28952,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح التفليش', data =UserId..'/'.. 'unlock_Status_tphlesh'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -28980,7 +28969,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الكفر', data =UserId..'/'.. 'unlock_Status_alkfr'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -28997,7 +28986,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الفشار', data =UserId..'/'.. 'unlock_Status_alphsar'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29017,7 +29006,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الكلايش', data =UserId..'/'.. 'unlock_spam'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29037,7 +29026,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الكيبورد', data =UserId..'/'.. 'unlock_keypord'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29057,7 +29046,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الاغاني', data =UserId..'/'.. 'unlock_voice'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29077,7 +29066,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح المتحركه', data =UserId..'/'.. 'unlock_gif'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29097,7 +29086,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الملقات', data =UserId..'/'.. 'unlock_files'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29114,7 +29103,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الدردشه', data =UserId..'/'.. 'unlock_text'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29134,7 +29123,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الفيديو', data =UserId..'/'.. 'unlock_video'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29154,7 +29143,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الصور', data =UserId..'/'.. 'unlock_photo'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29174,7 +29163,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح المعرفات', data =UserId..'/'.. 'unlock_username'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29194,7 +29183,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح التاك', data =UserId..'/'.. 'unlock_tags'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29211,7 +29200,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح البوتات', data =UserId..'/'.. 'unlock_bots'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29231,7 +29220,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح التوجيه', data =UserId..'/'.. 'unlock_link'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29251,7 +29240,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الصوت', data =UserId..'/'.. 'unlock_audio'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29271,7 +29260,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الملصقات', data =UserId..'/'.. 'unlock_stikear'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29291,7 +29280,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الجهات', data =UserId..'/'.. 'unlock_phone'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29308,7 +29297,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الدخول', data =UserId..'/'.. 'unlock_joine'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29325,7 +29314,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الاضافه', data =UserId..'/'.. 'unlock_addmem'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29345,7 +29334,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح السيلفي', data =UserId..'/'.. 'unlock_videonote'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29362,7 +29351,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح التثبيت', data =UserId..'/'.. 'unlock_pin'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29379,7 +29368,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الاشعارات', data =UserId..'/'.. 'unlock_tgservir'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29399,7 +29388,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الماركداون', data =UserId..'/'.. 'unlock_markdaun'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29416,7 +29405,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح التعديل', data =UserId..'/'.. 'unlock_edits'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29436,7 +29425,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح الالعاب', data =UserId..'/'.. 'unlock_games'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29457,7 +29446,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {text = 'فتح التكرار', data =UserId..'/'.. 'unlock_flood'},
 },
 {
-{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},
 },
 }
 }
@@ -29585,14 +29574,14 @@ elseif Text and Text:match('(%d+)/unlock_link') then
 local UserId = Text:match('(%d+)/unlock_link')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Link"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الروابط").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_Status_farsia') then
 local UserId = Text:match('(%d+)/unlock_Status_farsia')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:farsia"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الفارسيخ").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_Status_tphlesh') then
@@ -29600,28 +29589,28 @@ local UserId = Text:match('(%d+)/unlock_Status_tphlesh')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:tphlesh"..ChatId)  
 Redis:del(Saidi.."Status:IdPhoto"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح التفليش").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_Status_alkfr') then
 local UserId = Text:match('(%d+)/unlock_Status_alkfr')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:alkfr"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الكفر").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_Status_alphsar') then
 local UserId = Text:match('(%d+)/unlock_Status_alphsar')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:phshar"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الفشار").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_Status_farsia') then
 local UserId = Text:match('(%d+)/lock_Status_farsia')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:farsia"..ChatId,true)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفل الفارسيخ").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_Status_tphlesh') and data.Manger then
@@ -29629,189 +29618,189 @@ local UserId = Text:match('(%d+)/lock_Status_tphlesh')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:tphlesh"..ChatId,true)
 Redis:set(Saidi.."Status:IdPhoto"..ChatId,true)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفل التفليش").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_Status_alkfr') then
 local UserId = Text:match('(%d+)/lock_Status_alkfr')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:alkfr"..ChatId,true)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفل الكفر").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_Status_alphsar') then
 local UserId = Text:match('(%d+)/lock_Status_alphsar')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:phshar"..ChatId,true)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفل الفشار").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_spam') then
 local UserId = Text:match('(%d+)/unlock_spam')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Spam"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الكلايش").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_keypord') then
 local UserId = Text:match('(%d+)/unlock_keypord')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Keyboard"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الكيبورد").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_voice') then
 local UserId = Text:match('(%d+)/unlock_voice')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:vico"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الاغاني").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_gif') then
 local UserId = Text:match('(%d+)/unlock_gif')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Animation"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح المتحركات").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_files') then
 local UserId = Text:match('(%d+)/unlock_files')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Document"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الملفات").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_text') then
 local UserId = Text:match('(%d+)/unlock_text')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:text"..ChatId,true) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الدردشه").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_video') then
 local UserId = Text:match('(%d+)/unlock_video')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Video"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الفيديو").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_photo') then
 local UserId = Text:match('(%d+)/unlock_photo')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Photo"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الصور").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_username') then
 local UserId = Text:match('(%d+)/unlock_username')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:User:Name"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح المعرفات").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_tags') then
 local UserId = Text:match('(%d+)/unlock_tags')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:hashtak"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح التاك").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_bots') then
 local UserId = Text:match('(%d+)/unlock_bots')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Bot:kick"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح البوتات").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_fwd') then
 local UserId = Text:match('(%d+)/unlock_fwd')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:forward"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح التوجيه").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_audio') then
 local UserId = Text:match('(%d+)/unlock_audio')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Audio"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الصوت").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_stikear') then
 local UserId = Text:match('(%d+)/unlock_stikear')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Sticker"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الملصقات").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_phone') then
 local UserId = Text:match('(%d+)/unlock_phone')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Contact"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الجهات").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_joine') then
 local UserId = Text:match('(%d+)/unlock_joine')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Join"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الدخول").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_addmem') then
 local UserId = Text:match('(%d+)/unlock_addmem')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:AddMempar"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الاضافه").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_videonote') then
 local UserId = Text:match('(%d+)/unlock_videonote')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Unsupported"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح بصمه الفيديو").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_pin') then
 local UserId = Text:match('(%d+)/unlock_pin')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."lockpin"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح التثبيت").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_tgservir') then
 local UserId = Text:match('(%d+)/unlock_tgservir')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:tagservr"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الاشعارات").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_markdaun') then
 local UserId = Text:match('(%d+)/unlock_markdaun')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:Markdaun"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الماركدون").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_edits') then
 local UserId = Text:match('(%d+)/unlock_edits')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:edit"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح التعديل").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_games') then
 local UserId = Text:match('(%d+)/unlock_games')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."Lock:geam"..ChatId)  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح الالعاب").unLock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/unlock_flood') then
 local UserId = Text:match('(%d+)/unlock_flood')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:hdel(Saidi.."Spam:Group:User"..ChatId ,"Spam:User")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم فتح التكرار").unLock, 'md', true, false, reply_markup)
 end
 end
@@ -29856,7 +29845,7 @@ data = {
 {text="المكتومين",data=UserId..'/SilentGroupGroup'},{text="المحظورين",data=UserId..'/BanGroup'},
 },
 {
-{text = "- اخفاء الامر ", data =UserId.."/delAmr"}
+{text = "اخفاء الامر 🔰", data =UserId.."/delAmr"}
 },
 }
 }
@@ -30008,63 +29997,63 @@ elseif Text and Text:match('(%d+)/Delkholat') then
 local UserId = Text:match('(%d+)/Delkholat')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."kholat:Group"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id," ✧ تم مسح جميع المطايه", 'md', false)
 end
 elseif Text and Text:match('(%d+)/Delwtk') then
 local UserId = Text:match('(%d+)/Delwtk')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."wtka:Group"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id," ✧ تم مسح جميع التاج", 'md', false)
 end
 elseif Text and Text:match('(%d+)/Deltwhd') then
 local UserId = Text:match('(%d+)/Deltwhd')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."twhd:Group"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id," ✧ تم مسح جميع الملوك", 'md', false)
 end
 elseif Text and Text:match('(%d+)/Delklb') then
 local UserId = Text:match('(%d+)/Delklb')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."klb:Group"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id," ✧ تم مسح جميع الجلاب", 'md', false)
 end
 elseif Text and Text:match('(%d+)/Delmar') then
 local UserId = Text:match('(%d+)/Delmar')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."mar:Group"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id," ✧ تم مسح جميع الطامسين", 'md', false)
 end
 elseif Text and Text:match('(%d+)/Delsmb') then
 local UserId = Text:match('(%d+)/Delsmb')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."smb:Group"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id," ✧ تم مسح جميع اللوكيه", 'md', false)
 end
 elseif Text and Text:match('(%d+)/Del2rd') then
 local UserId = Text:match('(%d+)/Del2rd')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."2rd:Group"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id," ✧ تم مسح جميع الثولان", 'md', false)
 end
 elseif Text and Text:match('(%d+)/Del3ra') then
 local UserId = Text:match('(%d+)/Del3ra')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."3ra:Group"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id," ✧ تم مسح جميع الزواحف", 'md', false)
 end
 elseif Text and Text:match('(%d+)/Del8by') then
 local UserId = Text:match('(%d+)/Del8by')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:del(Saidi.."8by:Group"..ChatId) 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '- رجوع', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id," ✧ تم مسح جميع الأغبياء", 'md', false)
 end
 elseif Text and Text:match('(%d+)/BanAll') and data.Asasy then
