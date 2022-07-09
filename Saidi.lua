@@ -1366,11 +1366,6 @@ if msg.content.luatele == "messageChatAddMembers" then
 Redis:incr(Saidi.."Num:Add:Memp"..msg_chat_id..":"..msg.sender_id.user_id) 
 end
 
-if text and Redis:sismember("banserver",msg.sender_id.user_id) then
-bot.deleteMessages(msg.chat_id,{[1]= msg.id})
-bot.setChatMemberStatus(msg.chat_id,msg.sender_id.user_id,'banned',0)
-end
-
 if msg.content.luatele == "messageChatJoinByLink" or msg.content.luatele == "messageChatAddMembers" then
 if Redis:get(Saidi.."Status:Welcome"..msg_chat_id) then
 local UserInfo = bot.getUser(msg.sender_id.user_id)
