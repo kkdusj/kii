@@ -6340,390 +6340,6 @@ send(msg_chat_id,msg_id,'هذا ليس فيديو')
 end
 end
 
-if text then
-list = {"همسه"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'* ✧ اهلا بك عزيزي \n ✧ لارسال الهمسه اكتب يوزر البوت + الهمسه + يوزر العضو اللي هتعمله همسه \n ✧ مثال @Bot_JABWA_Bot هلا @JABWA *',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"هاي","هيي"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[خالتك جرت ورايا 😹💔](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"السلام عليكم","سلام عليكم"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[وعليكم السلام 🌝💜](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"مع سلامه","سلام"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[مع الف سلامه يقلبي متجيش تاني 💔😉](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"برايفت ","تع برايفت"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[خدوني معاكم برايفت والنبي 🥺💔](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"النبي","صلي علي النبي"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[عليه الصلاه والسلام 🌝💖](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"نعم"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[نعم الله عليك 🌚❤️](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"🙄"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[ نزل عينك تحت كدا علشان هتخاد علي قفاك 😒❤️](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"😂"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[ضحكتك عثل زيكك ينوحيي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"😹"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[ضحكتك عثل زيكك ينوحيي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"🌝"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[القمر ده شبهك 🙂❤️](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"💋"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[انا عايز مح انا كمان 🥺💔](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"😭"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[بتعيط تيب لي طيب 😥](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"🥺"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[متزعلش بحبك 😻💖](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"😒"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[عدل وشك ونت بتكلمني 😒🙄](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"مح","بوسه"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[محات حياتي يروحي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"هلا"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[هلا بيك ياروحي 👋](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"هشش"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[بنهش كتاكيت احنا هنا ولا اي 🐣😹](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"الحمد الله"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[دايما ياحبيبي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"بف"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[وحيات امك ياكبتن خدوني معاكو بيف 🥺💔](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"خاص"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[ونجيب اشخاص 😂😉](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"الخير"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[انت الخير يعمري 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"صباح النور"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[صباح العسل 😻💖](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"حصل"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[خخخ امال 😹](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"اه"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[اه اي يا قدع عيب 😹??](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"كسم"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[عيب ياوسخ 🙄💔](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"بوتي"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[روح وعقل بوتك 🥺💔](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"متيجي"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[لا عيب بتكسف 😹💔](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"تيجي"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[مش هروح..😹👻](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"هيح"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[صح النوم 😹💔](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"نورت"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[ده نورك ي قلبي 🌝💙](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"باي"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[ع فين لوين رايح وسايبنى 🥺💔](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"ويت"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[اي الثقافه دي 😒😹](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"خخخ"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[اهدا يوحش ميصحش كدا 😒😹](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"شكر"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[العفو ياروحي 🙈](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"حلو"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[انت الي حلو ياقمر 🤤🌝](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"بموت"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[موت بعيد م ناقصين مصايب 😑😂](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"اي"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[جتك اوهه م سامع ولا ايي 😹👻](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"طيب","تيب"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[فرح خالتك قريب 😹💋💃🏻](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"حتر","حاضر"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[حضرلك الخير يارب 🙂❤️](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"جيت"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[لف ورجع تانى مشحوار 😂🚶‍♂👻](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"بخ"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[ايوه خضتني ياسمك اي 🥺💔](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"حبيبي","حبيبتي"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[اوه ياه 🌝😂](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"تمام","تمم"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[امك اسمها احلام 😹😹](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"خلاص"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[خلصتت روحكك يبعيد 😹💔](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"سي في"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[كفيه شقط سيب حاجه لغيرك 😎😂](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"ميسد"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[بسحك فيه 😹💖](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
-if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
-list = {"مور"}
-for k,v in pairs(list) do
-if string.find(text,v) ~= nil then
-return bot.sendText(msg_chat_id,msg_id,'[اي شغل المحن ده 🙄](t.me/S_a_i_d_i)',"md",true)  
-end
-end
-end
  
 if text == "نسبه الحب" or text == "نسبه حب" and msg.reply_to_message_id ~= 0 then
 if ChannelJoinch(msg) == false then
@@ -13414,6 +13030,390 @@ local rep = msg.id/2097152/0.5
 https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id="..msg.chat_id.."&reply_to_message_id="..rep.."&photo="..photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id.."&caption="..URL.escape("٭ عدد صورك هو "..photo.total_count.." صوره").."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 else
 return send(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
+end
+end
+end
+if text then
+list = {"همسه"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'* ✧ اهلا بك عزيزي \n ✧ لارسال الهمسه اكتب يوزر البوت + الهمسه + يوزر العضو اللي هتعمله همسه \n ✧ مثال @Bot_JABWA_Bot هلا @JABWA *',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"هاي","هيي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[خالتك جرت ورايا 😹💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"السلام عليكم","سلام عليكم"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[وعليكم السلام 🌝💜](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"مع سلامه","سلام"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[مع الف سلامه يقلبي متجيش تاني 💔😉](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"برايفت ","تع برايفت"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[خدوني معاكم برايفت والنبي 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"النبي","صلي علي النبي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[عليه الصلاه والسلام 🌝💖](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"نعم"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[نعم الله عليك 🌚❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"🙄"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ نزل عينك تحت كدا علشان هتخاد علي قفاك 😒❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"😂"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ضحكتك عثل زيكك ينوحيي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"😹"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ضحكتك عثل زيكك ينوحيي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"🌝"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[القمر ده شبهك 🙂❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"💋"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[انا عايز مح انا كمان 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"😭"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[بتعيط تيب لي طيب 😥](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"🥺"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[متزعلش بحبك 😻💖](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"😒"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[عدل وشك ونت بتكلمني 😒🙄](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"مح","بوسه"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[محات حياتي يروحي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"هلا"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[هلا بيك ياروحي 👋](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"هشش"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[بنهش كتاكيت احنا هنا ولا اي 🐣😹](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"الحمد الله"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[دايما ياحبيبي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"بف"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[وحيات امك ياكبتن خدوني معاكو بيف 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"خاص"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ونجيب اشخاص 😂😉](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"الخير"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[انت الخير يعمري 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"صباح النور"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[صباح العسل 😻💖](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"حصل"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[خخخ امال 😹](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"اه"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[اه اي يا قدع عيب 😹??](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"كسم"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[عيب ياوسخ 🙄💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"بوتي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[روح وعقل بوتك 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"متيجي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[لا عيب بتكسف 😹💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"تيجي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[مش هروح..😹👻](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"هيح"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[صح النوم 😹💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"نورت"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ده نورك ي قلبي 🌝💙](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"باي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ع فين لوين رايح وسايبنى 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"ويت"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[اي الثقافه دي 😒😹](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"خخخ"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[اهدا يوحش ميصحش كدا 😒😹](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"شكر"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[العفو ياروحي 🙈](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"حلو"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[انت الي حلو ياقمر 🤤🌝](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"بموت"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[موت بعيد م ناقصين مصايب 😑😂](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"اي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[جتك اوهه م سامع ولا ايي 😹👻](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"طيب","تيب"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[فرح خالتك قريب 😹💋💃🏻](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"حتر","حاضر"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[حضرلك الخير يارب 🙂❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"جيت"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[لف ورجع تانى مشحوار 😂🚶‍♂👻](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"بخ"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ايوه خضتني ياسمك اي 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"حبيبي","حبيبتي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[اوه ياه 🌝😂](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"تمام","تمم"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[امك اسمها احلام 😹😹](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"خلاص"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[خلصتت روحكك يبعيد 😹💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"سي في"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[كفيه شقط سيب حاجه لغيرك 😎😂](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"ميسد"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[بسحك فيه 😹💖](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"مور"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[اي شغل المحن ده 🙄](t.me/S_a_i_d_i)',"md",true)  
 end
 end
 end
