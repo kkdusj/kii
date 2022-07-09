@@ -1271,6 +1271,18 @@ if msg.The_Controller == 1 or msg.The_Controller == 2 or msg.The_Controller == 3
 msg.Special = true
 end
 
+if msg.content.luatele == "messageChatJoinByLink" or msg.content.luatele == "messageChatAddMembers" then
+if Redis:get(Saidi.."Status:Welcome"..msg_chat_id) then
+local RinkBot = ''..msg.Name_Controller
+local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
+local Get_Chat = bot.getChat(msg_chat_id)
+local UserInfo = bot.getUser(msg.sender_id.user_id)
+local photo = bot.getUserProfilePhotos(msg.sender_id.user_id)
+local Jabwa = '✧ مرحبا سيدي -> '..RinkBot..'\n✧ نورت الجروب -> ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ['..UserInfo.first_name..'](tg://user?id='..UserInfo.id..') '
+local msgg = msg_id/2097152/0.5
+https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id=" .. msg_chat_id .. "&photo="..photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id.."&caption=".. URL.escape(Jabwa).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(data))
+end
+end
 if msg.sender_id.luatele ~= "messageSenderChat" then
 if Statusrestricted(msg.chat_id,msg.sender_id.user_id).KtmAll == true then
 return bot.deleteMessages(msg.chat_id,{[1]= msg.id})
@@ -4766,6 +4778,40 @@ keyboard.inline_keyboard = {
 msgg = msg.id/2097152/0.5
 https.request("https://api.telegram.org/bot"..Token.."/sendMessage?chat_id=" .. msg_chat_id .. "&text=".. URL.escape(news).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
 end
+if text == 'الجروبات' or text == 'الجروبات ✧' then
+if not msg.Asasy then 
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(1)..' }* ',"md",true)  
+end
+if ChannelJoinch(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Saidi..'Chat:Channel:Join'..msg.chat_id)}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+if ChannelJoin(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧ عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+local G = "جروبات البوت ✧ \n"
+local list = Redis:smembers(Saidi..'ChekBotAdd')  
+for k,v in pairs(list) do  
+local Get_Chat = bot.getChat(v)
+local Info_Chats = bot.getSupergroupFullInfo(v)
+if Info_Chats and Info_Chats.invite_link then
+link = Info_Chats.invite_link.invite_link
+else
+link = "لا يوجد" 
+end
+if Get_Chat and Get_Chat.title then
+title = Get_Chat.title
+else 
+title = "لا يوجد" 
+end
+G = G.." اسم الجروب -> "..title.."\n ايدي الجروب -> "..v.."\n رابط الجروب -> "..link.."\n\n"
+end
+local File = io.open('./'..UserBot..'.txt', "w")
+File:write(G)
+File:close()
+bot.sendDocument(msg_chat_id,msg_id,'./'..UserBot..'.txt','* ✧ تم جلب الجروبات*\n', 'md')
+end
 if text == 'تفعيل' and msg.Dev then
 if msg.can_be_deleted_for_all_users == false then
 return send(msg_chat_id,msg_id,"\n* ✧ عذرآ البوت ليس ادمن في الجروب يرجى ترقيته وتفعيل الصلاحيات له *","md",true)  
@@ -6029,7 +6075,7 @@ if not msg.Devss then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(2)..' }* ',"md",true)  
 end
 local list = Redis:smembers(Saidi.."lkz:gamebot:new1")
-t = " ✧ الالغاز ↑↓ \n ꔹ━━━━━ꔹ𝐒𝐀𝐈??𝐈ꔹ━━━━━ꔹ "
+t = " ✧ الالغاز ↑↓ \n ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ "
 for k,v in pairs(list) do
 t = t..""..k.."-> (["..v.."])\n"
 end
@@ -12775,7 +12821,67 @@ end
 end
 send(msg_chat_id,msg_id,listall,"md",true)  
 end
-
+if Redis:get(Saidi.."addchannel"..msg.sender_id.user_id) == "on" then
+if text and text:match("^@[%a%d_]+$") then
+local m , res = https.request("http://api.telegram.org/bot"..Token.."/getchat?chat_id="..text)
+data = json:decode(m)
+if res == 200 then
+ch = data.result.id
+Redis:set(Saidi.."chadmin"..msg_chat_id,ch) 
+send(msg_chat_id,msg_id," ✧ تم حفظ ايدي القناه","md",true)  
+else
+send(msg_chat_id,msg_id," ✧ المعرف خطأ","md",true)  
+end
+elseif text and text:match('^-100(%d+)$') then
+ch = text
+Redis:set(Saidi.."chadmin"..msg_chat_id,ch) 
+send(msg_chat_id,msg_id," ✧ تم حفظ ايدي القناه","md",true)  
+elseif text and not text:match('^-100(%d+)$') then
+send(msg_chat_id,msg_id," ✧ الايدي خطأ","md",true)  
+end
+Redis:del(Saidi.."addchannel"..msg.sender_id.user_id)
+end
+if text == "القناه المضافه" then
+if Redis:get(Saidi.."chadmin"..msg_chat_id) then
+send(msg_chat_id,msg_id,Redis:get(Saidi.."chadmin"..msg_chat_id),"md",true)  
+else 
+send(msg_chat_id,msg_id," ✧ لا توجد قناه ","md",true)  
+end 
+end
+if text == "حذف القناه" then
+if not msg.Admin then
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(7)..' }* ',"md",true)  
+end
+if ChannelJoinch(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Saidi..'Chat:Channel:Join'..msg.chat_id)}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+if ChannelJoin(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+if Redis:get(Saidi.."chadmin"..msg_chat_id) then
+Redis:del(Saidi.."chadmin"..msg_chat_id) 
+send(msg_chat_id,msg_id," ✧ تم حذف القناه بنجاح","md",true)  
+else 
+send(msg_chat_id,msg_id," ✧ لا توجد قناه ","md",true)  
+end 
+end
+if text == "اضف قناه" then
+if not msg.Admin then
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(7)..' }* ',"md",true)  
+end
+if ChannelJoinch(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Saidi..'Chat:Channel:Join'..msg.chat_id)}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+if ChannelJoin(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+Redis:set(Saidi.."addchannel"..msg.sender_id.user_id,"on") 
+send(msg_chat_id,msg_id," ✧ ارسل يوزر او ايدي القناه","md",true)  
+end
 if text == "قفل ارسال القناة" or text == "قفل القناه" or text == "قفل القنوات" then 
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
@@ -24509,7 +24615,7 @@ data = {
 {text = 'تفعيل الاشتراك الاجباري ✧',type = 'text'},{text = 'تعطيل الاشتراك الاجباري ✧',type = 'text'},
 },
 {
-{text = 'الاحصائيات ✧',type = 'text'},
+{text = 'الاحصائيات ✧',type = 'text'},{text = 'الجروبات ✧',type = 'text'},
 },
 {
 {text = "ضع صوره للترحيب ✧",type = 'text'},{text = 'معلومات التنصيب ✧',type = 'text'},
