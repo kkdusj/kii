@@ -7918,13 +7918,6 @@ if not Redis:get(Saidi.."Status:Id"..msg_chat_id) then
 return false
 end
 local UserInfo = bot.getUser(msg.sender_id.user_id)
-local InfoUser = bot.getUserFullInfo(msg.sender_id.user_id)
-if InfoUser.bio then
-Bio = FlterBio(InfoUser.bio)
-else
-Bio = 'لا يوجد'
-end
-local nameuser = FlterBio(UserInfo.first_name)
 local photo = bot.getUserProfilePhotos(msg.sender_id.user_id)
 local UserId = msg.sender_id.user_id
 local RinkBot = Redis:get(Saidi.."rtba_name:"..msg_chat_id..msg.sender_id.user_id) or Redis:get(Saidi.."rtba_name:"..msg.sender_id.user_id) or msg.Name_Controller
@@ -7934,20 +7927,23 @@ local TotalEdit = Redis:get(Saidi..'Num:Message:Edit'..msg_chat_id..msg.sender_i
 local TotalMsgT = Total_message(TotalMsg) 
 local NumberGames = Redis:get(Saidi.."Num:Add:Games"..msg.chat_id..msg.sender_id.user_id) or 0
 local NumAdd = Redis:get(Saidi.."Num:Add:Memp"..msg.chat_id..":"..msg.sender_id.user_id) or 0
-local Texting = {
-  "جمدان 😉💘",
-  "انت موز كدا لي 👀",
-  " تخليني ♥️",
-  "منور ياقمر 🌜🧐",
-  "غير الصور دي مو حلو",
-  "دغيرها شسالفه",
-  "صورتك فدشي خيالي"
-}
+local Texting = {'〈 جمالك ده طبيعي يولا 🙈💗 〉',"〈 غير بقاا صورتك يا قمر 😻🤍 〉 ","〈 يخرشي علي العسل ده 🥺💔 〉","〈 صورتك ولا صورت القمر 🌙💕 〉","〈 صورتك عثل ينوحيي 🙈🌝 〉",}
 local Description = Texting[math.random(#Texting)]
+local InfoUser = bot.getUserFullInfo(UserId)
+if InfoUser.bio then
+Bio = FlterBio(InfoUser.bio)
+else
+Bio = 'لا يوجد'
+end
 if UserInfo.username then
 UserInfousername = '@'..UserInfo.username..''
 else
 UserInfousername = 'لا يوجد'
+end
+if UserInfo.first_name then
+Name = " "..UserInfo.first_name.." "
+else
+Name = " لا يوجد"
 end
 Get_Is_Id = Redis:get(Saidi.."Set:Id:Groups") or Redis:get(Saidi.."Set:Id:Group"..msg_chat_id)
 if Redis:get(Saidi.."Status:IdPhoto"..msg_chat_id) then
@@ -7964,55 +7960,31 @@ local Get_Is_Id = Get_Is_Id:gsub('#game',NumberGames)
 local Get_Is_Id = Get_Is_Id:gsub('#photos',TotalPhoto) 
 local Get_Is_Id = Get_Is_Id:gsub('#Bio',Bio) 
 if photo.total_count > 0 then
-if not msg.Special and Redis:get(Saidi..'idnotmem'..msg.chat_id)  then
-return send(msg_chat_id,msg_id,
-'\n* ✧ ايديك : ❪'..UserId..
-'❫\n ✧ معرفك : ❪*['..UserInfousername..
-']*❫\n ✧ رتبتك : ❪'..RinkBot..
-'❫\n ✧ رسائلك : ❪'..TotalMsg..
-'❫\n ✧ تعديلاتك : ❪'..TotalEdit..
-'❫\n ✧ تفاعلك : ❪'..TotalMsgT..
-'❫\n ✧ البايو : ❪*['..Bio..
-']*❫*', "md")
-end
 return bot.sendPhoto(msg.chat_id, msg.id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id,Get_Is_Id)
 else
-return send(msg_chat_id,msg_id,Get_Is_Id,"md",true) 
+return bot.sendText(msg_chat_id,msg_id,Get_Is_Id,"md",true) 
 end
 else
 if photo.total_count > 0 then
-if not msg.Special and Redis:get(Saidi..'idnotmem'..msg.chat_id)  then
-return send(msg_chat_id,msg_id,
-'\n* ✧ ايديك : ❪'..UserId..
-'❫\n ✧ معرفك : ❪*['..UserInfousername..
-']*❫\n ✧ رتبتك : ❪'..RinkBot..
-'❫\n ✧ رسائلك : ❪'..TotalMsg..
-'❫\n ✧ تعديلاتك : ❪'..TotalEdit..
-'❫\n ✧ تفاعلك : ❪'..TotalMsgT..
-'❫\n ✧ البايو : ❪*['..Bio..
-']*❫*', "md")
-end
-return bot.sendPhoto(msg.chat_id, msg.id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id,
-'\n ✧ التعليق : '..Description..
-'\n ✧ ايديك : ❪ '..UserId..
-' ❫\n ✧ معرفك : ❪ ['..UserInfousername..
-'] ❫\n ✧ رتبتك : ❪ '..RinkBot..
-'❫\n ✧ رسائلك : ❪ '..TotalMsg..
-' ❫\n ✧ نقاطك : ❪ '..NumberGames..
-' ❫\n ✧ تعديلاتك : ❪ '..TotalEdit..
-' ❫\n ✧ تفاعلك : ❪ '..TotalMsgT..
-'❫\n ✧ البايو : ❪ ['..Bio..
-']❫', "md")
+local ban_ns ='\n*⟨•💖▸ 𝑵𝑨𝑴𝑬 •⟩ '..Name..'\n⟨•💖▸ 𝑼𝑺𝑬𝑹 •⟩ '..UserInfousername..'\n⟨•💖▸ 𝑰𝑫 •⟩ '..UserId..'\n⟨•💖▸ 𝑺𝑻𝑨 •⟩ '..RinkBot..'\n⟨•💖▸ 𝑷𝑯𝑶𝑻𝑶 •⟩ '..TotalPhoto..'\n⟨•💖▸ 𝑴𝑺𝑮 •⟩ '..TotalMsg..'\n⟨•💖▸ 𝑻𝑭𝑨𝑷𝑳𝑲 •⟩ '..TotalMsgT..'\n⟨•💖▸ 𝑩𝑰𝑶 •⟩ '..Bio..'*'
+data = {} 
+data.inline_keyboard = {
+{
+{text =Description,url = "https://t.me/"..UserInfo.username..""}, 
+},
+}
+msgg = msg.id/2097152/0.5
+https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id=" .. msg_chat_id .. "&photo="..photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id.."&caption=".. URL.escape(ban_ns).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(data))
 else
-return send(msg_chat_id,msg_id,
-'\n* ✧ ايديك : ❪'..UserId..
-'❫\n ✧ معرفك : ❪*['..UserInfousername..
-']*❫\n ✧ رتبتك : ❪'..RinkBot..
-'❫\n ✧ رسائلك : ❪'..TotalMsg..
-'❫\n ✧ تعديلاتك : ❪'..TotalEdit..
-'❫\n ✧ تفاعلك : ❪'..TotalMsgT..
-'❫\n ✧ البايو : ❪*['..Bio..
-']*❫*', "md")
+local ban_ns ='\n*⟨•💖▸ 𝑵𝑨𝑴𝑬 •⟩ '..Name..'\n⟨•💖▸ 𝑼𝑺𝑬𝑹 •⟩ '..UserInfousername..'\n⟨•💖▸ 𝑰𝑫 •⟩ '..UserId..'\n⟨•💖▸ 𝑺𝑻𝑨 •⟩ '..RinkBot..'\n⟨•💖▸ 𝑷𝑯𝑶𝑻𝑶 •⟩ '..TotalPhoto..'\n⟨•💖▸ 𝑴𝑺𝑮 •⟩ '..TotalMsg..'\n⟨•💖▸ 𝑻𝑭𝑨𝑷𝑳𝑲 •⟩ '..TotalMsgT..'\n⟨•💖▸ 𝑩𝑰𝑶 •⟩ '..Bio..'*'
+data = {} 
+data.inline_keyboard = {
+{
+{text =Description,url = "https://t.me/"..UserInfo.username..""}, 
+},
+}
+msgg = msg.id/2097152/0.5
+https.request("https://api.telegram.org/bot"..Token.."/sendMessage?chat_id=" .. msg_chat_id .. "&text=".. URL.escape(ban_ns).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(data))
 end
 end
 else
@@ -8030,18 +8002,18 @@ local Get_Is_Id = Get_Is_Id:gsub('#photos',TotalPhoto)
 local Get_Is_Id = Get_Is_Id:gsub('#Bio',Bio) 
 return send(msg_chat_id,msg_id,'['..Get_Is_Id..']',"md",true) 
 else
-return send(msg_chat_id,msg_id,
-'\n* ✧ ايديك : ❪'..UserId..
-'❫\n ✧ معرفك : ❪*['..UserInfousername..
-']*❫\n ✧ رتبتك : ❪'..RinkBot..
-'❫\n ✧ رسائلك : ❪'..TotalMsg..
-'❫\n ✧ تعديلاتك : ❪'..TotalEdit..
-'❫\n ✧ تفاعلك : ❪'..TotalMsgT..
-'❫\n ✧ البايو : ❪*['..Bio..
-']*❫*', "md")
+local ban_ns ='\n*⟨•💖▸ 𝑵𝑨𝑴𝑬 •⟩ '..Name..'\n⟨•💖▸ 𝑼𝑺𝑬𝑹 •⟩ '..UserInfousername..'\n⟨•💖▸ 𝑰𝑫 •⟩ '..UserId..'\n⟨•💖▸ 𝑺𝑻𝑨 •⟩ '..RinkBot..'\n⟨•💖▸ 𝑷𝑯𝑶𝑻𝑶 •⟩ '..TotalPhoto..'\n⟨•💖▸ 𝑴𝑺𝑮 •⟩ '..TotalMsg..'\n⟨•💖▸ 𝑻𝑭𝑨𝑷𝑳𝑲 •⟩ '..TotalMsgT..'\n⟨•💖▸ 𝑩𝑰𝑶 •⟩ '..Bio..'*'
+data = {} 
+data.inline_keyboard = {
+{
+{text =Description,url = "https://t.me/"..UserInfo.username..""}, 
+},
+}
+msgg = msg.id/2097152/0.5
+https.request("https://api.telegram.org/bot"..Token.."/sendMessage?chat_id=" .. msg_chat_id .. "&text=".. URL.escape(ban_ns).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(data))
 end
 end
-end 
+end
 
 if text and text:match('^تحكم @(%S+)$') then
 local UserName = text:match('^تحكم @(%S+)$') 
@@ -9191,7 +9163,7 @@ if not Redis:sismember(Saidi.."wtka:Group"..msg_chat_id,Message_Reply.sender_id.
 return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيل العضو المهتلف\n ✧ من قائمة ألتـ👑ـاج بنجاح 😹💔 ").Reply,"md",true)  
 else
 Redis:srem(Saidi.."wtka:Group"..msg_chat_id,Message_Reply.sender_id.user_id) 
-return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيل العضو المهتلف\n ✧ من قائمة ألتـ👑ـاج بنجاح 😹💔 ").Reply,"md",true)  
+return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيل العضو المهتلف\n ✧ من قائمة ألتـ👑ـاج بنجاح ??💔 ").Reply,"md",true)  
 end
 end
 if TextMsg == "ملك" then
