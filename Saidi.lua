@@ -4340,14 +4340,11 @@ Bio = ''
 end
 local photo = bot.getUserProfilePhotos(UserId_Info.id)
 if photo.total_count > 0 then
-local DevJeka = "*𓄼•𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰*\n*𓄼•𝙽𝙰𝙼𝙴 𝙹𝙴𝙺𝙰 -› *"..ban.first_name.."\n*𓄼•𝙸𝙳 ??𝙴𝙺𝙰 -› "..UserId_Info.id.."*\n*𓄼•𝙱𝙸𝙾 𝙹𝙴𝙺𝙰 -›*  *"..Bio.." *"
+local DevJeka = "*𓄼•𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰*\n*𓄼•𝙽𝙰𝙼𝙴 𝙹𝙴𝙺𝙰 -› *"..ban.first_name.."\n*𓄼•𝙸𝙳 𝙹𝙴𝙺𝙰 -› "..UserId_Info.id.."*\n*𓄼•𝙱𝙸𝙾 𝙹𝙴𝙺𝙰 -›*  *"..Bio.." *"
 keyboardd = {} 
 keyboardd.inline_keyboard = {
 {
 {text = 'الــقــنــوات ⚙', callback_data=msg.sender_id.user_id.."/DevJeka1"},{text = 'الــبــارات ❇️', callback_data=msg.sender_id.user_id.."/DevJeka3"},
-},
-{
-{text = 'الــبــوتــات 🌐', callback_data=msg.sender_id.user_id.."/DevJeka3"},
 },
 }
 local msg_id = msg.id/2097152/0.5 
@@ -4358,9 +4355,6 @@ keyboardd = {}
 keyboardd.inline_keyboard = {
 {
 {text = 'الــقــنــوات ⚙', callback_data=msg.sender_id.user_id.."/DevJeka1"},{text = 'الــبــارات ❇️', callback_data=msg.sender_id.user_id.."/DevJeka3"},
-},
-{
-{text = 'الــبــوتــات 🌐', callback_data=msg.sender_id.user_id.."/DevJeka3"},
 },
 }
 local msg_id = msg.id/2097152/0.5 
@@ -5076,7 +5070,7 @@ Count,Kount,i = 8 , 0 , 1
 for _ in pairs(GroupAllRtbaL) do Kount = Kount + 1 end
 table.sort(GroupAllRtbaL, function(a, b) return tonumber(a[1]) > tonumber(b[1]) end)
 if Count >= Kount then Count = Kount end
-Text = "* ✧ قائمه ترند الجروبات 📊 \nꔹ━━━━━ꔹ??𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n"
+Text = "* ✧ قائمه ترند الجروبات 📊 \nꔹ━━━━━ꔹ??𝐀𝐈𝐃??ꔹ━━━━━ꔹ*\n"
 for k,v in pairs(GroupAllRtbaL) do
 if v[2] and v[2]:match("(-100%d+)") then
 local InfoChat = bot.getChat(v[2])
@@ -13257,6 +13251,382 @@ return bot.sendText(msg_chat_id,msg_id,'* ✧ اهلا بك عزيزي \n ✧ ل
 end
 end
 end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"هاي","هيي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[خالتك جرت ورايا 😹💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"السلام عليكم","سلام عليكم"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[وعليكم السلام 🌝💜](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"مع سلامه","سلام"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[مع الف سلامه يقلبي متجيش تاني 💔😉](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"برايفت ","تع برايفت"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[خدوني معاكم برايفت والنبي 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"النبي","صلي علي النبي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[عليه الصلاه والسلام 🌝💖](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"نعم"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[نعم الله عليك 🌚❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"🙄"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ نزل عينك تحت كدا علشان هتخاد علي قفاك 😒❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"😂"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ضحكتك عثل زيكك ينوحيي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"😹"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ضحكتك عثل زيكك ينوحيي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"🌝"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[القمر ده شبهك 🙂❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"💋"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[انا عايز مح انا كمان 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"😭"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[بتعيط تيب لي طيب 😥](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"🥺"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[متزعلش بحبك 😻💖](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"😒"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[عدل وشك ونت بتكلمني 😒🙄](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"مح","بوسه"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[محات حياتي يروحي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"هلا"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[هلا بيك ياروحي 👋](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"هشش"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[بنهش كتاكيت احنا هنا ولا اي 🐣😹](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"الحمد الله"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[دايما ياحبيبي 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"بف"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[وحيات امك ياكبتن خدوني معاكو بيف 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"خاص"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ونجيب اشخاص 😂😉](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"الخير"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[انت الخير يعمري 🌝❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"صباح النور"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[صباح العسل 😻💖](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"حصل"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[خخخ امال 😹](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"اه"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[اه اي يا قدع عيب 😹??](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"كسم"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[عيب ياوسخ 🙄💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"بوتي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[روح وعقل بوتك 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"متيجي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[لا عيب بتكسف 😹💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"تيجي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[مش هروح..😹👻](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"هيح"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[صح النوم 😹💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"نورت"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ده نورك ي قلبي 🌝💙](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"باي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ع فين لوين رايح وسايبنى 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"ويت"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[اي الثقافه دي 😒😹](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"خخخ"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[اهدا يوحش ميصحش كدا 😒😹](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"شكر"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[العفو ياروحي 🙈](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"حلو"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[انت الي حلو ياقمر 🤤🌝](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"بموت"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[موت بعيد م ناقصين مصايب 😑😂](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"اي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[جتك اوهه م سامع ولا ايي 😹👻](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"طيب","تيب"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[فرح خالتك قريب 😹💋💃🏻](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"حتر","حاضر"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[حضرلك الخير يارب 🙂❤️](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"جيت"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[لف ورجع تانى مشحوار 😂🚶‍♂👻](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"بخ"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[ايوه خضتني ياسمك اي 🥺💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"حبيبي","حبيبتي"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[اوه ياه 🌝😂](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"تمام","تمم"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[امك اسمها احلام 😹😹](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"خلاص"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[خلصتت روحكك يبعيد 😹💔](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"سي في"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[كفيه شقط سيب حاجه لغيرك 😎😂](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"ميسد"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[بسحك فيه 😹💖](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
+if text and Redis:get(Saidi..'Jabwa:Jeka'..msg.chat_id) then
+list = {"مور"}
+for k,v in pairs(list) do
+if string.find(text,v) ~= nil then
+return bot.sendText(msg_chat_id,msg_id,'[اي شغل المحن ده 🙄](t.me/S_a_i_d_i)',"md",true)  
+end
+end
+end
 if text == "قفل التفليش" then 
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
@@ -19702,7 +20072,7 @@ local reply_markup = bot.replyMarkup{
 type = 'inline',
 data = {
 {
-{text = 'الغاء الامر', data = msg.sender_id.user_id..'/cancelrdd'},
+{text = '✧ الغاء الامر', data = msg.sender_id.user_id..'/cancelrdd'},
 },
 }
 }
@@ -20383,10 +20753,10 @@ return send(msg_chat_id,msg_id, [[*
  ✧ { م4 } -> اوامر المنشئين
  ✧ { م5 } -> اوامر المالكين
  ✧ { م6 } -> اوامر التسليه
-✧ اوامر المطور 🌀
+✧ { م7 } -> اوامر المطور الاساسي
 *]],"md",false, false, false, false, reply_markup)
 end
-if text == 'اوامر المطور 🌀' then
+if text == 'م7' then
 if not msg.Dev then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(3)..' }* ',"md",true)  
 end
@@ -20407,7 +20777,7 @@ data = {
 }
 }
 local TextHelp = [[*
-✧ اوامر المطور 🌀 الاساسي ↑↓
+✧ اوامر المطور الاساسي ↑↓
 ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✧ تفعيل  ->  تعطيل
  ✧ رفع  تنزيل -> مطور اساسي
@@ -20490,7 +20860,7 @@ local TextHelp = [[*
  ✧ المتجر ، الملفات
  ✧ تحديث ، تحديث السورس
 ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
- ✧ اوامر المطور 🌀 في البوت
+ ✧ اوامر المطور في البوت 🌀
 ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✧ رفع، تنزيل -> { مالك }
  ✧ المالكين ، مسح المالكين
@@ -20858,9 +21228,9 @@ local TextHelp = [[*
  ✧ الثولان ~  الجــلاب
  ✧ المطايــه ~  الصخول
  ✧ اللوكيــه ~  الاغبيـاء
-ꔹ━━━━━ꔹ??𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✧ اوامر الترفيه 
-ꔹ━━━━━ꔹ𝐒𝐀𝐈??𝐈ꔹ━━━━━ꔹ
+ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✧ زخرفه + النص
  ✧ مثال زخرفه صعيدي
  ✧ احسب + عمرك
@@ -26811,6 +27181,54 @@ keyboard.inline_keyboard = {
 },
 {
 {text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', callback_data=IdUser.."/Myjabwa"},
+},
+}
+local mm = Msg_id/2097152/0.5
+https.request("http://api.telegram.org/bot"..Token.."/editmessagemedia?chat_id="..ChatId.."&message_id="..mm.."&media="..JSON.encode(au).."&reply_markup="..JSON.encode(keyboard))
+end 
+end
+if Text and Text:match('(%d+)/MyJeka') then
+local UserId = Text:match('(%d+)/MyJeka')
+if tonumber(IdUser) == tonumber(UserId) then
+au ={type = "photo",media = "https://t.me/Jeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
+keyboard = {} 
+keyboard.inline_keyboard = {
+{
+{text = 'الــقــنــوات ⚙', callback_data=IdUser.."/Jeka1"},{text = 'الــبــارات ❇️', callback_data=IdUser.."/Jeka2"},
+},
+}
+local mm = Msg_id/2097152/0.5
+https.request("http://api.telegram.org/bot"..Token.."/editmessagemedia?chat_id="..ChatId.."&message_id="..mm.."&media="..JSON.encode(au).."&reply_markup="..JSON.encode(keyboard))
+end 
+end
+if Text and Text:match('(%d+)/Jeka1') then
+local UserId = Text:match('(%d+)/Jeka1')
+if tonumber(IdUser) == tonumber(UserId) then
+au ={type = "photo",media = "https://t.me/Jeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
+keyboard = {} 
+keyboard.inline_keyboard = {
+{
+{text = '･ َِᥴُ ِِِꪋَٖ ꪶَِٰ ꪑَٖ ☕️َِٖ🌿.', url = "http://t.me/UUJEA"},
+},
+{
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', callback_data=IdUser.."/MyJeka"},
+},
+}
+local mm = Msg_id/2097152/0.5
+https.request("http://api.telegram.org/bot"..Token.."/editmessagemedia?chat_id="..ChatId.."&message_id="..mm.."&media="..JSON.encode(au).."&reply_markup="..JSON.encode(keyboard))
+end 
+end
+if Text and Text:match('(%d+)/Jeka2') then
+local UserId = Text:match('(%d+)/Jeka2')
+if tonumber(IdUser) == tonumber(UserId) then
+au ={type = "photo",media = "https://t.me/Jeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
+keyboard = {} 
+keyboard.inline_keyboard = {
+{
+{text = '⌯ 𓆩✘𝑻𝑬𝑨𝑴 𝑲𝑨𝑹𝑴𝑶𝒁✘𓆪 ⌯', url = "http://t.me/TEAM_KARMOOZ"},
+},
+{
+{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', callback_data=IdUser.."/MyJeka"},
 },
 }
 local mm = Msg_id/2097152/0.5
