@@ -1171,26 +1171,34 @@ end
 end
 return JoinChannel
 end
-
-function File_Bot_Run(msg,data) 
+function File_Bot_Run(msg,data)  
 local msg_chat_id = msg.chat_id
- local msg_reply_id = msg.reply_to_message_id 
-local msg_user_send_id = msg.sender_id.user_id 
-local msg_id = msg.id 
-local text = nil
-if msg.sender_id.luatele == "messageSenderChat" then 
-bot.deleteMessages(msg.chat_id,{[1]= msg.id}) 
-return false 
+local msg_reply_id = msg.reply_to_message_id
+local msg_user_send_id = msg.sender_id.user_id
+local msg_id = msg.id
+--var(msg.content)
+if data.sender.luatele == "messageSenderChat" and Redis:get(Saidi.."Lock:channell"..msg_chat_id) then
+print(Redis:get(Saidi.."chadmin"..msg_chat_id))
+print(data.sender.chat_id)
+local m = Redis:get(Saidi.."chadmin"..msg_chat_id) 
+if data.sender.chat_id == tonumber(m) then
+return false
+else
+bot.deleteMessages(msg.chat_id,{[1]= msg.id})
 end
-if msg.date and msg.date < tonumber(os.time() - 15) then 
-print("->> Old Message End <<-") 
-return false 
 end
-
+Redis:incr(Saidi..'Num:Message:User'..msg.chat_id..':'..msg.sender_id.user_id) 
+if msg.date and msg.date < tonumber(os.time() - 15) then
+print("->> Old Message End <<-")
+return false
+end
 if data.content.text then
 text = data.content.text.text
+else 
+text = nil
 end
 if tonumber(msg.sender_id.user_id) == tonumber(Saidi) then
+print('This is reply for Bot')
 return false
 end
 if msg.sender_id.luatele == "messageSenderChat" then
@@ -26805,7 +26813,7 @@ end
 if Text and Text:match('(%d+)/bansn') then
 local UserId = Text:match('(%d+)/bansn')
 if tonumber(IdUser) == tonumber(UserId) then
-au ={type = "photo",media = "https://t.me/Jeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
+au ={type = "photo",media = "https://t.me/DevJeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
@@ -26819,7 +26827,7 @@ end
 if Text and Text:match('(%d+)/bssbldm') then
 local UserId = Text:match('(%d+)/bssbldm')
 if tonumber(IdUser) == tonumber(UserId) then
-au ={type = "photo",media = "https://t.me/Jeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
+au ={type = "photo",media = "https://t.me/DevJeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
@@ -26836,7 +26844,7 @@ end
 if Text and Text:match('(%d+)/nkebsb') then
 local UserId = Text:match('(%d+)/nkebsb')
 if tonumber(IdUser) == tonumber(UserId) then
-au ={type = "photo",media = "https://t.me/Jeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
+au ={type = "photo",media = "https://t.me/DevJeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
