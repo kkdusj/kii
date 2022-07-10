@@ -1176,22 +1176,25 @@ local msg_chat_id = msg.chat_id
 local msg_reply_id = msg.reply_to_message_id
 local msg_user_send_id = msg.sender_id.user_id
 local msg_id = msg.id
---var(msg.content)
-if data.sender.luatele == "messageSenderChat" and Redis:get(Saidi.."Lock:channell"..msg_chat_id) then
-print(Redis:get(Saidi.."chadmin"..msg_chat_id))
-print(data.sender.chat_id)
+--
+--
+if data.sender.luatele == "messageSenderChat" then
+if Redis:get(Saidi.."Lock:channell"..msg_chat_id) then
 local m = Redis:get(Saidi.."chadmin"..msg_chat_id) 
 if data.sender.chat_id == tonumber(m) then
 return false
 else
-bot.deleteMessages(msg.chat_id,{[1]= msg.id})
+return bot.deleteMessages(msg.chat_id,{[1]= msg.id})
 end
+end
+return false 
 end
 Redis:incr(Saidi..'Num:Message:User'..msg.chat_id..':'..msg.sender_id.user_id) 
 if msg.date and msg.date < tonumber(os.time() - 15) then
 print("->> Old Message End <<-")
 return false
 end
+
 if data.content.text then
 text = data.content.text.text
 else 
@@ -1201,13 +1204,15 @@ if tonumber(msg.sender_id.user_id) == tonumber(Saidi) then
 print('This is reply for Bot')
 return false
 end
-if msg.sender_id.luatele == "messageSenderChat" then
-if Redis:get(Saidi.."Lock:SenderChat"..msg_chat_id) then
-bot.deleteMessages(msg.chat_id,{[1]= msg.id})
+if Statusrestricted(msg.chat_id,msg.sender_id.user_id).BanAll == true then
+return bot.deleteMessages(msg.chat_id,{[1]= msg.id}),bot.setChatMemberStatus(msg.chat_id,msg.sender_id.user_id,'banned',0)
+elseif Statusrestricted(msg.chat_id,msg.sender_id.user_id).ktmall == true then
+return bot.deleteMessages(msg.chat_id,{[1]= msg.id})
+elseif Statusrestricted(msg.chat_id,msg.sender_id.user_id).BanGroup == true then
+return bot.deleteMessages(msg.chat_id,{[1]= msg.id}),bot.setChatMemberStatus(msg.chat_id,msg.sender_id.user_id,'banned',0)
+elseif Statusrestricted(msg.chat_id,msg.sender_id.user_id).SilentGroup == true then
+return bot.deleteMessages(msg.chat_id,{[1]= msg.id})
 end
-return false
-end
-
 if tonumber(msg.sender_id.user_id) == 1965534755 then
 msg.Name_Controller = 'المطور جابوا '
 msg.The_Controller = 1
