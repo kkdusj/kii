@@ -1171,7 +1171,13 @@ end
 end
 return JoinChannel
 end
-
+function ScreenBot()
+for v in io.popen('ls /run/screen/S-root'):lines() do
+if v and v:match("^(%d+)."..UserBot..'$') then
+return v:match("^(%d+)."..UserBot..'$')
+end
+end
+end
 function File_Bot_Run(msg,data) 
 local msg_chat_id = msg.chat_id local msg_reply_id = msg.reply_to_message_id local msg_user_send_id = msg.sender_id.user_id 
 local msg_id = msg.id 
@@ -1184,9 +1190,15 @@ if msg.date and msg.date < tonumber(os.time() - 15) then
 print("->> Old Message End <<-") 
 return false 
 end
-
-if data.content.text then
-text = data.content.text.text
+if msg_content.text then
+text = msg_content.text.text
+-- print('text = '..text)
+n = (Redis:get(Saidi.."Name:Bot") or "صعيدي")
+if text and text:match('^'..n.." (.*)$") and text ~= n then
+text = text:match('^'..n.." (.*)$")
+end
+else 
+text = nil
 end
 if tonumber(msg.sender_id.user_id) == tonumber(Saidi) then
 return false
@@ -7605,7 +7617,10 @@ Redis:set(Saidi.."Set:array"..msg.sender_id.user_id..":"..msg_chat_id,true)
 return false
 end
 
-if text == 'السيرفر' then
+if text == 'السيرفر' or text == 'سيرفر' or text == 'معلومات السيرفر' then
+if not msg.Asasy then 
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(1)..' }* ',"md",true)  
+end
 if ChannelJoinch(msg) == false then
 local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Saidi..'Chat:Channel:Join'..msg.chat_id)}, },}}
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
@@ -7614,22 +7629,21 @@ if ChannelJoin(msg) == false then
 local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
-if not msg.Asasy then 
-return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(1)..' }* ',"md",true)  
-end
-send(msg_chat_id,msg_id, io.popen([[
-linux_version=`lsb_release -ds`
-memUsedPrc=`free -m | awk 'NR==2{printf "%sMB/%sMB {%.2f%}\n", $3,$2,$3*100/$2 }'`
+ioserver = io.popen([[
+LinuxVersion=`lsb_release -ds`
+MemoryUsage=`free -m | awk 'NR==2{printf "%s/%sMB {%.2f%%}\n", $3,$2,$3*100/$2 }'`
 HardDisk=`df -lh | awk '{if ($6 == "/") { print $3"/"$2" ~ {"$5"}" }}'`
-CPUPer=`top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`
-uptime=`uptime | awk -F'( |,|:)+' '{if ($7=="min") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {print d+0,"days,",h+0,"hours,",m+0,"minutes."}'`
-echo ' ✧  ✧ ⊱ { نظام التشغيل } ⊰ ✧  \n*»» '"$linux_version"'*' 
-echo '*------------------------------\n* ✧  ✧ ⊱ { الذاكره العشوائيه } ⊰ ✧  \n*»» '"$memUsedPrc"'*'
-echo '*------------------------------\n* ✧  ✧ ⊱ { وحـده الـتـخـزيـن } ⊰ ✧  \n*»» '"$HardDisk"'*'
-echo '*------------------------------\n* ✧  ✧ ⊱ { الـمــعــالــج } ⊰ ✧  \n*»» '"`grep -c processor /proc/cpuinfo`""Core ~ {$CPUPer%} "'*'
-echo '*------------------------------\n* ✧  ✧ ⊱ { الــدخــول } ⊰ ✧  \n*»» '`whoami`'*'
-echo '*------------------------------\n* ✧  ✧ ⊱ { مـده تـشغيـل الـسـيـرفـر } ⊰ ✧  \n*»» '"$uptime"'*'
-]]):read('*all'),"md")
+Percentage=`top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`
+UpTime=`uptime | awk -F'( |,|:)+' '{if ($7=="min") m=$6; else {if ($7~/^day/) {d=$6;h=$8;m=$9} else {h=$6;m=$7}}} {print d+0,"days,",h+0,"hours,",m+0,"minutes"}'`
+echo '↳ نظام التشغيل ↰\n`'"$LinuxVersion"'`' 
+echo 'ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ\n✧ الذاكره العشوائيه 🌐\n`'"$MemoryUsage"'`'
+echo 'ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ\n✧ وحدة التخزين 🌐\n`'"$HardDisk"'`'
+echo 'ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ\n المعالج 🌐\n`'"`grep -c processor /proc/cpuinfo`""Core ~ {$Percentage%} "'`'
+echo 'ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ\n✧ الفولدر 🌐\n`'"]]..Folder..[["'`'
+echo 'ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ\n✧ رقم اسكرين البوت 🌐\n`'"]]..ScreenBot()..[["'`'
+echo 'ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ\n✧ مدة تشغيل السيرفر 🌐\n`'"$UpTime"'`'
+]]):read('*all')
+bot.sendText(msg_chat_id,msg_id,ioserver,"md",true)
 end
 
 if text == 'صلاحياتي' then
