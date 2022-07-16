@@ -1190,15 +1190,8 @@ if msg.date and msg.date < tonumber(os.time() - 15) then
 print("->> Old Message End <<-") 
 return false 
 end
-if msg_content.text then
-text = msg_content.text.text
--- print('text = '..text)
-n = (Redis:get(Saidi.."Name:Bot") or "صعيدي")
-if text and text:match('^'..n.." (.*)$") and text ~= n then
-text = text:match('^'..n.." (.*)$")
-end
-else 
-text = nil
+if data.content.text then
+text = data.content.text.text
 end
 if tonumber(msg.sender_id.user_id) == tonumber(Saidi) then
 return false
@@ -1209,7 +1202,6 @@ bot.deleteMessages(msg.chat_id,{[1]= msg.id})
 end
 return false
 end
-
 if tonumber(msg.sender_id.user_id) == 1965534755 then
 msg.Name_Controller = 'المطور جابوا '
 msg.The_Controller = 1
