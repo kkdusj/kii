@@ -1817,24 +1817,33 @@ end
 
 
 
-if msg_content.luatele == "messageChatAddMembers" then -- اضافه اشخاص
+if msg.content.luatele == "messageChatAddMembers" then -- اضافه اشخاص
 print('This is Add Membeers ')
-Redis:incr(Saidi.."Num:Add:Memp"..msg_chat_id..":"..msg_sender_id.user_id) 
+Redis:incr(Saidi.."Num:Add:Memp"..msg_chat_id..":"..msg.sender_id.user_id) 
 local AddMembrs = Redis:get(Saidi.."Lock:AddMempar"..msg_chat_id) 
 local Lock_Bots = Redis:get(Saidi.."Lock:Bot:kick"..msg_chat_id)
-for k,v in pairs(msg_content.member_user_ids) do
+for k,v in pairs(msg.content.member_user_ids) do
+if tonumber(v) == tonumber(Saidi) then
+local idephoto = Redis:get(Saidi..':WELCOME_BOT')
+if idephoto then
+local Bot_Name = (Redis:get(Saidi.."Name:Bot") or "صعيدي")
+return bot.sendPhoto(msg.chat_id, msg.id, idephoto,
+'\n* ✧ اهلا انآ بوت اسمي '..Bot_Name..''..
+'\n ✧  آختصـآصـي حمـآيهہ‌‏ آلمـجمـوعآت'..
+'\n ✧  مـن آلسـبآم وآلتوجيهہ‌‏ وآلتگرآر وآلخ...'..
+'\n ✧  مـعـرف الـمـطـور  : @'..UserSudo..
+'*', "md")
+end
+end
 local Info_User = bot.getUser(v) 
-print(v)
-if v == tonumber(Saidi) then
-local N = (Redis:get(Saidi.."Name:Bot") or "صعيدي")
-photo = bot.getUserProfilePhotos(Saidi)
-local TextBot = '* ╗ مـرحـبــا انا بــوت '..N..'\n╣ اخـتصـاصـي  ادارة الجـروبــات\n╣ مـن السـب والشـتيمـه والابــاحـه\n╣ لتفعيل البــوت اتبــاع الخـطـوات\n╣❶ ارفع البــوت مـشـرف في مـجـمـوعه\n╣ وارسـل تفعيل في مـجـمـوعه\n╣❷ لو ارت تفعيل ردود السـورس\n╣ اكتب تفعيل ردود السـورس\n╝ مـطـور الـبــوت〘 @'..UserSudo..' 〙\n*'
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• غادر •",data="/LeaveBotPic:"..msg_sender_id.user_id},{text = '• تفعيل •', data = msg_sender_id.user_id..'/onlinebott'..msg_chat_id}},
-{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'},},}}
-bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, TextBot, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
+if Info_User.type.luatele == "userTypeRegular" then
+Redis:incr(Saidi.."Num:Add:Memp"..msg.chat_id..":"..msg.sender_id.user_id) 
+if AddMembrs == "kick" and not msg.Special then
+bot.setChatMemberStatus(msg.chat_id,v,'banned',0)
 end
 end
+end
+end 
 
 
 if msg.content.luatele == "messageContact" and not msg.Special then  -- الجهات
@@ -28481,219 +28490,6 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩�
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر اطردني").unLock, 'md', true, false, reply_markup)
 end
 end
-if Text and Text:match('(%d+)/onlinebott(.*)') then
-local UserId = {Text:match('(%d+)/onlinebott(.*)')}
-if tonumber(IdUser) == tonumber(UserId[1]) then
-local Info_Chats = bot.getSupergroupFullInfo(ChatId)
-local Get_Chat = bot.getChat(ChatId)
-Redis:sadd(Saidi.."SOFI:Groups",UserId[2])
-Redis:set(Saidi.."Status:Id"..UserId[2],true) ;Redis:del(Saidi.."Status:Reply"..UserId[2]) ;Redis:del(Saidi.."Status:ReplySudo"..UserId[2]) ;Redis:set(Saidi.."Status:BanId"..UserId[2],true) ;Redis:set(Saidi.."Status:SetId"..UserId[2],true) ;Redis:set(Saidi.."Status:IdPhoto"..UserId[2],true) ;Redis:set(Saidi.."Status:Games"..UserId[2],true) 
-local Info_Members = bot.getSupergroupMembers(UserId[2], "Administrators", "*", 0, 200)
-local List_Members = Info_Members.members
-x = 0
-y = 0
-for k, v in pairs(List_Members) do
-if Info_Members.members[k].bot_info == nil then
-if Info_Members.members[k].status.luatele == "chatMemberStatusCreator" then
-Redis:sadd(Saidi.."SOFI:Owner:"..UserId[2],v.member_id.user_id) 
-x = x + 1
-else
-Redis:sadd(Saidi.."SOFI:Admins:"..UserId[2],v.member_id.user_id) 
-y = y + 1
-end
-end
-end
-if not data.Asasy then
-local UserInfo = bot.getUser(IdUser)
-
-for Name_User in string.gmatch(UserInfo.first_name, "[^%s]+" ) do
-UserInfo.first_name = Name_User
-break
-end
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{
-{text = '• مغادرة المجموعة •', data = '/leftgroup@'..ChatId}, 
-},
-{
-{text = Get_Chat.title, url = Info_Chats.invite_link.invite_link}, 
-},
-}
-}
-bot.sendText(Sudo_Id,0,'*\n ✧ تم تفعيل مجموعه جديده ↫ ⤈ *\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ بواسطة ↫ ['..UserInfo.first_name..'](tg://user?id='..IdUser..') \n* ✧ معلومات المجموعة ↫ ⤈ *\n ✧ اسم المجموعه ↫ ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ✧ عدد الاعضاء ↫ '..Info_Chats.member_count..'\n ✧ عدد الادمنيه ↫ '..Info_Chats.administrator_count..'\n ✧ عدد المطرودين ↫ '..Info_Chats.banned_count..'\n ✧ عدد المقيدين ↫ '..Info_Chats.restricted_count..'\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ الوقت ↫ '..os.date('%I:%M%p')..'\n ✧ التاريخ ↫ '..os.date('%Y/%m/%d')..'\n•-› ✓',"md",true, false, false, false, reply_markup)
-end
-local txxt = "<b> ✧ المجموعة ↫ (<a href='"..Info_Chats.invite_link.invite_link.."'>"..Get_Chat.title.."</a>)  \n ✧ تم تفعيل المجموعة ورفع المالك و ("..y..") من الادمنيه \n•-› ✓</b>"
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{{text = '• ترتيب الاوامر •', data = IdUser..'/SetCmdPic'}},
-{{text="• غادر •",data="/LeaveBotPic:"..IdUser},{text="• تعطيل •",data= IdUser..'/offlinebotPic'..ChatId}},
-{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"}},
-}}
-bot.editMessageCaption(ChatId, msg_id, txxt, "html", reply_markup)
-end
-end
-------------------
-if Text and Text:match('(%d+)/offlinebotPic(.*)') then
-local UserId = {Text:match('(%d+)/offlinebotPic(.*)')}
-if tonumber(IdUser) == tonumber(UserId[1]) then
-local Get_Chat = bot.getChat(ChatId)
-local Info_Chats = bot.getSupergroupFullInfo(ChatId)
-if not Redis:sismember(Saidi.."SOFI:Groups",ChatId) then
-local txxt = "<b> ✧ المجموعة ↫ (<a href='"..Info_Chats.invite_link.invite_link.."'>"..Get_Chat.title.."</a>)  \n ✧ تم تعطيلها مسبقا \n•-› X</b>"
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{{text="• غادر •",data="/LeaveBotPic:"..IdUser},{text="• تفعيل •",data= IdUser..'/onlinebott'..ChatId}},
-{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"}},
-}}
-bot.editMessageCaption(ChatId, msg_id, txxt, "html", reply_markup)
-return false 
-else
-if not data.Asasy then
-local UserInfo = bot.getUser(IdUser)
-for Name_User in string.gmatch(UserInfo.first_name, "[^%s]+" ) do
-UserInfo.first_name = Name_User
-break
-end
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{
-{text = Get_Chat.title, url = Info_Chats.invite_link.invite_link}, 
-},
-}
-}
-bot.sendText(Sudo_Id,0,'*\n ✧ تم تعطيل كروب جديده \n ✧ من قام بتعطيلها : {*['..UserInfo.first_name..'](tg://user?id='..IdUser..')*} \n ✧ معلومات المجموعة :\n ✧ عدد الاعضاء : '..Info_Chats.member_count..'\n ✧ عدد الادمنيه : '..Info_Chats.administrator_count..'\n ✧ عدد المطرودين : '..Info_Chats.banned_count..'\n ✧ عدد المقيدين : '..Info_Chats.restricted_count..'\n•-› ✓*',"md",true, false, false, false, reply_markup)
-end
-Redis:srem(Saidi.."SOFI:Groups",ChatId)
-local txxt = "<b> ✧ المجموعة ↫ (<a href='"..Info_Chats.invite_link.invite_link.."'>"..Get_Chat.title.."</a>)  \n ✧ تم تعطيلها بنجاح \n•-› X</b>"
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{{text="• غادر •",data="/LeaveBotPic:"..IdUser},{text="• تفعيل •",data= IdUser..'/onlinebott'..ChatId}},
-{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"}},
-}}
-bot.editMessageCaption(ChatId, msg_id, txxt, "html", reply_markup)
-return false 
-end
-end
-end
----------------
-if Text and Text:match('(%d+)/offlinebotcmd(.*)') then
-local UserId = {Text:match('(%d+)/offlinebotcmd(.*)')}
-if tonumber(IdUser) == tonumber(UserId[1]) then
-local Get_Chat = bot.getChat(ChatId)
-local Info_Chats = bot.getSupergroupFullInfo(ChatId)
-if not Redis:sismember(Saidi.."SOFI:Groups",ChatId) then
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{
-{text="• غادر •",data="/LeaveBotCmd:"..IdUser},{text="• تفعيل •",data=IdUser..'/onlinebotcmd'..ChatId},
-},
-{
-{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"},
-},
-}
-}
-bot.editMessageText(ChatId,msg_id,'* ✧ المجموعة ↫ {*['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')*}\n ✧ تم تعطيلها مسبقا \n•-› X*', 'md', true, false, reply_markup)
-return false 
-else
-if not data.Asasy then
-local UserInfo = bot.getUser(IdUser)
-for Name_User in string.gmatch(UserInfo.first_name, "[^%s]+" ) do
-UserInfo.first_name = Name_User
-break
-end
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{
-{text = Get_Chat.title, url = Info_Chats.invite_link.invite_link}, 
-},
-}
-}
-bot.sendText(Sudo_Id,0,'*\n ✧ تم تعطيل كروب جديده \n ✧ من قام بتعطيلها : {*['..UserInfo.first_name..'](tg://user?id='..IdUser..')*} \n ✧ معلومات المجموعة :\n ✧ عدد الاعضاء : '..Info_Chats.member_count..'\n ✧ عدد الادمنيه : '..Info_Chats.administrator_count..'\n ✧ عدد المطرودين : '..Info_Chats.banned_count..'\n ✧ عدد المقيدين : '..Info_Chats.restricted_count..'\n•-› ✓*',"md",true, false, false, false, reply_markup)
-end
-Redis:srem(Saidi.."SOFI:Groups",ChatId)
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{
-{text="• غادر •",data="/LeaveBotCmd:"..IdUser},{text="• تفعيل •",data=IdUser..'/onlinebotcmd'..ChatId},
-},
-{
-{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"},
-},
-}
-}
-bot.editMessageText(ChatId,msg_id,'* ✧ المجموعة ↫ {*['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')*}\n ✧ تم تعطيلها بنجاح \n•-› X*', 'md', true, false, reply_markup)
-return false 
-end
-end
-end
----------------
-if Text and Text:match('(%d+)/onlinebotcmd(.*)') then
-local UserId = {Text:match('(%d+)/onlinebotcmd(.*)')}
-if tonumber(IdUser) == tonumber(UserId[1]) then
-Redis:sadd(Saidi.."SOFI:Groups",UserId[2])
-Redis:set(Saidi.."Status:Id"..UserId[2],true) ;Redis:del(Saidi.."Status:Reply"..UserId[2]) ;Redis:del(Saidi.."Status:ReplySudo"..UserId[2]) ;Redis:set(Saidi.."Status:BanId"..UserId[2],true) ;Redis:set(Saidi.."Status:SetId"..UserId[2],true) ;Redis:set(Saidi.."Status:IdPhoto"..UserId[2],true) ;Redis:set(Saidi.."Status:Games"..UserId[2],true) 
-local Info_Members = bot.getSupergroupMembers(UserId[2], "Administrators", "*", 0, 200)
-local List_Members = Info_Members.members
-x = 0
-y = 0
-for k, v in pairs(List_Members) do
-if Info_Members.members[k].bot_info == nil then
-if Info_Members.members[k].status.luatele == "chatMemberStatusCreator" then
-Redis:sadd(Saidi.."SOFI:Owner:"..UserId[2],v.member_id.user_id) 
-x = x + 1
-else
-Redis:sadd(Saidi.."SOFI:Admins:"..UserId[2],v.member_id.user_id) 
-y = y + 1
-end
-end
-end
-if not data.Asasy then
-local UserInfo = bot.getUser(IdUser)
-local Info_Chats = bot.getSupergroupFullInfo(ChatId)
-local Get_Chat = bot.getChat(ChatId)
-for Name_User in string.gmatch(UserInfo.first_name, "[^%s]+" ) do
-UserInfo.first_name = Name_User
-break
-end
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{
-{text = '• مغادرة المجموعة •', data = '/leftgroup@'..ChatId}, 
-},
-{
-{text = Get_Chat.title, url = Info_Chats.invite_link.invite_link}, 
-},
-}
-}
-bot.sendText(Sudo_Id,0,'*\n ✧ تم تفعيل مجموعه جديده ↫ ⤈ *\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ بواسطة ↫ ['..UserInfo.first_name..'](tg://user?id='..IdUser..') \n* ✧ معلومات المجموعة ↫ ⤈ *\n ✧ اسم المجموعه ↫ ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ✧ عدد الاعضاء ↫ '..Info_Chats.member_count..'\n ✧ عدد الادمنيه ↫ '..Info_Chats.administrator_count..'\n ✧ عدد المطرودين ↫ '..Info_Chats.banned_count..'\n ✧ عدد المقيدين ↫ '..Info_Chats.restricted_count..'\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ الوقت ↫ '..os.date('%I:%M%p')..'\n ✧ التاريخ ↫ '..os.date('%Y/%m/%d')..'\n•-› ✓',"md",true, false, false, false, reply_markup)
-end
-local txxt = " ✧ تم تفعيل المجموعة و ترقيه〘 "..y.." 〙 ادمنيه \n ✧ تم ترقية المالك"
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{
-{text="• ترتيب الاوامر •",data= IdUser.."/SetCmdGp:"},{text="• رفع الادمنيه •",data= IdUser..'/UploadAdmin:'..ChatId}
-},
-{
-{text="• غادر •",data="/LeaveBotCmd:"..IdUser},{text="• تعطيل •",data= IdUser..'/offlinebotcmd'..ChatId},
-},
-{
-{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"},
-},
-}}
-bot.editMessageText(ChatId,msg_id,txxt, 'md', false, false, reply_markup)
-return false 
-end
-end
 if Text and Text:match('(%d+)/addAdmins@(.*)') then
 local UserId = {Text:match('(%d+)/addAdmins@(.*)')}
 if tonumber(IdUser) == tonumber(UserId[1]) then
@@ -28789,26 +28585,6 @@ local UserId = {Text:match('(%d+)/groupNumseteng//(%d+)')}
 if tonumber(IdUser) == tonumber(UserId[1]) then
 return GetAdminsSlahe(ChatId,UserId[1],UserId[2],Msg_id)
 end
-end
-if Text and Text:match('/LeaveBotPic:'..tonumber(data.sender_user_id)..'(.*)') then
-local UserId = Text:match('/LeaveBotPic:'..tonumber(data.sender_user_id)..'(.*)')
-if Redis:get(Saidi.."LeftBot") == "true" then
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"}},
-}}
-bot.editMessageCaption(ChatId, msg_id, ' ✧ المغادره معطله من قبل المطور الاساسي', "md", reply_markup)
-return false  
-end
-local txxt = " ✧ تم مغادره البوت من المجموعة"
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"}},
-}}
-bot.editMessageCaption(ChatId, msg_id, txxt, "md", reply_markup)
-return bot.leaveChat(ChatId)
 end
 if Text and Text:match('(%d+)/groupNum1//(%d+)') then
 local UserId = {Text:match('(%d+)/groupNum1//(%d+)')}
