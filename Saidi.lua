@@ -7463,55 +7463,6 @@ Redis:del(Saidi.."zhrfa"..msg.chat_id)
 send(msg_chat_id,msg_id, ' ✧ تم تفعيل امر الزخرفه\n ꪤ',"md")
 end
 end
-if text == 'تيست' or text == 'مم' or text =='ططط' then
-local TextingDevSaidi = Redis:get(Saidi..'Texting:DevSaidi')
-local photo = bot.getUserProfilePhotos(Sudo_Id)
-local UserInfo = bot.getUser(Sudo_Id)
-local bio = getbio(Sudo_Id)
-if TextingDevSaidi and photo and photo.total_count and photo.total_count > 0 then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserSudo}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
-bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, TextingDevSaidi, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
-else
-if TextingDevSaidi then 
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserSudo}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
-bot.sendText(msg_chat_id,msg_id,TextingDevSaidi,"md", true, false, false, false, reply_markup)  
-else
-local TextDev ="* ✧ D𝐞𝐯 N𝐞𝐦𝐚 ↬* ["..UserInfo.first_name.."](tg://user?id="..UserInfo.id..")\n* ✧ D𝐞𝐯 U𝐬𝐞𝐫 ↬* [@"..UserInfo.username.."]\n* ✧ D𝐞𝐯 I𝐝 ↬* ["..UserInfo.id.."](T.me/"..UserInfo.username..")\n* ✧ D𝐞𝐯 B𝐢𝐨 ↬* ["..bio.."]\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ"
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserSudo}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
-if photo and photo.total_count and photo.total_count > 0 then
-bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, TextDev, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
-else
-bot.sendText(msg_chat_id,msg_id,TextDev,"md", true, false, false, false, reply_markup)
-end
-end
-end
-if not msg.Asasy then
-local UserInfo = bot.getUser(msg_sender_id.user_id)
-local Get_Chat = bot.getChat(msg_chat_id)
-local Name1 = UserInfo.first_name
-local Name1 = Name1:gsub('"',"") 
-local Name1 = Name1:gsub("'","") 
-local Name1 = Name1:gsub("`","") 
-local Name1 = Name1:gsub("*","") 
-local Name1 = Name1:gsub("{","") 
-local Name1 = Name1:gsub("}","") 
-local Name ='['..Name1..'](tg://user?id='..UserInfo.id..')'
-local NameChat = Get_Chat.title
-local NameChat = NameChat:gsub('"',"") 
-local NameChat = NameChat:gsub("'","") 
-local NameChat = NameChat:gsub("`","") 
-local NameChat = NameChat:gsub("*","") 
-local NameChat = NameChat:gsub("{","") 
-local NameChat = NameChat:gsub("}","") 
-local LinkGp = json:decode(https.request('https://api.telegram.org/bot'..Token..'/exportChatInviteLink?chat_id='..msg_chat_id))
-if LinkGp.result then 
-LinkGroup = " ✧ رابط المجموعه ↑↓\n❨ ["..LinkGp.result.."] ❩"
-else
-LinkGroup = ' ✧ ليست لدي صلاحية الدعوه لهذه المجموعه '
-end
-return bot.sendText(Sudo_Id,0," ✧ هناك من بحاجه الى مساعده ↑↓ \nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ الشخص -> "..Name.."\n ✧ اسم المجموعه -> ["..NameChat.."]\n ✧ ايدي المجموعه ↑↓ \n❨ `"..msg_chat_id.."` ❩\n"..LinkGroup.."\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ الوقت -> "..os.date("%I:%M%p").."\n ✧ التاريخ -> "..os.date("%Y/%m/%d").."",'md',true)
-end
-end
 if text == 'المطور' or text == 'مطور البوت' then   
 local UserInfo = bot.getUser(Sudo_Id) 
 local InfoUser = bot.getUserFullInfo(Sudo_Id)
@@ -7903,6 +7854,53 @@ end
 if text == 'اسمي' and not Redis:get(Saidi..'idnotmemname'..msg.chat_id)  then
 local UserInfo = bot.getUser(msg.sender_id.user_id)
 return send(msg_chat_id,msg_id,'\n* ✧  اسمك ->『 '..UserInfo.first_name..' 』*', "md")
+end
+if text =='رقمي' then
+local UserInfo = bot.getUser(msg.sender_id.user_id)
+local nump = UserInfo.phone_number
+if #nump == 0 then
+MyNumber = " ✧ رقمك موضوع لجهات اتصالك فقط"
+else
+MyNumber = "* ✧ رقمك ->* 〘 `"..UserInfo.phone_number.."+` 〙"
+end
+return bot.sendText(msg_chat_id, msg_id,MyNumber,'md',true)
+end
+if text ==("رقمه") and msg_reply_to_message_id ~= 0 or text ==("رقمة") and msg_reply_to_message_id ~= 0 then 
+local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
+if Message_Reply.luatele == "error" then
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
+end
+local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
+local nump = UserInfo.phone_number
+if #nump == 0 then
+MyNumber = "رقمه موضوع لجهات اتصالة فقط"
+else
+MyNumber = "* ✧ رقمه ->* 〘 `"..UserInfo.phone_number.."+` 〙"
+end
+return bot.sendText(msg_chat_id, msg_id,MyNumber,'md',true)
+end
+if text and (text:match('^رقمه (%d+)$') or text:match('^رقمة (%d+)$')) then
+local UserId = (text:match('^رقمه (%d+)$') or text:match('^رقمة (%d+)$'))
+local UserInfo = bot.getUser(UserId)
+local nump = UserInfo.phone_number
+if #nump == 0 then
+MyNumber = "رقمه موضوع لجهات اتصالة فقط"
+else
+MyNumber = "* ✧ رقمه ->* 〘 `"..UserInfo.phone_number.."+` 〙"
+end
+return bot.sendText(msg_chat_id, msg_id,MyNumber,'md',true)
+end
+if text and (text:match('^رقمه @(%S+)$') or text:match('^رقمة @(%S+)$')) then
+local UserName = (text:match('^رقمه @(%S+)$') or text:match('^رقمة @(%S+)$'))
+local UserId_Info = bot.searchPublicChat(UserName)
+local UserInfo = bot.getUser(UserId_Info.id)
+local nump = UserInfo.phone_number
+if #nump == 0 then
+MyNumber = "رقمه موضوع لجهات اتصالة فقط"
+else
+MyNumber = "* ✧ رقمه ->* 〘 `"..UserInfo.phone_number.."+` 〙"
+end
+return bot.sendText(msg_chat_id, msg_id,MyNumber,'md',true)
 end
 if text and text:match('^الرتبه @(%S+)$') then
 local UserName = text:match('^الرتبه @(%S+)$') 
@@ -10955,7 +10953,7 @@ local Info_Members = Redis:smembers(Saidi.."2rd:Group"..msg_chat_id)
 if #Info_Members == 0 then
 return send(msg_chat_id,msg_id," ✧ لا يوجد ثولان حاليا , ","md",true)  
 end
-ListMembers = '\n* ✧ قائمه الثولان  \n ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n'
+ListMembers = '\n* ✧ قائمه الثولان  \n ꔹ━━━━━ꔹ𝐒??𝐈𝐃𝐈ꔹ━━━━━ꔹ*\n'
 for k, v in pairs(Info_Members) do
 local UserInfo = bot.getUser(v)
 if UserInfo and UserInfo.username and UserInfo.username ~= "" then
@@ -26873,7 +26871,7 @@ end
 if Text and Text:match('(%d+)/bssbldm') then
 local UserId = Text:match('(%d+)/bssbldm')
 if tonumber(IdUser) == tonumber(UserId) then
-au ={type = "photo",media = "https://t.me/DevJeka",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
+au ={type = "photo",media = "https://t.me/DevJeka",caption = '*𓄼• 𝙳𝙴𝚅 ??𝙾𝚄𝚁??𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙴𝙺𝙰 •𓄹*\n',parse_mode = "Markdown"}     
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
