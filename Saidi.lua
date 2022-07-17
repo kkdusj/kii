@@ -7918,7 +7918,7 @@ end
 if text ==("اسمه") and msg_reply_to_message_id ~= 0 or text ==("اسمة") and msg_reply_to_message_id ~= 0 then 
 if Redis:get(Saidi..'idnotmemname'..msg_chat_id) then 
 if Redis:get(Saidi..'AlThther:Chat'..msg_chat_id)  then
-bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمه معطله من قبل الادمنيه ).Warning,"md",true)
+bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمه معطله من قبل الادمنيه ").Warning,"md",true)
 end
 return false
 end
@@ -7949,7 +7949,7 @@ end
 if text and (text:match('^اسمه @(%S+)$') or text:match('^اسمة @(%S+)$')) then
 if Redis:get(Saidi..'idnotmemname'..msg_chat_id) then 
 if Redis:get(Saidi..'AlThther:Chat'..msg_chat_id)  then
-bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمه معطله من قبل الادمنيه \n•-› X").Warning,"md",true)
+bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمه معطله من قبل الادمنيه ").Warning,"md",true)
 end
 return false
 end
@@ -27044,7 +27044,7 @@ end
 if Text and Text:match('(%d+)/Jabwa3') then
 local UserId = Text:match('(%d+)/Jabwa3')
 if tonumber(IdUser) == tonumber(UserId) then
-au ={type = "photo",media = "https://t.me/JABWA",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙰𝙱𝚆𝙰 •𓄹*\n',parse_mode = "Markdown"}     
+au ={type = "photo",media = "https://t.me/JABWA",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰??𝙳𝙸 𝙹𝙰𝙱𝚆𝙰 •𓄹*\n',parse_mode = "Markdown"}     
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
