@@ -13290,7 +13290,54 @@ if text and text:match("^قول (.*)$") and Redis:get(Saidi..'kolklma'..msg.chat
 local txt = {string.match(text, "^(قول) (.*)$")}
 return send(msg_chat_id,msg_id, txt[2], 'md')
 end
-
+if text and text:match("^تحميل ساوند (.*)$") then
+local url = text:match("^تحميل ساوند (.*)$")
+q = bot.sendText(msg_chat_id,msg_id,"جاري التحميل","md",true) 
+api = https.request("https://devdeiveddev.ml/api/soundcloud/soundcloud_api.php?url="..url)
+info = JSON.decode(api)
+title = info.title
+photo = info.photo
+id = msg_chat_id..msg_id
+link = info.link
+os.execute("wget -O "..id..".mp3 "..link)
+bot.sendText(msg_chat_id,msg_id,"جاري الرفع","md",true) 
+os.execute("wget -O "..id..".png "..photo)
+bot.sendAudio(msg_chat_id, msg_id, "./"..id..".mp3", '['..title..']'..'('..url..')', 'md', false, title, "@YYYBD", "./"..id..".png")
+end
+if text and text:match("^احسب (.*)$") then
+local Textage = text:match("^احسب (.*)$")
+api = https.request('https://devdeiveddev.ml/api/tele/source/7sab3mr.php?age='..URL.escape(Textage))
+ay = JSON.decode(api)
+ay1 = ay.ahmed.years
+ay2 = ay.ahmed.months
+ay3 = ay.ahmed.day
+ay4 = ay.yad.months.." شهر"
+ay5 = ay.yad.weeks.." اسبوع"
+ay6 = ay.yad.days.." يوم"
+ay7 = ay.yad.hours.." ساعة"
+ay8 = ay.yad.mins.." دقيقة"
+ay9 = ay.yad.seconds.." ثانيا"
+ay10 = ay.yad.moment.." لحظة"
+a = "\n ✧ مر علي ولادتك "
+t = " ✧ تم حساب عمرك بالتفصيل\n"
+.." ✧ عمرك "..ay1.." سنه و "..ay2.." شهر و "..ay3.." يوم"
+..a..ay4..a..ay5..a..ay6..a..ay7..a..ay8..a..ay9..a..ay10
+.."\n ✧ برجك هو "..ay.Horoscopes
+bot.sendText(msg_chat_id,msg_id,t,"md",true) 
+end 
+if text and text:match("^معادله (.*)$") then
+local Text = text:match("^معادله (.*)$")
+ay = https.request('https://dev-ahmed.ml/api/calculator.php?q=Saidi&w='..Text)
+t = "\n ✧ تم حساب المعادلة "..Text..'='..ay
+bot.sendText(msg_chat_id,msg_id,t,"html",true) 
+end 
+if text and text:match("^برج (.*)$") then
+local Textbrj = text:match("^برج (.*)$")
+gk = io.popen('curl -s "https://apiabs.ml/brg.php?brg='..URL.escape(Textbrj)..'"'):read('*a')
+br = JSON.decode(gk)
+text = br.ok.abs:gsub( " • ", " ✧ " ):gsub( "ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ", "𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹" )
+bot.sendText(msg_chat_id,msg_id, text,"md", true)
+end
 if text == "تعطيل اغنيه" then
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
@@ -13346,58 +13393,6 @@ return bot.sendPhoto(msg.chat_id, msg.id, photo.photos[1].sizes[#photo.photos[1]
 else
 return send(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
 end
-end
-end
-end
-if text ==("صورته") and msg_reply_to_message_id ~= 0 or text ==("صورتة") and msg_reply_to_message_id ~= 0 then 
-if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
-bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
-else
-local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
-if Message_Reply.luatele == "error" then
-return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
-end
-local photo = bot.getUserProfilePhotos(Message_Reply.sender_id.user_id)
-local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
-if photo and photo.total_count and photo.total_count > 0 then
-local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
-bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
-else
-return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
-end
-end
-end
-if text and (text:match('^صورته (%d+)$') or text:match('^صورتة (%d+)$')) then
-local UserId = (text:match('^صورته (%d+)$') or text:match('^صورتة (%d+)$'))
-if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
-bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
-else
-local UserInfo = bot.getUser(UserId)
-local photo = bot.getUserProfilePhotos(UserId)
-if photo and photo.total_count and photo.total_count > 0 then
-local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
-bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
-else
-return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
-end
-end
-end
-if text and (text:match('^صورته @(%S+)$') or text:match('^صورتة @(%S+)$')) then
-local UserName = (text:match('^صورته @(%S+)$') or text:match('^صورتة @(%S+)$'))
-if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
-bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
-else
-local UserId_Info = bot.searchPublicChat(UserName)
-local photo = bot.getUserProfilePhotos(UserId_Info.id)
-local UserInfo = bot.getUser(UserId_Info.id)
-if photo and photo.total_count and photo.total_count > 0 then
-local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
-bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
-else
-return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
 end
 end
 end
