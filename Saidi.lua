@@ -15346,31 +15346,6 @@ Redis:del(Saidi.."Lock:Inlen"..msg_chat_id)
 send(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ تم فتح الانلاين").unLock,"md",true)  
 return false
 end 
-if text == "صورة المجموعه" or text == "صورة الجروب" or text == "صوره المجموعه" or text == "صوره الجروب" or text == "صورة البار" then
-if ChannelJoinch(msg) == false then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Saidi..'Chat:Channel:Join'..msg.chat_id)}, },}}
-return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
-end
-if ChannelJoin(msg) == false then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
-return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
-end
-local TotalMsgT = Total_message(TotalMsg) 
-local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
-local Get_Chat = bot.getChat(msg_chat_id)
-zh = https.request('http://api.telegram.org/bot'..Token..'/getchat?chat_id='..msg_chat_id..'')
-zx = JSON.decode(zh)
-local txt = ' المجموعه -> ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..') '
-local group = '*• تفاعلها -> '..TotalMsgT..' •*'
-keyboard = {} 
-keyboard.inline_keyboard = {
-{
-{text = group, url="https://t.me/"..zx.result.username..""},
-},
-}
-local msg_ban = msg.id/2097152/0.5
-https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id="..msg.chat_id.."&reply_to_message_id="..msg_ban.."&photo=t.me/"..zx.result.username.."&caption="..URL.escape(txt).."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
-end
 if text == "ضع رابط" or text == "وضع رابط" then
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
