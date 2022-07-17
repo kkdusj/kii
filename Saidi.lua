@@ -7902,6 +7902,95 @@ MyNumber = "* ✧ رقمه ->* 〘 `"..UserInfo.phone_number.."+` 〙"
 end
 return bot.sendText(msg_chat_id, msg_id,MyNumber,'md',true)
 end
+if text == "اسمي" or text == "->  اسمي ✧ " then
+if Redis:get(Saidi..'idnotmemname'..msg_chat_id) then 
+if Redis:get(Saidi..'AlThther:Chat'..msg_chat_id)  then
+bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمي معطله من قبل الادمنيه ").Warning,"md",true)
+end
+return false
+end
+local UserInfo = bot.getUser(msg.sender_id.user_id)
+text ='* ✧ اسمك ->* firstname lastname'
+local text = text:gsub('firstname',(UserInfo.first_name or ''))
+local text = text:gsub('lastname',(UserInfo.last_name or ''))
+bot.sendText(msg_chat_id, msg_id, text, 'html',true)
+end
+if text ==("اسمه") and msg_reply_to_message_id ~= 0 or text ==("اسمة") and msg_reply_to_message_id ~= 0 then 
+if Redis:get(Saidi..'idnotmemname'..msg_chat_id) then 
+if Redis:get(Saidi..'AlThther:Chat'..msg_chat_id)  then
+bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمه معطله من قبل الادمنيه ).Warning,"md",true)
+end
+return false
+end
+local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
+if Message_Reply.luatele == "error" then
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
+end
+local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
+text ='* ✧ اسمة ->* firstname lastname'
+local text = text:gsub('firstname',(UserInfo.first_name or ''))
+local text = text:gsub('lastname',(UserInfo.last_name or ''))
+bot.sendText(msg_chat_id, msg_id, text, 'html',true)
+end
+if text and (text:match('^اسمه (%d+)$') or text:match('^اسمة (%d+)$')) then
+if Redis:get(Saidi..'idnotmemname'..msg_chat_id) then 
+if Redis:get(Saidi..'AlThther:Chat'..msg_chat_id)  then
+bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمه معطله من قبل الادمنيه ").Warning,"md",true)
+end
+return false
+end
+local UserId = (text:match('^اسمه (%d+)$') or text:match('^اسمة (%d+)$'))
+local UserInfo = bot.getUser(UserId)
+text ='* ✧ اسمة ->* firstname lastname'
+local text = text:gsub('firstname',(UserInfo.first_name or ''))
+local text = text:gsub('lastname',(UserInfo.last_name or ''))
+bot.sendText(msg_chat_id, msg_id, text, 'html',true)
+end
+if text and (text:match('^اسمه @(%S+)$') or text:match('^اسمة @(%S+)$')) then
+if Redis:get(Saidi..'idnotmemname'..msg_chat_id) then 
+if Redis:get(Saidi..'AlThther:Chat'..msg_chat_id)  then
+bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمه معطله من قبل الادمنيه \n•-› X").Warning,"md",true)
+end
+return false
+end
+local UserName = (text:match('^اسمه @(%S+)$') or text:match('^اسمة @(%S+)$'))
+local UserId_Info = bot.searchPublicChat(UserName)
+local UserInfo = bot.getUser(UserId_Info.id)
+text ='* ✧ اسمة ->* firstname lastname'
+local text = text:gsub('firstname',(UserInfo.first_name or ''))
+local text = text:gsub('lastname',(UserInfo.last_name or ''))
+bot.sendText(msg_chat_id, msg_id, text, 'html',true)
+end
+--     Source Saidi     --
+if text == "معرفي" then
+local UserInfo = bot.getUser(msg.sender_id.user_id)
+text ='* ✧ معرفك -> *〘 User 〙'
+local text = text:gsub('User',('@'..UserInfo.username or ''))
+bot.sendText(msg_chat_id, msg_id, text, 'html',true)
+end
+if text ==("معرفه") and msg_reply_to_message_id ~= 0 or text ==("معرفة") and msg_reply_to_message_id ~= 0 then 
+local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
+if Message_Reply.luatele == "error" then
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
+end
+local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
+if UserInfo.username then
+UserInfousername = '@'..UserInfo.username..''
+else
+UserInfousername = 'لا يوجد'
+end
+return bot.sendText(msg_chat_id,msg_id,'* ✧ معرفه ->* 〘 `'..UserInfousername..'` 〙',"md",true) 
+end
+if text and (text:match('^معرفه (%d+)$') or text:match('^معرفة (%d+)$')) then
+local UserId = (text:match('^معرفه (%d+)$') or text:match('^معرفة (%d+)$'))
+local UserInfo = bot.getUser(UserId)
+if UserInfo.username then
+UserName = '@'..UserInfo.username..''
+else
+UserName = 'لا يوجد'
+end
+return bot.sendText(msg_chat_id,msg_id,'* ✧ معرفه ->* 〘 `'..UserName..'` 〙',"md",true) 
+end
 if text and text:match('^الرتبه @(%S+)$') then
 local UserName = text:match('^الرتبه @(%S+)$') 
 local UserId_Info = bot.searchPublicChat(UserName)
@@ -13145,6 +13234,58 @@ return send(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md
 end
 end
 end
+if text ==("صورته") and msg_reply_to_message_id ~= 0 or text ==("صورتة") and msg_reply_to_message_id ~= 0 then 
+if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
+bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
+else
+local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
+if Message_Reply.luatele == "error" then
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
+end
+local photo = bot.getUserProfilePhotos(Message_Reply.sender_id.user_id)
+local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
+if photo and photo.total_count and photo.total_count > 0 then
+local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
+bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
+else
+return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
+end
+end
+end
+if text and (text:match('^صورته (%d+)$') or text:match('^صورتة (%d+)$')) then
+local UserId = (text:match('^صورته (%d+)$') or text:match('^صورتة (%d+)$'))
+if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
+bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
+else
+local UserInfo = bot.getUser(UserId)
+local photo = bot.getUserProfilePhotos(UserId)
+if photo and photo.total_count and photo.total_count > 0 then
+local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
+bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
+else
+return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
+end
+end
+end
+if text and (text:match('^صورته @(%S+)$') or text:match('^صورتة @(%S+)$')) then
+local UserName = (text:match('^صورته @(%S+)$') or text:match('^صورتة @(%S+)$'))
+if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
+bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
+else
+local UserId_Info = bot.searchPublicChat(UserName)
+local photo = bot.getUserProfilePhotos(UserId_Info.id)
+local UserInfo = bot.getUser(UserId_Info.id)
+if photo and photo.total_count and photo.total_count > 0 then
+local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
+bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
+else
+return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
+end
+end
+end
 if text and text:match("^معنى (.*)$") then 
 local TextMean = text:match("^معنى (.*)$") or text:match("^معنى اسم (.*)$") 
 if not Redis:get(Saidi..'mynames'..msg.chat_id)  then
@@ -13201,7 +13342,58 @@ if text and text:match("^قول (.*)$") and Redis:get(Saidi..'kolklma'..msg.chat
 local txt = {string.match(text, "^(قول) (.*)$")}
 return send(msg_chat_id,msg_id, txt[2], 'md')
 end
-
+-----تحميل-ساوند-كلاود---
+if text and text:match("^تحميل ساوند (.*)$") then
+local url = text:match("^تحميل ساوند (.*)$")
+q = bot.sendText(msg_chat_id,msg_id,"جاري التحميل","md",true) 
+api = https.request("https://devdeiveddev.ml/api/soundcloud/soundcloud_api.php?url="..url)
+info = JSON.decode(api)
+title = info.title
+photo = info.photo
+id = msg_chat_id..msg_id
+link = info.link
+os.execute("wget -O "..id..".mp3 "..link)
+bot.sendText(msg_chat_id,msg_id,"جاري الرفع","md",true) 
+os.execute("wget -O "..id..".png "..photo)
+bot.sendAudio(msg_chat_id, msg_id, "./"..id..".mp3", '['..title..']'..'('..url..')', 'md', false, title, "@YYYBD", "./"..id..".png")
+end
+---العمر---
+if text and text:match("^احسب (.*)$") then
+local Textage = text:match("^احسب (.*)$")
+api = https.request('https://devdeiveddev.ml/api/tele/source/7sab3mr.php?age='..URL.escape(Textage))
+ay = JSON.decode(api)
+ay1 = ay.ahmed.years
+ay2 = ay.ahmed.months
+ay3 = ay.ahmed.day
+ay4 = ay.yad.months.." شهر"
+ay5 = ay.yad.weeks.." اسبوع"
+ay6 = ay.yad.days.." يوم"
+ay7 = ay.yad.hours.." ساعة"
+ay8 = ay.yad.mins.." دقيقة"
+ay9 = ay.yad.seconds.." ثانيا"
+ay10 = ay.yad.moment.." لحظة"
+a = "\n ✧ مر علي ولادتك "
+t = " ✧ تم حساب عمرك بالتفصيل\n"
+.." ✧ عمرك "..ay1.." سنه و "..ay2.." شهر و "..ay3.." يوم"
+..a..ay4..a..ay5..a..ay6..a..ay7..a..ay8..a..ay9..a..ay10
+.."\n ✧ برجك هو "..ay.Horoscopes
+bot.sendText(msg_chat_id,msg_id,t,"md",true) 
+end 
+---اله حسابة---
+if text and text:match("^معادله (.*)$") then
+local Text = text:match("^معادله (.*)$")
+ay = https.request('https://dev-ahmed.ml/api/calculator.php?q=Saidi&w='..Text)
+t = "\n ✧ تم حساب المعادلة "..Text..'='..ay
+bot.sendText(msg_chat_id,msg_id,t,"html",true) 
+end 
+--     Source Saidi     --
+if text and text:match("^برج (.*)$") then
+local Textbrj = text:match("^برج (.*)$")
+gk = io.popen('curl -s "https://apiabs.ml/brg.php?brg='..URL.escape(Textbrj)..'"'):read('*a')
+br = JSON.decode(gk)
+text = br.ok.abs:gsub( " • ", " ✧ " ):gsub( "ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ", "𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹" )
+bot.sendText(msg_chat_id,msg_id, text,"md", true)
+end
 if text == "تعطيل اغنيه" then
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
@@ -20845,7 +21037,7 @@ local TextHelp = [[*
  ✧ رفع ، تنزيل ->{ مالك }
  ✧ المالكين ، مسح المالكين
  ✧ تنزيل جميع الرتب
-ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ꔹ━━━━━ꔹ𝐒??𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✧ اوامر المالكين 
 ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✧ رفع ، تنزيل -> { منشئ اساسي }
@@ -20969,9 +21161,21 @@ if ChannelJoin(msg) == false then
 local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
+print("\27[31;47m\n        ( تم تحديث ملفات البوت )        \n\27[0;34;49m\n") 
 print('Chat Id : '..msg_chat_id)
-print('User Id : '..msg_user_send_id)
-send(msg_chat_id,msg_id, "* ✧ تم تحديث الملفات *","md",true)
+print('User Id : '..msg.sender_id.user_id)
+local Text = [[
+*✧ تم تحديث الملفات*
+]] 
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
+},
+}
+}
+bot.sendText(msg_chat_id,msg_id,Text,"md",true, false, false, false, reply_markup)
 dofile('Saidi.lua')  
 end
 if text == 'تنظيف المشتركين' then
@@ -24579,9 +24783,21 @@ if ChannelJoin(msg) == false then
 local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
+print("\27[31;47m\n        ( تم تحديث ملفات البوت )        \n\27[0;34;49m\n") 
 print('Chat Id : '..msg_chat_id)
-print('User Id : '..msg_user_send_id)
-send(msg_chat_id,msg_id, " ✧ تم تحديث الملفات ♻","md",true)
+print('User Id : '..msg.sender_id.user_id)
+local Text = [[
+*✧ تم تحديث الملفات*
+]] 
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
+},
+}
+}
+bot.sendText(msg_chat_id,msg_id,Text,"md",true, false, false, false, reply_markup)
 dofile('Saidi.lua')  
 end
 if text == '/start' then
