@@ -13234,58 +13234,6 @@ return send(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md
 end
 end
 end
-if text ==("صورته") and msg_reply_to_message_id ~= 0 or text ==("صورتة") and msg_reply_to_message_id ~= 0 then 
-if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
-bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
-else
-local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
-if Message_Reply.luatele == "error" then
-return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
-end
-local photo = bot.getUserProfilePhotos(Message_Reply.sender_id.user_id)
-local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
-if photo and photo.total_count and photo.total_count > 0 then
-local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
-bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
-else
-return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
-end
-end
-end
-if text and (text:match('^صورته (%d+)$') or text:match('^صورتة (%d+)$')) then
-local UserId = (text:match('^صورته (%d+)$') or text:match('^صورتة (%d+)$'))
-if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
-bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
-else
-local UserInfo = bot.getUser(UserId)
-local photo = bot.getUserProfilePhotos(UserId)
-if photo and photo.total_count and photo.total_count > 0 then
-local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
-bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
-else
-return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
-end
-end
-end
-if text and (text:match('^صورته @(%S+)$') or text:match('^صورتة @(%S+)$')) then
-local UserName = (text:match('^صورته @(%S+)$') or text:match('^صورتة @(%S+)$'))
-if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
-bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
-else
-local UserId_Info = bot.searchPublicChat(UserName)
-local photo = bot.getUserProfilePhotos(UserId_Info.id)
-local UserInfo = bot.getUser(UserId_Info.id)
-if photo and photo.total_count and photo.total_count > 0 then
-local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
-bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
-else
-return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
-end
-end
-end
 if text and text:match("^معنى (.*)$") then 
 local TextMean = text:match("^معنى (.*)$") or text:match("^معنى اسم (.*)$") 
 if not Redis:get(Saidi..'mynames'..msg.chat_id)  then
@@ -13398,6 +13346,58 @@ return bot.sendPhoto(msg.chat_id, msg.id, photo.photos[1].sizes[#photo.photos[1]
 else
 return send(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
 end
+end
+end
+end
+if text ==("صورته") and msg_reply_to_message_id ~= 0 or text ==("صورتة") and msg_reply_to_message_id ~= 0 then 
+if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
+bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
+else
+local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
+if Message_Reply.luatele == "error" then
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
+end
+local photo = bot.getUserProfilePhotos(Message_Reply.sender_id.user_id)
+local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
+if photo and photo.total_count and photo.total_count > 0 then
+local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
+bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
+else
+return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
+end
+end
+end
+if text and (text:match('^صورته (%d+)$') or text:match('^صورتة (%d+)$')) then
+local UserId = (text:match('^صورته (%d+)$') or text:match('^صورتة (%d+)$'))
+if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
+bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
+else
+local UserInfo = bot.getUser(UserId)
+local photo = bot.getUserProfilePhotos(UserId)
+if photo and photo.total_count and photo.total_count > 0 then
+local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
+bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
+else
+return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
+end
+end
+end
+if text and (text:match('^صورته @(%S+)$') or text:match('^صورتة @(%S+)$')) then
+local UserName = (text:match('^صورته @(%S+)$') or text:match('^صورتة @(%S+)$'))
+if Redis:get(Saidi.."myphoto"..msg_chat_id) == "off" then
+bot.sendText(msg_chat_id,msg_id,'* ✧ الصوره معطله*',"md",true) 
+else
+local UserId_Info = bot.searchPublicChat(UserName)
+local photo = bot.getUserProfilePhotos(UserId_Info.id)
+local UserInfo = bot.getUser(UserId_Info.id)
+if photo and photo.total_count and photo.total_count > 0 then
+local Text = "* ✧ عدد صوره هو -> "..photo.total_count.." صوره*"
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserInfo.username}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
+bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, Text, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
+else
+return bot.sendText(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md",true) 
 end
 end
 end
