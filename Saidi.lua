@@ -16602,7 +16602,6 @@ return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, 
 elseif not msg.Admin then
 return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
 end
-end
 if text == 'تنزيل الكل' and msg.reply_to_message_id ~= 0 then
 if not msg.Admin then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(7)..' }* ',"md",true)  
@@ -28239,7 +28238,7 @@ elseif Text and Text:match('(%d+)/lock_joine') then
 local UserId = Text:match('(%d+)/lock_joine')
 if tonumber(IdUser) == tonumber(UserId) then
 Redis:set(Saidi.."Lock:Join"..ChatId,"kick")  
-local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ ??ᏴᎪᏟᏦ𓆪 ･', data =UserId..'/'.. 'NoNextSeting'},},}}
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم قفـل الدخول").Lock, 'md', true, false, reply_markup)
 end
 elseif Text and Text:match('(%d+)/lock_addmem') then
