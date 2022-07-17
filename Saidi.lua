@@ -15346,6 +15346,31 @@ Redis:del(Saidi.."Lock:Inlen"..msg_chat_id)
 send(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ تم فتح الانلاين").unLock,"md",true)  
 return false
 end 
+if text == "صورة المجموعه" or text == "صورة الجروب" or text == "صوره المجموعه" or text == "صوره الجروب" or text == "صورة البار" then
+if ChannelJoinch(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Chat:Channel:Join:Name'..msg.chat_id), url = 't.me/'..Redis:get(Saidi..'Chat:Channel:Join'..msg.chat_id)}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+if ChannelJoin(msg) == false then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
+return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
+end
+local TotalMsgT = Total_message(TotalMsg) 
+local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
+local Get_Chat = bot.getChat(msg_chat_id)
+zh = https.request('http://api.telegram.org/bot'..Token..'/getchat?chat_id='..msg_chat_id..'')
+zx = JSON.decode(zh)
+local txt = ' المجموعه -> ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..') '
+local group = '*• تفاعلها -> '..TotalMsgT..' •*'
+keyboard = {} 
+keyboard.inline_keyboard = {
+{
+{text = group, url="https://t.me/"..zx.result.username..""},
+},
+}
+local msg_ban = msg.id/2097152/0.5
+https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id="..msg.chat_id.."&reply_to_message_id="..msg_ban.."&photo=t.me/"..zx.result.username.."&caption="..URL.escape(txt).."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
+end
 if text == "ضع رابط" or text == "وضع رابط" then
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
@@ -16269,6 +16294,339 @@ data = {
 }
 }
 return send(msg_chat_id, msg_id, " ✧ الصلاحيات - ", 'md', false, false, false, false, reply_markup)
+end
+if text ==("رفع رتبه") and msg_reply_to_message_id ~= 0 then 
+local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
+if Message_Reply.luatele == "error" then
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
+end
+local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
+if UserInfo.first_name == false then
+bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
+return false  
+end
+local Text ='*✧ قم باستعمال الازرار لرفع المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› ✓'
+if msg.Asasy then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..Message_Reply.sender_id.user_id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..Message_Reply.sender_id.user_id},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..Message_Reply.sender_id.user_id}},{{text="• رفع مطور ثانوي •",data=msg.sender_id.user_id..":SetSecondSudo:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Devss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..Message_Reply.sender_id.user_id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..Message_Reply.sender_id.user_id},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Dev then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..Message_Reply.sender_id.user_id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Ownerss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..Message_Reply.sender_id.user_id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Creator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..Message_Reply.sender_id.user_id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.SuperCreator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Manger then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Admin then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif not msg.Admin then
+return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
+end
+end
+if text and (text:match('^رفع رتبه (%d+)$')) then
+local UserId = (text:match('^رفع رتبه (%d+)$'))
+local UserInfo = bot.getUser(UserId)
+if not msg.Admin then
+return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(8)..' .\n•-› X').Warning,"md",true)    
+end
+if UserInfo.first_name == false then
+bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
+return false  
+end
+local Text ='*✧ قم باستعمال الازرار لرفع المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› ✓'
+if msg.Asasy then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..UserId}},{{text="• رفع مطور ثانوي •",data=msg.sender_id.user_id..":SetSecondSudo:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Devss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Dev then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Ownerss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Creator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.SuperCreator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Manger then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Admin then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif not msg.Admin then
+return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
+end
+end
+if text and (text:match('^رفع رتبه @(%S+)$')) then
+local UserName = (text:match('^رفع رتبه @(%S+)$'))
+if not msg.Admin then
+return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(8)..' .\n•-› X').Warning,"md",true)    
+end
+local UserId_Info = bot.searchPublicChat(UserName)
+local UserInfo = bot.getUser(UserId_Info.id)
+if UserInfo.first_name == false then
+bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
+return false  
+end
+local Text ='*✧ قم باستعمال الازرار لرفع المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› ✓'
+if msg.Asasy then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId_Info.id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId_Info.id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId_Info.id},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..UserId_Info.id}},{{text="• رفع مطور ثانوي •",data=msg.sender_id.user_id..":SetSecondSudo:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Devss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId_Info.id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId_Info.id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId_Info.id},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Dev then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId_Info.id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId_Info.id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Ownerss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId_Info.id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Creator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId_Info.id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.SuperCreator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Manger then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Admin then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif not msg.Admin then
+return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
+end
+end
+--     Source Saidi     --
+if text ==("تنزيل رتبه") and msg_reply_to_message_id ~= 0 then 
+local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
+if Message_Reply.luatele == "error" then
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
+end
+local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
+if UserInfo.first_name == false then
+bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
+return false  
+end
+local Text ='*✧ قم باستعمال الازرار لتنزيل المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› X'
+if msg.Asasy then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..Message_Reply.sender_id.user_id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..Message_Reply.sender_id.user_id},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل مطور ثانوي •",data=msg.sender_id.user_id..":RemSecondSudo:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Devss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..Message_Reply.sender_id.user_id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..Message_Reply.sender_id.user_id},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Dev then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..Message_Reply.sender_id.user_id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Ownerss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..Message_Reply.sender_id.user_id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Creator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..Message_Reply.sender_id.user_id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.SuperCreator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Manger then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Admin then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif not msg.Admin then
+return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
+end
+end
+if text and (text:match('^تنزيل رتبه (%d+)$')) then
+local UserId = (text:match('^تنزيل رتبه (%d+)$'))
+local UserInfo = bot.getUser(UserId)
+if not msg.Admin then
+return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(8)..' .\n•-› X').Warning,"md",true)    
+end
+if UserInfo.first_name == false then
+bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
+return false  
+end
+local Text ='*✧ قم باستعمال الازرار لتنزيل المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› X'
+if msg.Asasy then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..UserId}},{{text="• تنزيل مطور ثانوي •",data=msg.sender_id.user_id..":RemSecondSudo:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Devss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Dev then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Ownerss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Creator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.SuperCreator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Manger then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Admin then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif not msg.Admin then
+return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
+end
+end
+if text and (text:match('^تنزيل رتبه @(%S+)$')) then
+local UserName = (text:match('^تنزيل رتبه @(%S+)$'))
+if not msg.Admin then
+return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(8)..' .\n•-› X').Warning,"md",true)    
+end
+local UserId_Info = bot.searchPublicChat(UserName)
+local UserInfo = bot.getUser(UserId_Info.id)
+if UserInfo.first_name == false then
+bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
+return false  
+end
+local Text ='*✧ قم باستعمال الازرار لتنزيل المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› X'
+if msg.Asasy then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId_Info.id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId_Info.id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId_Info.id},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..UserId_Info.id}},{{text="• تنزيل مطور ثانوي •",data=msg.sender_id.user_id..":RemSecondSudo:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Devss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId_Info.id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId_Info.id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId_Info.id},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Dev then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId_Info.id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId_Info.id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Ownerss then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId_Info.id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Creator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId_Info.id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.SuperCreator then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Manger then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif msg.Admin then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
+}}
+return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
+elseif not msg.Admin then
+return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
+end
 end
 if text == 'تنزيل الكل' and msg.reply_to_message_id ~= 0 then
 if not msg.Admin then
