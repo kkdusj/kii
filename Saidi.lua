@@ -1834,6 +1834,7 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {
 {{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'},},}}
 bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, TextBot, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
 end
+end
 
 
 if msg.content.luatele == "messageContact" and not msg.Special then  -- الجهات
