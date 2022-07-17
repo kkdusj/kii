@@ -21110,21 +21110,9 @@ if ChannelJoin(msg) == false then
 local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
-print("\27[31;47m\n        ( تم تحديث ملفات البوت )        \n\27[0;34;49m\n") 
 print('Chat Id : '..msg_chat_id)
-print('User Id : '..msg.sender_id.user_id)
-local Text = [[
-*✧ تم تحديث الملفات*
-]] 
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{
-{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
-},
-}
-}
-bot.sendText(msg_chat_id,msg_id,Text,"md",true, false, false, false, reply_markup)
+print('User Id : '..msg_user_send_id)
+send(msg_chat_id,msg_id, "* ✧ تم تحديث الملفات *","md",true)
 dofile('Saidi.lua')  
 end
 if text == 'تنظيف المشتركين' then
@@ -24732,21 +24720,9 @@ if ChannelJoin(msg) == false then
 local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
-print("\27[31;47m\n        ( تم تحديث ملفات البوت )        \n\27[0;34;49m\n") 
 print('Chat Id : '..msg_chat_id)
-print('User Id : '..msg.sender_id.user_id)
-local Text = [[
-*✧ تم تحديث الملفات*
-]] 
-local reply_markup = bot.replyMarkup{
-type = 'inline',
-data = {
-{
-{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
-},
-}
-}
-bot.sendText(msg_chat_id,msg_id,Text,"md",true, false, false, false, reply_markup)
+print('User Id : '..msg_user_send_id)
+send(msg_chat_id,msg_id, "* ✧ تم تحديث الملفات*","md",true)
 dofile('Saidi.lua')  
 end
 if text == '/start' then
