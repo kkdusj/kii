@@ -7463,8 +7463,6 @@ Redis:del(Saidi.."zhrfa"..msg.chat_id)
 send(msg_chat_id,msg_id, ' ✧ تم تفعيل امر الزخرفه\n ꪤ',"md")
 end
 end
---     Dev Bot chat      --
---     Source Saidi     --
 if text == 'تيست' or text == 'مم' or text =='ططط' then
 local TextingDevSaidi = Redis:get(Saidi..'Texting:DevSaidi')
 local photo = bot.getUserProfilePhotos(Sudo_Id)
@@ -7487,7 +7485,6 @@ bot.sendText(msg_chat_id,msg_id,TextDev,"md", true, false, false, false, reply_m
 end
 end
 end
---     Dev Bot chat end     --
 if not msg.Asasy then
 local UserInfo = bot.getUser(msg_sender_id.user_id)
 local Get_Chat = bot.getChat(msg_chat_id)
@@ -7515,7 +7512,6 @@ end
 return bot.sendText(Sudo_Id,0," ✧ هناك من بحاجه الى مساعده ↑↓ \nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ الشخص -> "..Name.."\n ✧ اسم المجموعه -> ["..NameChat.."]\n ✧ ايدي المجموعه ↑↓ \n❨ `"..msg_chat_id.."` ❩\n"..LinkGroup.."\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ الوقت -> "..os.date("%I:%M%p").."\n ✧ التاريخ -> "..os.date("%Y/%m/%d").."",'md',true)
 end
 end
---     Source Saidi     --
 if text == 'المطور' or text == 'مطور البوت' then   
 local UserInfo = bot.getUser(Sudo_Id) 
 local InfoUser = bot.getUserFullInfo(Sudo_Id)
