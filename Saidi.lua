@@ -7902,95 +7902,7 @@ MyNumber = "* ✧ رقمه ->* 〘 `"..UserInfo.phone_number.."+` 〙"
 end
 return bot.sendText(msg_chat_id, msg_id,MyNumber,'md',true)
 end
-if text == "اسمي" or text == "->  اسمي ✧ " then
-if Redis:get(Saidi..'idnotmemname'..msg_chat_id) then 
-if Redis:get(Saidi..'AlThther:Chat'..msg_chat_id)  then
-bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمي معطله من قبل الادمنيه ").Warning,"md",true)
-end
-return false
-end
-local UserInfo = bot.getUser(msg.sender_id.user_id)
-text ='* ✧ اسمك ->* firstname lastname'
-local text = text:gsub('firstname',(UserInfo.first_name or ''))
-local text = text:gsub('lastname',(UserInfo.last_name or ''))
-bot.sendText(msg_chat_id, msg_id, text, 'html',true)
-end
-if text ==("اسمه") and msg_reply_to_message_id ~= 0 or text ==("اسمة") and msg_reply_to_message_id ~= 0 then 
-if Redis:get(Saidi..'idnotmemname'..msg_chat_id) then 
-if Redis:get(Saidi..'AlThther:Chat'..msg_chat_id)  then
-bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمه معطله من قبل الادمنيه ").Warning,"md",true)
-end
-return false
-end
-local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
-if Message_Reply.luatele == "error" then
-return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
-end
-local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
-text ='* ✧ اسمة ->* firstname lastname'
-local text = text:gsub('firstname',(UserInfo.first_name or ''))
-local text = text:gsub('lastname',(UserInfo.last_name or ''))
-bot.sendText(msg_chat_id, msg_id, text, 'html',true)
-end
-if text and (text:match('^اسمه (%d+)$') or text:match('^اسمة (%d+)$')) then
-if Redis:get(Saidi..'idnotmemname'..msg_chat_id) then 
-if Redis:get(Saidi..'AlThther:Chat'..msg_chat_id)  then
-bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمه معطله من قبل الادمنيه ").Warning,"md",true)
-end
-return false
-end
-local UserId = (text:match('^اسمه (%d+)$') or text:match('^اسمة (%d+)$'))
-local UserInfo = bot.getUser(UserId)
-text ='* ✧ اسمة ->* firstname lastname'
-local text = text:gsub('firstname',(UserInfo.first_name or ''))
-local text = text:gsub('lastname',(UserInfo.last_name or ''))
-bot.sendText(msg_chat_id, msg_id, text, 'html',true)
-end
-if text and (text:match('^اسمه @(%S+)$') or text:match('^اسمة @(%S+)$')) then
-if Redis:get(Saidi..'idnotmemname'..msg_chat_id) then 
-if Redis:get(Saidi..'AlThther:Chat'..msg_chat_id)  then
-bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id," ✧ اسمه معطله من قبل الادمنيه ").Warning,"md",true)
-end
-return false
-end
-local UserName = (text:match('^اسمه @(%S+)$') or text:match('^اسمة @(%S+)$'))
-local UserId_Info = bot.searchPublicChat(UserName)
-local UserInfo = bot.getUser(UserId_Info.id)
-text ='* ✧ اسمة ->* firstname lastname'
-local text = text:gsub('firstname',(UserInfo.first_name or ''))
-local text = text:gsub('lastname',(UserInfo.last_name or ''))
-bot.sendText(msg_chat_id, msg_id, text, 'html',true)
-end
---     Source Saidi     --
-if text == "معرفي" then
-local UserInfo = bot.getUser(msg.sender_id.user_id)
-text ='* ✧ معرفك -> *〘 User 〙'
-local text = text:gsub('User',('@'..UserInfo.username or ''))
-bot.sendText(msg_chat_id, msg_id, text, 'html',true)
-end
-if text ==("معرفه") and msg_reply_to_message_id ~= 0 or text ==("معرفة") and msg_reply_to_message_id ~= 0 then 
-local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
-if Message_Reply.luatele == "error" then
-return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
-end
-local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
-if UserInfo.username then
-UserInfousername = '@'..UserInfo.username..''
-else
-UserInfousername = 'لا يوجد'
-end
-return bot.sendText(msg_chat_id,msg_id,'* ✧ معرفه ->* 〘 `'..UserInfousername..'` 〙',"md",true) 
-end
-if text and (text:match('^معرفه (%d+)$') or text:match('^معرفة (%d+)$')) then
-local UserId = (text:match('^معرفه (%d+)$') or text:match('^معرفة (%d+)$'))
-local UserInfo = bot.getUser(UserId)
-if UserInfo.username then
-UserName = '@'..UserInfo.username..''
-else
-UserName = 'لا يوجد'
-end
-return bot.sendText(msg_chat_id,msg_id,'* ✧ معرفه ->* 〘 `'..UserName..'` 〙',"md",true) 
-end
+
 if text and text:match('^الرتبه @(%S+)$') then
 local UserName = text:match('^الرتبه @(%S+)$') 
 local UserId_Info = bot.searchPublicChat(UserName)
@@ -18260,7 +18172,7 @@ local zk_list = {
     "ꞏ ### ｢♥｣",
     "⋆ ### ’🧸💕›",
     " ᯓ 𓆩 ˹ ### ˼ 𓆪 𓆃",
-    "𓆩 ###ｌ➝ ˛⁽♥₎ 𓆪",
+    "𓆩 ###ｌ➝ ˛⁽♥₎ ??",
     "𒅒 ✧  !! ###  ᵛ͢ᵎᵖ 𒅒",
     "˚₊· ͟͟͞͞➳❥❬ ### ❭ ✧ °",
     "ᥫ᭡ 𖥻 ### ۰ ໋࣭ヾ",
@@ -20934,7 +20846,7 @@ local TextHelp = [[*
  ✧ رفع ، تنزيل ->{ مالك }
  ✧ المالكين ، مسح المالكين
  ✧ تنزيل جميع الرتب
-ꔹ━━━━━ꔹ𝐒??𝐈𝐃??ꔹ━━━━━ꔹ
+ꔹ━━━━━ꔹ𝐒??𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✧ اوامر المالكين 
 ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✧ رفع ، تنزيل -> { منشئ اساسي }
