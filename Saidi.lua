@@ -16596,6 +16596,7 @@ Redis:del(Saidi.."Admin:Group"..msg_chat_id)
 --Redis:del(Saidi.."Special:Group"..msg_chat_id)
 return send(msg_chat_id,msg_id,'\n* ✧ تم تنزيل جميع رتب الجروب { المنشئين الاساسسين , المنشئين , المدراء , الادمنيه  }* ',"md",true)  
 end
+
 if text == 'لقبي' then
 local Check = https.request('https://api.telegram.org/bot'..Token..'/getChatMember?chat_id='..msg_chat_id..'&user_id='..msg_sender_id.user_id)
 local GetInfo = JSON.decode(Check)
@@ -16706,6 +16707,7 @@ if Status == false then
 return bot.sendText(msg_chat_id,msg_id," ✧ ليس لديه لقب هنا","md",true)  
 else
 local Text = " ✧ *عزيزي لقبة في المجموعة ...*"
+
 local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = custom_title_infor, url = "tg://user?id="..UserId_Info.id}, },}}
 return bot.sendText(msg_chat_id,msg_id,Text,"md",false, false, false, false, reply_markup)
 end
@@ -16716,6 +16718,7 @@ local CustomTitle = text:match('ضع لقب (.*)')
 if not msg_BasicConstructor then
 return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg_sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(5)..' .\n•-› X').Warning,"md",true)    
 end
+
 if msg_can_be_deleted_for_all_users == false then
 return bot.sendText(msg_chat_id,msg_id,"\n* ✧ عذرآ البوت ليس ادمن في المجموعة يرجى ترقيته وتفعيل الصلاحيات له *","md",true)  
 end
@@ -16746,6 +16749,7 @@ local UserName = {text:match('^ضع لقب @(%S+) (.*)$')}
 if not msg_BasicConstructor then
 return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg_sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(5)..' .\n•-› X').Warning,"md",true)    
 end
+
 if msg_can_be_deleted_for_all_users == false then
 return bot.sendText(msg_chat_id,msg_id,"\n* ✧ عذرآ البوت ليس ادمن في المجموعة يرجى ترقيته وتفعيل الصلاحيات له *","md",true)  
 end
@@ -24147,7 +24151,7 @@ Redis:set(Saidi.."Game:Difference"..msg.chat_id,name)
 name = string.gsub(name,"😸","😹??????😹😹😹😹😸😹😹😹😹")
 name = string.gsub(name,"☠","💀💀💀💀💀💀💀☠??💀💀💀💀")
 name = string.gsub(name,"🐼","👻👻👻🐼👻👻??👻👻👻👻")
-name = string.gsub(name,"🐇","🕊🕊??🕊🕊🐇🕊🕊🕊🕊")
+name = string.gsub(name,"🐇","??🕊??🕊🕊🐇🕊🕊🕊🕊")
 name = string.gsub(name,"🌑","🌚🌚🌚🌚🌚🌑🌚🌚🌚")
 name = string.gsub(name,"🌚","🌑🌑🌑🌑🌑??🌑🌑🌑")
 name = string.gsub(name,"⭐️","🌟🌟🌟🌟🌟🌟🌟🌟⭐️🌟🌟🌟")
