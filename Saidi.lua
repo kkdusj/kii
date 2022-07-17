@@ -18423,273 +18423,6 @@ local reply_markup = bot.replyMarkup{
   }
   return send(msg_chat_id,msg_id," ✧ ارسل الان اسم الرتبه ","md",false, false, false, false, reply_markup)
 end
-if text and Redis:get(Saidi.."del:rtba"..msg.sender_id.user_id..":"..msg_chat_id) == "true" then
-  Redis:srem(Saidi.."rowtab:", text)
-  Redis:del(Saidi..text.."type:")
-  local list_del = Redis:smembers(Saidi.."rtba:"..text..":") or Redis:smembers(Saidi.."rtba:"..text..":"..msg_chat_id)
-  local list_chatid = Redis:smembers(Saidi.."ChekBotAdd")
-  for f,chat_id_del in pairs(list_chatid) do
-  for k,v in pairs(list_del) do
-   Redis:del(Saidi.."rtba:"..text..":"..v)
-   Redis:del(Saidi.."rtba_name:"..chat_id_del..v)
-   Redis:del(Saidi.."rtba_name:"..v)
-  end
-end
-  for k,v in pairs(list_chatid) do
-   Redis:del(Saidi.."rtba:"..text..":"..v)
-  end
-  Redis:del(Saidi.."rtba:"..text..":")
-  Redis:del(Saidi.."del:rtba"..msg.sender_id.user_id..":"..msg_chat_id)
-return send(msg_chat_id,msg_id," ✧ تم مسح الرتبه من الرتب المضافه ","md")
-end  
-if text == ("اضف رتبه") then
-  if not msg.Asasy then
-  return send(msg_chat_id,msg_id,'\n* ✧ هاذا الامر يخص  '..Controller_Num(1)..' * ',"md",true)  
-  end
-  if ChannelJoin(msg) == false then
-  local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = 'اضغط للاشتراك', url = 't.me/S_a_i_d_i'}, },}}
-  return send(msg.chat_id,msg.id,'*\n ✧ عليك الاشتراك في قناة البوت لاستخذام الاوامر*',"md",false, false, false, false, reply_markup)
-  end
-  Redis:set(Saidi.."Set:rtba"..msg.sender_id.user_id..":"..msg_chat_id, true)
-  local reply_markup = bot.replyMarkup{
-  type = 'inline',
-  data = {
-  {
-  {text = 'الغاء الامر', data = msg.sender_id.user_id..'/cancelrdd'},
-  },
-  }
-  }
-  return send(msg_chat_id,msg_id," ✧ ارسل الان اسم الرتبه ","md",false, false, false, false, reply_markup)
-end
-if text and Redis:get(Saidi.."Set:rtba"..msg.sender_id.user_id..":"..msg_chat_id) == "true" then
-  Redis:srem(Saidi.."rowtab:", text)
-  Redis:del(Saidi..text.."type:")
-  Redis:del(Saidi.."Set:rtba"..msg.sender_id.user_id..":"..msg_chat_id)
-  local reply_markup = bot.replyMarkup{
-  type = 'inline',
-  data = {
-    {{text = 'مميز', data = msg.sender_id.user_id..'/promot_mmez/'..text}},
-    {{text = 'ادمن', data = msg.sender_id.user_id..'/promot_admin/'..text}},
-    {{text = 'منشئ', data = msg.sender_id.user_id..'/promot_creator/'..text}},
-    {{text = 'منشئ اساسي', data = msg.sender_id.user_id..'/promot_acreator/'..text}},
-    {{text = 'مالك', data = msg.sender_id.user_id..'/promot_owner/'..text}},
-    {{text = 'مطور', data = msg.sender_id.user_id..'/promot_dev/'..text}},
-    {{text = 'مطور ثانوي', data = msg.sender_id.user_id..'/promot_sdev/'..text}},
-  }
-  }
-  return send(msg_chat_id,msg_id," ✧ الان اختر صلاحيات الرتبه الجديده ","md",false, false, false, false, reply_markup)
-end
-if text and text:match("^رفع (.*)$") and msg.reply_to_message_id ~= 0 then
-local rtba = text:match("^رفع (.*)$")
-local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
-local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
-if UserInfo.message == "Invalid user ID" then
-return send(msg_chat_id,msg_id,"\n ✧ عذرآ تستطيع فقط استخدام الامر على المستخدمين ","md",true)  
-end
-if UserInfo and UserInfo.type and UserInfo.type.luatele == "userTypeBot" then
-return send(msg_chat_id,msg_id,"\n ✧ عذرآ لا تستطيع استخدام الامر على البوت ","md",true)  
-end
-if Redis:sismember(Saidi.."rowtab:", rtba) then
-local rtba_type = Redis:get(Saidi..rtba.."type:")
-if rtba_type == "sdev" then 
-  if not msg.Asasy then 
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(1)..' * ',"md",true)  
-    end
-if Redis:sismember(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id) then 
-  return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
-else
-  Redis:sadd(Saidi.."Devss:Groups", Message_Reply.sender_id.user_id)
-  Redis:sadd(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id)
-  Redis:set(Saidi.."rtba_name:"..Message_Reply.sender_id.user_id , rtba)
-  return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
-end
-end
-if rtba_type == "dev" then 
-  if not msg.Dev then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(3)..' * ',"md",true)  
-    end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id) then 
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
-  else
-    Redis:sadd(Saidi.."Dev:Groups", Message_Reply.sender_id.user_id)
-    Redis:sadd(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id)
-    Redis:set(Saidi.."rtba_name:"..Message_Reply.sender_id.user_id , rtba)
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
-  end
-  end
-if rtba_type == "owner" then 
-  if not msg.Dev then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(3)..' * ',"md",true)  
-    end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
-  else
-    Redis:sadd(Saidi.."Ownerss:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:sadd(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:set(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id , rtba)
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
-  end
-  end
-if rtba_type == "acreator" then 
-  if not msg.SuperCreator then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(44)..' }* ',"md",true)  
-    end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
-  else
-    Redis:sadd(Saidi.."Creator:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:sadd(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:set(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id , rtba)
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
-  end
-  end
-if rtba_type == "creator" then 
-  if not msg.Creator then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(4)..' * ',"md",true)  
-    end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
-  else
-    Redis:sadd(Saidi.."Creator:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:sadd(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:set(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id , rtba)
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
-  end
-  end
-if rtba_type == "admin" then 
-  if not msg.Manger then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(6)..' * ',"md",true)  
-    end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
-  else
-    Redis:sadd(Saidi.."Admin:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:sadd(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:set(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id , rtba)
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
-  end
-  end
-if rtba_type == "mmez" then
-  if not msg.Admin then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(7)..' * ',"md",true)
-  end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
-  else
-    Redis:sadd(Saidi.."Special:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:sadd(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:set(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id , rtba)
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
-  end
-  end
-end
-end
--- tanzel --
-if text and text:match("^تنزيل (.*)$") and msg.reply_to_message_id ~= 0 then
-local rtba = text:match("^تنزيل (.*)$")
-local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
-local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
-if UserInfo.message == "Invalid user ID" then
-return send(msg_chat_id,msg_id,"\n ✧ عذرآ تستطيع فقط استخدام الامر على المستخدمين ","md",true)  
-end
-if UserInfo and UserInfo.type and UserInfo.type.luatele == "userTypeBot" then
-return send(msg_chat_id,msg_id,"\n ✧ عذرآ لا تستطيع استخدام الامر على البوت ","md",true)  
-end
-if Redis:sismember(Saidi.."rowtab:", rtba) then
-local rtba_type = Redis:get(Saidi..rtba.."type:")
-if rtba_type == "sdev" then 
-  if not msg.Asasy then 
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(1)..' * ',"md",true)  
-    end
-if Redis:sismember(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id) then 
-  Redis:srem(Saidi.."Devss:Groups", Message_Reply.sender_id.user_id)
-  Redis:srem(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id)
-  Redis:del(Saidi.."rtba_name:"..Message_Reply.sender_id.user_id)
-  return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
-else
-  return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
-end
-end
-if rtba_type == "dev" then 
-  if not msg.Dev then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(3)..' * ',"md",true)  
-    end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id) then 
-   Redis:srem(Saidi.."Dev:Groups", Message_Reply.sender_id.user_id)
-   Redis:srem(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id)
-   Redis:del(Saidi.."rtba_name:"..Message_Reply.sender_id.user_id)
-   return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
-  else
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
-  end
-  end
-if rtba_type == "owner" then 
-  if not msg.Dev then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(3)..' * ',"md",true)  
-    end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
-    Redis:srem(Saidi.."Ownerss:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:srem(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:del(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id)
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
-  else
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
-  end
-  end
-if rtba_type == "acreator" then 
-  if not msg.SuperCreator then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(44)..' }* ',"md",true)  
-    end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
-    Redis:srem(Saidi.."Creator:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:srem(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:del(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id)
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
-  else
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)   
-  end
-  end
-if rtba_type == "creator" then 
-  if not msg.Creator then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(4)..' * ',"md",true)  
-    end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
-    Redis:srem(Saidi.."Creator:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:srem(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:del(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id)
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
-  else
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
-  end
-  end
-if rtba_type == "admin" then 
-  if not msg.Manger then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(6)..' * ',"md",true)  
-    end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
-    Redis:srem(Saidi.."Admin:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:srem(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) 
-    Redis:del(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id)   
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
-  else
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
-  end
-  end
-if rtba_type == "mmez" then
-  if not msg.Admin then
-    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(7)..' * ',"md",true)
-  end
-  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
-    Redis:srem(Saidi.."Special:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:srem(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
-    Redis:del(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id)    
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
-  else
-    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
-  end
-  end
-end
-end
 if text ==("رفع رتبه") and msg_reply_to_message_id ~= 0 then 
 local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
 if Message_Reply.luatele == "error" then
@@ -19022,6 +18755,274 @@ elseif not msg.Admin then
 return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
 end
 end
+if text and Redis:get(Saidi.."del:rtba"..msg.sender_id.user_id..":"..msg_chat_id) == "true" then
+  Redis:srem(Saidi.."rowtab:", text)
+  Redis:del(Saidi..text.."type:")
+  local list_del = Redis:smembers(Saidi.."rtba:"..text..":") or Redis:smembers(Saidi.."rtba:"..text..":"..msg_chat_id)
+  local list_chatid = Redis:smembers(Saidi.."ChekBotAdd")
+  for f,chat_id_del in pairs(list_chatid) do
+  for k,v in pairs(list_del) do
+   Redis:del(Saidi.."rtba:"..text..":"..v)
+   Redis:del(Saidi.."rtba_name:"..chat_id_del..v)
+   Redis:del(Saidi.."rtba_name:"..v)
+  end
+end
+  for k,v in pairs(list_chatid) do
+   Redis:del(Saidi.."rtba:"..text..":"..v)
+  end
+  Redis:del(Saidi.."rtba:"..text..":")
+  Redis:del(Saidi.."del:rtba"..msg.sender_id.user_id..":"..msg_chat_id)
+return send(msg_chat_id,msg_id," ✧ تم مسح الرتبه من الرتب المضافه ","md")
+end  
+if text == ("اضف رتبه") then
+  if not msg.Asasy then
+  return send(msg_chat_id,msg_id,'\n* ✧ هاذا الامر يخص  '..Controller_Num(1)..' * ',"md",true)  
+  end
+  if ChannelJoin(msg) == false then
+  local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = 'اضغط للاشتراك', url = 't.me/S_a_i_d_i'}, },}}
+  return send(msg.chat_id,msg.id,'*\n ✧ عليك الاشتراك في قناة البوت لاستخذام الاوامر*',"md",false, false, false, false, reply_markup)
+  end
+  Redis:set(Saidi.."Set:rtba"..msg.sender_id.user_id..":"..msg_chat_id, true)
+  local reply_markup = bot.replyMarkup{
+  type = 'inline',
+  data = {
+  {
+  {text = 'الغاء الامر', data = msg.sender_id.user_id..'/cancelrdd'},
+  },
+  }
+  }
+  return send(msg_chat_id,msg_id," ✧ ارسل الان اسم الرتبه ","md",false, false, false, false, reply_markup)
+end
+if text and Redis:get(Saidi.."Set:rtba"..msg.sender_id.user_id..":"..msg_chat_id) == "true" then
+  Redis:srem(Saidi.."rowtab:", text)
+  Redis:del(Saidi..text.."type:")
+  Redis:del(Saidi.."Set:rtba"..msg.sender_id.user_id..":"..msg_chat_id)
+  local reply_markup = bot.replyMarkup{
+  type = 'inline',
+  data = {
+    {{text = 'مميز', data = msg.sender_id.user_id..'/promot_mmez/'..text}},
+    {{text = 'ادمن', data = msg.sender_id.user_id..'/promot_admin/'..text}},
+    {{text = 'منشئ', data = msg.sender_id.user_id..'/promot_creator/'..text}},
+    {{text = 'منشئ اساسي', data = msg.sender_id.user_id..'/promot_acreator/'..text}},
+    {{text = 'مالك', data = msg.sender_id.user_id..'/promot_owner/'..text}},
+    {{text = 'مطور', data = msg.sender_id.user_id..'/promot_dev/'..text}},
+    {{text = 'مطور ثانوي', data = msg.sender_id.user_id..'/promot_sdev/'..text}},
+  }
+  }
+  return send(msg_chat_id,msg_id," ✧ الان اختر صلاحيات الرتبه الجديده ","md",false, false, false, false, reply_markup)
+end
+if text and text:match("^رفع (.*)$") and msg.reply_to_message_id ~= 0 then
+local rtba = text:match("^رفع (.*)$")
+local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
+local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
+if UserInfo.message == "Invalid user ID" then
+return send(msg_chat_id,msg_id,"\n ✧ عذرآ تستطيع فقط استخدام الامر على المستخدمين ","md",true)  
+end
+if UserInfo and UserInfo.type and UserInfo.type.luatele == "userTypeBot" then
+return send(msg_chat_id,msg_id,"\n ✧ عذرآ لا تستطيع استخدام الامر على البوت ","md",true)  
+end
+if Redis:sismember(Saidi.."rowtab:", rtba) then
+local rtba_type = Redis:get(Saidi..rtba.."type:")
+if rtba_type == "sdev" then 
+  if not msg.Asasy then 
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(1)..' * ',"md",true)  
+    end
+if Redis:sismember(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id) then 
+  return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
+else
+  Redis:sadd(Saidi.."Devss:Groups", Message_Reply.sender_id.user_id)
+  Redis:sadd(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id)
+  Redis:set(Saidi.."rtba_name:"..Message_Reply.sender_id.user_id , rtba)
+  return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
+end
+end
+if rtba_type == "dev" then 
+  if not msg.Dev then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(3)..' * ',"md",true)  
+    end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id) then 
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
+  else
+    Redis:sadd(Saidi.."Dev:Groups", Message_Reply.sender_id.user_id)
+    Redis:sadd(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id)
+    Redis:set(Saidi.."rtba_name:"..Message_Reply.sender_id.user_id , rtba)
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
+  end
+  end
+if rtba_type == "owner" then 
+  if not msg.Dev then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(3)..' * ',"md",true)  
+    end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
+  else
+    Redis:sadd(Saidi.."Ownerss:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:sadd(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:set(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id , rtba)
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
+  end
+  end
+if rtba_type == "acreator" then 
+  if not msg.SuperCreator then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(44)..' }* ',"md",true)  
+    end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
+  else
+    Redis:sadd(Saidi.."Creator:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:sadd(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:set(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id , rtba)
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
+  end
+  end
+if rtba_type == "creator" then 
+  if not msg.Creator then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(4)..' * ',"md",true)  
+    end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
+  else
+    Redis:sadd(Saidi.."Creator:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:sadd(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:set(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id , rtba)
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
+  end
+  end
+if rtba_type == "admin" then 
+  if not msg.Manger then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(6)..' * ',"md",true)  
+    end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
+  else
+    Redis:sadd(Saidi.."Admin:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:sadd(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:set(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id , rtba)
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
+  end
+  end
+if rtba_type == "mmez" then
+  if not msg.Admin then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(7)..' * ',"md",true)
+  end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." مسبقا").Reply,"md",true) 
+  else
+    Redis:sadd(Saidi.."Special:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:sadd(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:set(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id , rtba)
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم ترقيته "..rtba.." بنجاح").Reply,"md",true)  
+  end
+  end
+end
+end
+-- tanzel --
+if text and text:match("^تنزيل (.*)$") and msg.reply_to_message_id ~= 0 then
+local rtba = text:match("^تنزيل (.*)$")
+local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
+local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
+if UserInfo.message == "Invalid user ID" then
+return send(msg_chat_id,msg_id,"\n ✧ عذرآ تستطيع فقط استخدام الامر على المستخدمين ","md",true)  
+end
+if UserInfo and UserInfo.type and UserInfo.type.luatele == "userTypeBot" then
+return send(msg_chat_id,msg_id,"\n ✧ عذرآ لا تستطيع استخدام الامر على البوت ","md",true)  
+end
+if Redis:sismember(Saidi.."rowtab:", rtba) then
+local rtba_type = Redis:get(Saidi..rtba.."type:")
+if rtba_type == "sdev" then 
+  if not msg.Asasy then 
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(1)..' * ',"md",true)  
+    end
+if Redis:sismember(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id) then 
+  Redis:srem(Saidi.."Devss:Groups", Message_Reply.sender_id.user_id)
+  Redis:srem(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id)
+  Redis:del(Saidi.."rtba_name:"..Message_Reply.sender_id.user_id)
+  return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
+else
+  return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
+end
+end
+if rtba_type == "dev" then 
+  if not msg.Dev then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(3)..' * ',"md",true)  
+    end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id) then 
+   Redis:srem(Saidi.."Dev:Groups", Message_Reply.sender_id.user_id)
+   Redis:srem(Saidi.."rtba:"..rtba..":", Message_Reply.sender_id.user_id)
+   Redis:del(Saidi.."rtba_name:"..Message_Reply.sender_id.user_id)
+   return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
+  else
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
+  end
+  end
+if rtba_type == "owner" then 
+  if not msg.Dev then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(3)..' * ',"md",true)  
+    end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
+    Redis:srem(Saidi.."Ownerss:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:srem(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:del(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id)
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
+  else
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
+  end
+  end
+if rtba_type == "acreator" then 
+  if not msg.SuperCreator then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(44)..' }* ',"md",true)  
+    end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
+    Redis:srem(Saidi.."Creator:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:srem(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:del(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id)
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
+  else
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)   
+  end
+  end
+if rtba_type == "creator" then 
+  if not msg.Creator then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(4)..' * ',"md",true)  
+    end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
+    Redis:srem(Saidi.."Creator:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:srem(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:del(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id)
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
+  else
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
+  end
+  end
+if rtba_type == "admin" then 
+  if not msg.Manger then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(6)..' * ',"md",true)  
+    end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
+    Redis:srem(Saidi.."Admin:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:srem(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) 
+    Redis:del(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id)   
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
+  else
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
+  end
+  end
+if rtba_type == "mmez" then
+  if not msg.Admin then
+    return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(7)..' * ',"md",true)
+  end
+  if Redis:sismember(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id) then 
+    Redis:srem(Saidi.."Special:Group"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:srem(Saidi.."rtba:"..rtba..":"..msg_chat_id, Message_Reply.sender_id.user_id)
+    Redis:del(Saidi.."rtba_name:"..msg_chat_id..Message_Reply.sender_id.user_id)    
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم تنزيله "..rtba.." بنجاح").Reply,"md",true) 
+  else
+    return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ ليس"..rtba.." ليتم تنزيله").Reply,"md",true)  
+  end
+  end
+end
+end
+
 
 
 
