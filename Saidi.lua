@@ -13342,58 +13342,7 @@ if text and text:match("^قول (.*)$") and Redis:get(Saidi..'kolklma'..msg.chat
 local txt = {string.match(text, "^(قول) (.*)$")}
 return send(msg_chat_id,msg_id, txt[2], 'md')
 end
------تحميل-ساوند-كلاود---
-if text and text:match("^تحميل ساوند (.*)$") then
-local url = text:match("^تحميل ساوند (.*)$")
-q = bot.sendText(msg_chat_id,msg_id,"جاري التحميل","md",true) 
-api = https.request("https://devdeiveddev.ml/api/soundcloud/soundcloud_api.php?url="..url)
-info = JSON.decode(api)
-title = info.title
-photo = info.photo
-id = msg_chat_id..msg_id
-link = info.link
-os.execute("wget -O "..id..".mp3 "..link)
-bot.sendText(msg_chat_id,msg_id,"جاري الرفع","md",true) 
-os.execute("wget -O "..id..".png "..photo)
-bot.sendAudio(msg_chat_id, msg_id, "./"..id..".mp3", '['..title..']'..'('..url..')', 'md', false, title, "@YYYBD", "./"..id..".png")
-end
----العمر---
-if text and text:match("^احسب (.*)$") then
-local Textage = text:match("^احسب (.*)$")
-api = https.request('https://devdeiveddev.ml/api/tele/source/7sab3mr.php?age='..URL.escape(Textage))
-ay = JSON.decode(api)
-ay1 = ay.ahmed.years
-ay2 = ay.ahmed.months
-ay3 = ay.ahmed.day
-ay4 = ay.yad.months.." شهر"
-ay5 = ay.yad.weeks.." اسبوع"
-ay6 = ay.yad.days.." يوم"
-ay7 = ay.yad.hours.." ساعة"
-ay8 = ay.yad.mins.." دقيقة"
-ay9 = ay.yad.seconds.." ثانيا"
-ay10 = ay.yad.moment.." لحظة"
-a = "\n ✧ مر علي ولادتك "
-t = " ✧ تم حساب عمرك بالتفصيل\n"
-.." ✧ عمرك "..ay1.." سنه و "..ay2.." شهر و "..ay3.." يوم"
-..a..ay4..a..ay5..a..ay6..a..ay7..a..ay8..a..ay9..a..ay10
-.."\n ✧ برجك هو "..ay.Horoscopes
-bot.sendText(msg_chat_id,msg_id,t,"md",true) 
-end 
----اله حسابة---
-if text and text:match("^معادله (.*)$") then
-local Text = text:match("^معادله (.*)$")
-ay = https.request('https://dev-ahmed.ml/api/calculator.php?q=Saidi&w='..Text)
-t = "\n ✧ تم حساب المعادلة "..Text..'='..ay
-bot.sendText(msg_chat_id,msg_id,t,"html",true) 
-end 
---     Source Saidi     --
-if text and text:match("^برج (.*)$") then
-local Textbrj = text:match("^برج (.*)$")
-gk = io.popen('curl -s "https://apiabs.ml/brg.php?brg='..URL.escape(Textbrj)..'"'):read('*a')
-br = JSON.decode(gk)
-text = br.ok.abs:gsub( " • ", " ✧ " ):gsub( "ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ", "𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹" )
-bot.sendText(msg_chat_id,msg_id, text,"md", true)
-end
+
 if text == "تعطيل اغنيه" then
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
@@ -20120,7 +20069,7 @@ send(msg_chat_id,msg_id,[[
 , فيديو ، بصمه الفيديو ،
 , بصمه ، صوت ، رساله ،
 , يمكنك اضافة الى النص ،
-ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ*
+ꔹ━━━━━ꔹ𝐒𝐀??𝐃𝐈ꔹ━━━━━ꔹ*
 `#username` *-> معرف المستخدم*
  `#msgs` *-> عدد الرسائل*
  `#name` *-> اسم المستخدم*
@@ -27044,7 +26993,7 @@ end
 if Text and Text:match('(%d+)/Jabwa3') then
 local UserId = Text:match('(%d+)/Jabwa3')
 if tonumber(IdUser) == tonumber(UserId) then
-au ={type = "photo",media = "https://t.me/JABWA",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰??𝙳𝙸 𝙹𝙰𝙱𝚆𝙰 •𓄹*\n',parse_mode = "Markdown"}     
+au ={type = "photo",media = "https://t.me/JABWA",caption = '*𓄼• 𝙳𝙴𝚅 𝚂𝙾𝚄𝚁𝙲𝙴 𝚂𝙰𝙸𝙳𝙸 𝙹𝙰𝙱𝚆𝙰 •𓄹*\n',parse_mode = "Markdown"}     
 keyboard = {} 
 keyboard.inline_keyboard = {
 {
