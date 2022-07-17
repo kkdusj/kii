@@ -7463,7 +7463,59 @@ Redis:del(Saidi.."zhrfa"..msg.chat_id)
 send(msg_chat_id,msg_id, ' ✧ تم تفعيل امر الزخرفه\n ꪤ',"md")
 end
 end
-
+--     Dev Bot chat      --
+--     Source Saidi     --
+if text == 'تيست' or text == 'مم' or text =='ططط' then
+local TextingDevSaidi = Redis:get(Saidi..'Texting:DevSaidi')
+local photo = bot.getUserProfilePhotos(Sudo_Id)
+local UserInfo = bot.getUser(Sudo_Id)
+local bio = getbio(Sudo_Id)
+if TextingDevSaidi and photo and photo.total_count and photo.total_count > 0 then
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserSudo}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
+bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, TextingDevSaidi, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
+else
+if TextingDevSaidi then 
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserSudo}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
+bot.sendText(msg_chat_id,msg_id,TextingDevSaidi,"md", true, false, false, false, reply_markup)  
+else
+local TextDev ="* ✧ D𝐞𝐯 N𝐞𝐦𝐚 ↬* ["..UserInfo.first_name.."](tg://user?id="..UserInfo.id..")\n* ✧ D𝐞𝐯 U𝐬𝐞𝐫 ↬* [@"..UserInfo.username.."]\n* ✧ D𝐞𝐯 I𝐝 ↬* ["..UserInfo.id.."](T.me/"..UserInfo.username..")\n* ✧ D𝐞𝐯 B𝐢𝐨 ↬* ["..bio.."]\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ"
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '• '..UserInfo.first_name..' •', url = 't.me/'..UserSudo}, },{{text = '• سـوࢪس دࢪاڪـون •', url = 't.me/SrcDrg'},},}}
+if photo and photo.total_count and photo.total_count > 0 then
+bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, TextDev, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
+else
+bot.sendText(msg_chat_id,msg_id,TextDev,"md", true, false, false, false, reply_markup)
+end
+end
+end
+--     Dev Bot chat end     --
+if not msg.Asasy then
+local UserInfo = bot.getUser(msg_sender_id.user_id)
+local Get_Chat = bot.getChat(msg_chat_id)
+local Name1 = UserInfo.first_name
+local Name1 = Name1:gsub('"',"") 
+local Name1 = Name1:gsub("'","") 
+local Name1 = Name1:gsub("`","") 
+local Name1 = Name1:gsub("*","") 
+local Name1 = Name1:gsub("{","") 
+local Name1 = Name1:gsub("}","") 
+local Name ='['..Name1..'](tg://user?id='..UserInfo.id..')'
+local NameChat = Get_Chat.title
+local NameChat = NameChat:gsub('"',"") 
+local NameChat = NameChat:gsub("'","") 
+local NameChat = NameChat:gsub("`","") 
+local NameChat = NameChat:gsub("*","") 
+local NameChat = NameChat:gsub("{","") 
+local NameChat = NameChat:gsub("}","") 
+local LinkGp = json:decode(https.request('https://api.telegram.org/bot'..Token..'/exportChatInviteLink?chat_id='..msg_chat_id))
+if LinkGp.result then 
+LinkGroup = " ✧ رابط المجموعه ↑↓\n❨ ["..LinkGp.result.."] ❩"
+else
+LinkGroup = ' ✧ ليست لدي صلاحية الدعوه لهذه المجموعه '
+end
+return bot.sendText(Sudo_Id,0," ✧ هناك من بحاجه الى مساعده ↑↓ \nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ الشخص -> "..Name.."\n ✧ اسم المجموعه -> ["..NameChat.."]\n ✧ ايدي المجموعه ↑↓ \n❨ `"..msg_chat_id.."` ❩\n"..LinkGroup.."\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ الوقت -> "..os.date("%I:%M%p").."\n ✧ التاريخ -> "..os.date("%Y/%m/%d").."",'md',true)
+end
+end
+--     Source Saidi     --
 if text == 'المطور' or text == 'مطور البوت' then   
 local UserInfo = bot.getUser(Sudo_Id) 
 local InfoUser = bot.getUserFullInfo(Sudo_Id)
@@ -19355,7 +19407,7 @@ return send(msg_chat_id,msg_id,"تم طلاقك من ["..zwg_name.."](tg://user?
 end
 end
 
-if text == "ثنائي اليوم" and ChCheck(msg) and not Redis:get(Saidi..'2nd:Chat'..msg.chat_id)  then
+if text == "ثنائي اليوم" then
   local Info_Members = bot.searchChatMembers(msg.chat_id, "*", 200)
   local List_Members = Info_Members.members
   local NumRand1 = math.random(1, #List_Members); 
@@ -24284,7 +24336,9 @@ end
 Redis:del(Saidi.."Num:Add:Games"..msg.chat_id..msg.sender_id.user_id)
 return send(msg_chat_id,msg_id, " ✧ تم مسح نقاطك","md",true)  
 end
-
+if text == "ايدي المجموعة" or text == "ايدي المجموعه" then 
+return bot.sendText(msg_chat_id, msg_id," ✧ ايدي المجموعه ↑↓ \n❨ `"..msg_chat_id.."` ❩",'md',true)
+end
 if text == 'ترتيب الاوامر' then
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
