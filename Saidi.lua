@@ -1801,18 +1801,6 @@ end
 end 
 end
 
-if msg.content.luatele == "messageChatJoinByLink" or msg.content.luatele == "messageChatAddMembers" then
-if Redis:get(Saidi.."Status:Welcome"..msg_chat_id) then
-local RinkBot = ''..msg.Name_Controller
-local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
-local Get_Chat = bot.getChat(msg_chat_id)
-local UserInfo = bot.getUser(msg.sender_id.user_id)
-local photo = bot.getUserProfilePhotos(msg.sender_id.user_id)
-local Jabwa = '✧ مرحبا سيدي -> '..RinkBot..'\n✧ نورت الجروب -> ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ['..UserInfo.first_name..'](tg://user?id='..UserInfo.id..') '
-local msgg = msg_id/2097152/0.5
-https.request("https://api.telegram.org/bot"..Token.."/sendphoto?chat_id=" .. msg_chat_id .. "&photo="..photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id.."&caption=".. URL.escape(Jabwa).."&reply_to_message_id="..msgg.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(data))
-end
-end
 
 if msg.content.luatele == "messagePhoto" and Redis:get(Saidi..'welcom_ph:witting'..msg.sender_id.user_id) then  -- الصور
 if msg.content.photo.sizes[1].photo.remote.id then
@@ -1829,33 +1817,23 @@ end
 
 
 
-if msg.content.luatele == "messageChatAddMembers" then -- اضافه اشخاص
+if msg_content.luatele == "messageChatAddMembers" then -- اضافه اشخاص
 print('This is Add Membeers ')
-Redis:incr(Saidi.."Num:Add:Memp"..msg_chat_id..":"..msg.sender_id.user_id) 
+Redis:incr(Saidi.."Num:Add:Memp"..msg_chat_id..":"..msg_sender_id.user_id) 
 local AddMembrs = Redis:get(Saidi.."Lock:AddMempar"..msg_chat_id) 
 local Lock_Bots = Redis:get(Saidi.."Lock:Bot:kick"..msg_chat_id)
-for k,v in pairs(msg.content.member_user_ids) do
-if tonumber(v) == tonumber(Saidi) then
-local idephoto = Redis:get(Saidi..':WELCOME_BOT')
-if idephoto then
-local Bot_Name = (Redis:get(Saidi.."Name:Bot") or "صعيدي")
-return bot.sendPhoto(msg.chat_id, msg.id, idephoto,
-'\n* ✧ اهلا انآ بوت اسمي '..Bot_Name..''..
-'\n ✧  آختصـآصـي حمـآيهہ‌‏ آلمـجمـوعآت'..
-'\n ✧  مـن آلسـبآم وآلتوجيهہ‌‏ وآلتگرآر وآلخ...'..
-'\n ✧  مـعـرف الـمـطـور  : @'..UserSudo..
-'*', "md")
-end
-end
+for k,v in pairs(msg_content.member_user_ids) do
 local Info_User = bot.getUser(v) 
-if Info_User.type.luatele == "userTypeRegular" then
-Redis:incr(Saidi.."Num:Add:Memp"..msg.chat_id..":"..msg.sender_id.user_id) 
-if AddMembrs == "kick" and not msg.Special then
-bot.setChatMemberStatus(msg.chat_id,v,'banned',0)
+print(v)
+if v == tonumber(Saidi) then
+local N = (Redis:get(Saidi.."Name:Bot") or "صعيدي")
+photo = bot.getUserProfilePhotos(Saidi)
+local TextBot = '* ╗ مـرحـبــا انا بــوت '..N..'\n╣ اخـتصـاصـي  ادارة الجـروبــات\n╣ مـن السـب والشـتيمـه والابــاحـه\n╣ لتفعيل البــوت اتبــاع الخـطـوات\n╣❶ ارفع البــوت مـشـرف في مـجـمـوعه\n╣ وارسـل تفعيل في مـجـمـوعه\n╣❷ لو ارت تفعيل ردود السـورس\n╣ اكتب تفعيل ردود السـورس\n╝ مـطـور الـبــوت〘 @'..UserSudo..' 〙\n*'
+local reply_markup = bot.replyMarkup{type = 'inline',data = {
+{{text="• غادر •",data="/LeaveBotPic:"..msg_sender_id.user_id},{text = '• تفعيل •', data = msg_sender_id.user_id..'/onlinebott'..msg_chat_id}},
+{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'},},}}
+bot.sendPhoto(msg_chat_id, msg_id, photo.photos[1].sizes[#photo.photos[1].sizes].photo.remote.id, TextBot, "md", true, nil, nil, nil, nil, nil, nil, nil, nil, reply_markup)
 end
-end
-end
-end 
 
 
 if msg.content.luatele == "messageContact" and not msg.Special then  -- الجهات
@@ -13146,6 +13124,7 @@ return send(msg_chat_id,msg_id,'* ✧ لا توجد صوره ف حسابك*',"md
 end
 end
 end
+
 if text and text:match("^معنى (.*)$") then 
 local TextMean = text:match("^معنى (.*)$") or text:match("^معنى اسم (.*)$") 
 if not Redis:get(Saidi..'mynames'..msg.chat_id)  then
@@ -18172,7 +18151,7 @@ local zk_list = {
     "ꞏ ### ｢♥｣",
     "⋆ ### ’🧸💕›",
     " ᯓ 𓆩 ˹ ### ˼ 𓆪 𓆃",
-    "𓆩 ###ｌ➝ ˛⁽♥₎ ??",
+    "𓆩 ###ｌ➝ ˛⁽♥₎ 𓆪",
     "𒅒 ✧  !! ###  ᵛ͢ᵎᵖ 𒅒",
     "˚₊· ͟͟͞͞➳❥❬ ### ❭ ✧ °",
     "ᥫ᭡ 𖥻 ### ۰ ໋࣭ヾ",
@@ -19157,66 +19136,66 @@ end
 end
 return bot.sendText(msg_chat_id,msg_id,mutlqa_list,"md",true) 
 end
-if text == "رفع بقلبي" then
+if text == "رفع بقلبي" or text == "رفع قلبي" or text == "رفع في قلبي" then
 local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
 if tonumber(Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."in_heart:")) == tonumber(msg.sender_id.user_id) then
-return send(msg_chat_id,msg_id,"مهو فقلبك ولا هي شغلانه","md")
+return bot.sendText(msg_chat_id,msg_id,"مهو فقلبك ولا هي شغلانه","md")
 elseif tonumber(Message_Reply.sender_id.user_id) == tonumber(msg.sender_id.user_id) then
-return send(msg_chat_id,msg_id,"انت اثول حبيبي تريد ترفع نفسك فقلبك ؟؟","md")
+return bot.sendText(msg_chat_id,msg_id,"انت اهبل يبني عاوز ترفع نفسك فقلبك ؟؟","md")
 elseif tonumber(Message_Reply.sender_id.user_id) == tonumber(Saidi) then
-return send(msg_chat_id,msg_id,"ابعد عني يبن الثوله","md")
+return bot.sendText(msg_chat_id,msg_id,"ابعد عني يبن الهبله","md")
 elseif Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."in_heart:") then
-return send(msg_chat_id,msg_id,"للاسف العضو فقلب حد تاني","md")
+return bot.sendText(msg_chat_id,msg_id,"للاسف العضو فقلب حد تاني","md")
 elseif tonumber(Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."in_heart:")) ~= tonumber(msg.sender_id.user_id) and not Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."in_heart:") then
 Redis:set(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."in_heart:", msg.sender_id.user_id)
 Redis:sadd(Saidi..msg_chat_id..msg.sender_id.user_id.."my_heart:", Message_Reply.sender_id.user_id)
-return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id,"تم رفعو فقلبك").Reply,"md",true)
+return bot.sendText(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id,"تم رفعو فقلبك").Reply,"md",true)  
 end
 end
-if text == "تنزيل من قلبي" then 
+if text == "تنزيل من قلبي" or text == "تنزيل قلبي" then 
 local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
 if tonumber(Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."in_heart:")) == tonumber(msg.sender_id.user_id) then
 Redis:del(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."in_heart:")
 Redis:srem(Saidi..msg_chat_id..msg.sender_id.user_id.."my_heart:", msg_chat_id..Message_Reply.sender_id.user_id)
-return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id,"تم تنزيلو من قلبك").Reply,"md",true) 
+return bot.sendText(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id,"تم تنزيلو من قلبك").Reply,"md",true) 
 elseif tonumber(Message_Reply.sender_id.user_id) == tonumber(msg.sender_id.user_id) then
-return send(msg_chat_id,msg_id,"انت اثول حبيبي تريد تنزل نفسك من قلبك ؟؟","md")
+return bot.sendText(msg_chat_id,msg_id,"انت اهبل يبني عاوز تنزل نفسك من قلبك ؟؟","md")
 elseif tonumber(Message_Reply.sender_id.user_id) == tonumber(Saidi) then
-return send(msg_chat_id,msg_id,"ابعد عني يبن الثوله","md")
+return bot.sendText(msg_chat_id,msg_id,"ابعد عني يبن الهبله","md")
 elseif tonumber(Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."in_heart:")) ~= tonumber(msg.sender_id.user_id)then
-return send(msg_chat_id,msg_id,"هو فقلبك اصلا عشان تنزلو ؟؟","md")
+return bot.sendText(msg_chat_id,msg_id,"هو فقلبك اصلا عشان تنزلو ؟؟","md")
 end
 end
-if text == "منو بقلبي" or text == "مين فقلبي" or text == "قلبي" then
+if text == "انا فقلب مين" or text == "مين قلبي" then
 if not Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."in_heart:") then
-return send(msg_chat_id,msg_id,"اقعد يعم انت محدش طايقك","md")
+return bot.sendText(msg_chat_id,msg_id,"اقعد يعم انت محدش طايقك","md")
 elseif Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."in_heart:") then
 local in_heart_id = Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."in_heart:")
 local heart_name = bot.getUser(in_heart_id).first_name
-return send(msg_chat_id,msg_id,"انت فقلب ["..heart_name.."](tg://user?id="..in_heart_id..")","md")
+return bot.sendText(msg_chat_id,msg_id,"انت فقلب ["..heart_name.."](tg://user?id="..in_heart_id..")","md")
 end
 end
-if text == "تاك للبقلبي" or text == "تاك لحبيبتي" or text == "وين حبيبتي" then
+if text == "تاك للبقلبي" or text == "تاك للي فقلبي" or text == "تاك للناس الي فقلبي" then
 local heart_list = Redis:smembers(Saidi..msg_chat_id..msg.sender_id.user_id.."my_heart:")
 if #heart_list == 0 then
-return send(msg_chat_id,msg_id,"قلبك فاضي محدش فيه","md")
+return bot.sendText(msg_chat_id,msg_id,"قلبك فاضي محدش فيه","md")
 elseif #heart_list > 0 then
-your_heart = "الناس الي فقلبك \nꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ\n"
+your_heart = "الناس الي فقلبك 💗 \nꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ\n"
 for k,v in pairs(heart_list) do
 local user_info = bot.getUser(v)
 local name = user_info.first_name
-your_heart = your_heart..k.." - ["..name.."](tg://user?id="..v..")\n"
+your_heart = your_heart..k.." -> ["..name.."](tg://user?id="..v..")\n"
 end
-return send(msg_chat_id,msg_id,your_heart,"md")
+return bot.sendText(msg_chat_id,msg_id,your_heart,"md")
 end
 end
-if text == "مسح للبقلبي" or text == "مسح حبيبتي" then 
+if text == "مسح للبقلبي" or text == "مسح للي فقلبي" then 
 local list = Redis:smembers(Saidi..msg_chat_id..msg.sender_id.user_id.."my_heart:")
 for k,v in pairs(list) do
 Redis:del(Saidi..msg_chat_id..v.."in_heart:")
 end
 Redis:del(Saidi..msg_chat_id..msg.sender_id.user_id.."my_heart:")
-return send(msg_chat_id,msg_id,"تم مسح الي فقلبك","md")
+return bot.sendText(msg_chat_id,msg_id,"تم مسح الي فقلبك","md")
 end
 if text == "نداء" or text == "صيح" then
 local Info_Chats = bot.getSupergroupFullInfo(msg.chat_id)
@@ -19254,70 +19233,60 @@ local challenges = {
 return send(msg_chat_id,msg_id,challenges[math.random(#challenges)].." "..mem_tag,"md")
 end
 -- ttgwzine
-if text == "تعطيل زواج" or text == "تعطيل زوجني" then
+if text == "تعطيل جوزني" or text == "تعطيل زوجني" then
 if not msg.Manger then
-return sendx(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص '..Controller_Num(6)..' * ',"md",true)
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص '..Controller_Num(6)..' * ',"md",true)  
 end
 Redis:set(Saidi..'zwgnyy'..msg.chat_id,true)
-sendx(msg_chat_id,msg_id,'\n  ✧ تم تعطيل امر زوجني')
+send(msg_chat_id,msg_id,'\n ✧ تم تعطيل امر جوزني')
 end
-if text == "تفعيل زواج" or text == "تفعيل زوجني" then
+if text == "تفعيل جوزني" or text == "تفعيل زوجني" then
 if not msg.Manger then
-return sendx(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص '..Controller_Num(6)..' * ',"md",true)
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص '..Controller_Num(6)..' * ',"md",true)  
 end
 Redis:del(Saidi..'zwgnyy'..msg.chat_id)
-sendx(msg_chat_id,msg_id,'\n  ✧ تم تفعيل امر زوجني')
+send(msg_chat_id,msg_id,'\n ✧ تم تفعيل امر جوزني')
 end
-if text == "زواج" or text == "زوجني" then
+if text == "جوزني" or text == "زوجني" then
 if not Redis:get(Saidi..'zwgnyy'..msg.chat_id) then 
-if Redis:get(Saidi.."zwg_on"..msg.sender_id.user_id) then 
-return send(msg_chat_id,msg_id,"انت مقدم طلب زواج انتظر لما مدته تخلص وبعدين تزوج","md")
-end
 local Info_Chats = bot.getSupergroupFullInfo(msg_chat_id)
 local chat_Members = bot.searchChatMembers(msg_chat_id, "*", Info_Chats.member_count).members
 local rand_members = math.random(#chat_Members)
 local member_id = chat_Members[rand_members].member_id.user_id
 local member_name = bot.getUser(chat_Members[rand_members].member_id.user_id).first_name
 local mem_tag = "["..member_name.."](tg://user?id="..member_id..")"
-if tonumber(member_id) == tonumber(msg.sender_id.user_id) or tonumber(member_id) == tonumber(Saidi) or bot.getUser(member_id).type.bot == "userTypeBot" or Redis:get(Saidi.."zwag:"..tonumber(member_id).."mtzwga:") then 
-return send(msg_chat_id,msg_id,"معندناش حد للزواج شطبنا شفلك كلبه بقا","md")
-elseif Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:") then
-local zwg_id = Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")
-local zwg_info = bot.getUser(zwg_id)
-return send(msg_chat_id,msg_id,"راح اصيح زوجتك\n["..zwg_info.first_name.."](tg://user?id="..zwg_id..")\nالحقي يا وليه زوجج تريد يتجوز عليكي","md")
+if tonumber(member_id) == tonumber(msg.sender_id.user_id) or tonumber(member_id) == tonumber(Saidi) or bot.getUser(member_id).type.luatele == "userTypeBot" then 
+return bot.sendText(msg_chat_id,msg_id,"* ✧ معندناش حد للجواز شطبنا شفلك كلبه بقا*","md")
 end
 local reply_markup = bot.replyMarkup{
 type = 'inline',
 data = {
 {
-{text = 'موافق', data = msg.sender_id.user_id..'/yes_zw/'..member_id},
-{text = 'مو موافق', data = msg.sender_id.user_id..'/no_zw/'..member_id},
+{text = 'موافء 😉', data = msg.sender_id.user_id..'/yes_zw/'..member_id},
+{text = 'مش موافء 😢', data = msg.sender_id.user_id..'/no_zw/'..member_id},
 },
 }
 }
-return send(msg_chat_id,msg_id,"جبتلك عروسه انما اي لقطه "..mem_tag.." اي رايك فيها ؟؟","md",false, false, false, false, reply_markup)
+return bot.sendText(msg_chat_id,msg_id,"* ✧ اخترتلك موزه قامده* "..mem_tag.." *🌝💖\n ✧ هل موافق علي العروسه *","md",false, false, false, false, reply_markup)
 end
 end
-if text == "تزوجيني" and msg.reply_to_message_id ~= 0 then
-if Redis:get(Saidi.."zwg_on"..msg.sender_id.user_id) then 
-return send(msg_chat_id,msg_id,"انت مقدم طلب زواج انتظر لما مدته تخلص وبعدين تزوج","md")
-end
+if text == "تتجوزيني" and msg.reply_to_message_id ~= 0 then
 local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
-if tonumber(Redis:get(Saidi.."zwag:"..Message_Reply.sender_id.user_id.."mtzwga:")) == tonumber(msg.sender_id.user_id) or tonumber(Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")) == tonumber(Message_Reply.sender_id.user_id) then
-return send(msg_chat_id,msg_id,"منتو متجوزين ولا هو محن وخلاص","md")
+if tonumber(Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."mtzwga:")) == tonumber(msg.sender_id.user_id) or tonumber(Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")) == tonumber(Message_Reply.sender_id.user_id) then
+return bot.sendText(msg_chat_id,msg_id,"منتو متجوزين ولا هو محن وخلاص","md")
 elseif tonumber(Message_Reply.sender_id.user_id) == tonumber(msg.sender_id.user_id) then
-return send(msg_chat_id,msg_id,"انت اثول حبيبي تريد تزوج نفسك ؟؟","md")
+return bot.sendText(msg_chat_id,msg_id,"انت اهبل يبني عاوز تتجوز نفسك ؟","md")
 elseif tonumber(Message_Reply.sender_id.user_id) == tonumber(Saidi) then
-return send(msg_chat_id,msg_id,"وخر مني لا احبلك","md")
-elseif Redis:get(Saidi.."zwag:"..Message_Reply.sender_id.user_id.."mtzwga:") then
-local zwg_id = Redis:get(Saidi.."zwag:"..Message_Reply.sender_id.user_id.."mtzwga:")
+return bot.sendText(msg_chat_id,msg_id,"ابعد عني يبن الحيحانه","md")
+elseif Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."mtzwga:") then
+local zwg_id =  Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."mtzwga:")
 local zwg_info = bot.getUser(zwg_id)
-return send(msg_chat_id,msg_id,"راح اصيح جوزها\n["..zwg_info.first_name.."](tg://user?id="..zwg_id..")\nالحق يا دكر تريدين يتجوزو زوجتك","md")
-elseif Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:") then
-local zwg_id = Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")
+return bot.sendText(msg_chat_id,msg_id,"هناديلك جوزها\n["..zwg_info.first_name.."](tg://user?id="..zwg_id..")\nالحق يا دكر عاوزين يتجوزو مراتك","md")
+elseif Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:") then
+local zwg_id =  Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")
 local zwg_info = bot.getUser(zwg_id)
-return send(msg_chat_id,msg_id,"راح اصيح زوجتك\n["..zwg_info.first_name.."](tg://user?id="..zwg_id..")\nالحقي يا وليه زوجج تريد يتجوز عليكي","md")
-elseif not Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."mtzwga:") then
+return bot.sendText(msg_chat_id,msg_id,"هناديلك مراتك\n["..zwg_info.first_name.."](tg://user?id="..zwg_id..")\nالحقي يا وليه جوزك عاوز يتجوز عليكي","md")
+elseif not Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."mtzwga:")  then
 local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
 local rep_info = bot.getUser(Message_Reply.sender_id.user_id)
 local rep_tag = "["..rep_info.first_name.."](tg://user?id="..Message_Reply.sender_id.user_id..")"
@@ -19328,77 +19297,68 @@ type = 'inline',
 data = {
 {
 {text = 'موافقه', data = Message_Reply.sender_id.user_id..'/yes_z/'..msg.sender_id.user_id},
-{text = 'مو موافقه', data = Message_Reply.sender_id.user_id..'/no_z/'..msg.sender_id.user_id},
+{text = 'مش موافقه', data = Message_Reply.sender_id.user_id..'/no_z/'..msg.sender_id.user_id},
 },
 }
 }
-Redis:setex(Saidi.."zwag_on"..Message_Reply.sender_id.user_id, 30 , true)
-Redis:setex(Saidi.."zwg_on"..msg.sender_id.user_id, 30 , true)
-return send(msg_chat_id,msg.reply_to_message_id,"يا "..rep_tag.."\nالكبتن "..user_tag.."\nوطالب ايدك للزواج اي رايك ؟\nعندج 30 ثانيه عشان تجاوبي","md",false, false, false, false, reply_markup)
+return bot.sendText(msg_chat_id,msg.reply_to_message_id,"عزيزتي "..rep_tag.."\nالشخص"..user_tag.."\nطالب ايدك للجواز !","md",false, false, false, false, reply_markup)
 end
 end
-
 if text == "زوجتي" then
-if Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:") then
-local zwga_id = Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")
+if Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:") then
+local zwga_id = Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")
 local zwga_name = bot.getUser(zwga_id).first_name
-return send(msg_chat_id,msg_id,"كلمي يا ["..zwga_name.."](tg://user?id="..zwga_id..") زوجج تريدك","md")
-elseif not Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:") then
-return send(msg_chat_id,msg_id,"زوجتك اي يثول انت سنجل","md")
+return bot.sendText(msg_chat_id,msg_id,"كلمي يا ["..zwga_name.."](tg://user?id="..zwga_id..") جوزك عاوزك","md")
+elseif not Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:") then
+return bot.sendText(msg_chat_id,msg_id,"زوجتك اي يهبل انت سنجل","md")
 end
 end
 if text == "زوجي" then
-if Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:") then
-local zwga_id = Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")
+if Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:") then
+local zwga_id = Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")
 local zwga_name = bot.getUser(zwga_id).first_name
-return send(msg_chat_id,msg_id,"كلم يا ["..zwga_name.."](tg://user?id="..zwga_id..") زوجتك عوزاك","md")
-elseif not Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:") then
-return send(msg_chat_id,msg_id,"انتي مو مزوجه يا ثوله","md")
+return bot.sendText(msg_chat_id,msg_id,"كلم يا ["..zwga_name.."](tg://user?id="..zwga_id..") مراتك عوزاك","md")
+elseif not Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:") then
+return bot.sendText(msg_chat_id,msg_id,"انتي مش متجوزه يا عبيطه","md")
 end
 end
-if text == "انتي طالك" and msg.reply_to_message_id ~= 0 then 
+if text == "انتي طالق" and  msg.reply_to_message_id ~= 0 then 
 local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
 if tonumber(Message_Reply.sender_id.user_id) == tonumber(msg.sender_id.user_id) then
-return send(msg_chat_id,msg_id,"انت اثول حبيبي تريد تطلك نفسك ؟؟","md")
+return bot.sendText(msg_chat_id,msg_id,"انت اهبل يبني عاوز تطلق نفسك ؟؟","md")
 elseif tonumber(Message_Reply.sender_id.user_id) == tonumber(Saidi) then
-return send(msg_chat_id,msg_id,"وخر مني  ","md")
-elseif tonumber(Redis:get(Saidi.."zwag:"..Message_Reply.sender_id.user_id.."mtzwga:")) ~= tonumber(msg.sender_id.user_id) or tonumber(Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")) ~= tonumber(Message_Reply.sender_id.user_id) then
-return send(msg_chat_id,msg_id,"مو زوجتك عشان تطلكها يثول","md")
-elseif tonumber(Redis:get(Saidi.."zwag:"..Message_Reply.sender_id.user_id.."mtzwga:")) == tonumber(msg.sender_id.user_id) or tonumber(Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")) == tonumber(Message_Reply.sender_id.user_id) then
-Redis:del(Saidi.."zwag:"..Message_Reply.sender_id.user_id.."mtzwga:")
-Redis:del(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")
-Redis:srem(Saidi.."mtzwgen:", Message_Reply.sender_id.user_id)
-Redis:srem(Saidi.."mtzwgen:", msg.sender_id.user_id)
-return send(msg_chat_id,msg_id,"تم طلاقكم وشوفو الجهال تبرعو بيهم لدار الايتام","md")
+return bot.sendText(msg_chat_id,msg_id,"ابعد عني يبن الحيحانه","md")
+elseif tonumber(Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."mtzwga:")) ~= tonumber(msg.sender_id.user_id) or tonumber(Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")) ~= tonumber(Message_Reply.sender_id.user_id) then
+return bot.sendText(msg_chat_id,msg_id,"مش مراتك عشان تطلقها يهبل","md")
+elseif tonumber(Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."mtzwga:")) == tonumber(msg.sender_id.user_id) or tonumber(Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")) == tonumber(Message_Reply.sender_id.user_id) then
+Redis:del(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."mtzwga:")
+Redis:del(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")
+return bot.sendText(msg_chat_id,msg_id,"تم طلاقكم وشوفو العيال هتبقا مع مين","md")
 end
 end
-if text == "انت طالك" and msg.reply_to_message_id ~= 0 then 
+if text == "انت طالق" and  msg.reply_to_message_id ~= 0 then 
 local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
 if tonumber(Message_Reply.sender_id.user_id) == tonumber(msg.sender_id.user_id) then
-return send(msg_chat_id,msg_id,"انتي ثوله يحلوا تردين تطلكي نفسج ؟؟","md")
+return bot.sendText(msg_chat_id,msg_id,"انتي هبله يبنتي عاوزه تطلقي نفسك ؟؟","md")
 elseif tonumber(Message_Reply.sender_id.user_id) == tonumber(Saidi) then
-return send(msg_chat_id,msg_id,"ابعدي عني يبنت الحيحانه","md")
-elseif tonumber(Redis:get(Saidi.."zwag:"..Message_Reply.sender_id.user_id.."mtzwga:")) ~= tonumber(msg.sender_id.user_id) or tonumber(Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")) ~= tonumber(Message_Reply.sender_id.user_id) then
-return send(msg_chat_id,msg_id,"مو زوجج يثوله عشان تطلكي منو","md")
-elseif tonumber(Redis:get(Saidi.."zwag:"..Message_Reply.sender_id.user_id.."mtzwga:")) == tonumber(msg.sender_id.user_id) or tonumber(Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")) == tonumber(Message_Reply.sender_id.user_id) then
-Redis:del(Saidi.."zwag:"..Message_Reply.sender_id.user_id.."mtzwga:")
-Redis:del(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")
-Redis:srem(Saidi.."mtzwgen:", Message_Reply.sender_id.user_id)
-Redis:srem(Saidi.."mtzwgen:", msg.sender_id.user_id)
-return send(msg_chat_id,msg_id,"تم طلاقكم وشوفو الجهال تبرعو بيهم لدار الايتام","md")
+return bot.sendText(msg_chat_id,msg_id,"ابعدي عني يبنت الحيحانه","md")
+elseif tonumber(Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."mtzwga:")) ~= tonumber(msg.sender_id.user_id) or tonumber(Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")) ~= tonumber(Message_Reply.sender_id.user_id) then
+return bot.sendText(msg_chat_id,msg_id,"مش جوزك يهبله عشان تطلقي منو","md")
+elseif tonumber(Redis:get(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."mtzwga:")) == tonumber(msg.sender_id.user_id) or tonumber(Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")) == tonumber(Message_Reply.sender_id.user_id) then
+Redis:del(Saidi..msg_chat_id..Message_Reply.sender_id.user_id.."mtzwga:")
+Redis:del(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")
+return bot.sendText(msg_chat_id,msg_id,"تم طلاقكم وشوفو العيال هتبقا مع مين","md")
 end
 end
-if text == "بوت طلكني" then
-if not Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:") then 
-return send(msg_chat_id,msg_id,"انت ولا متجوز ولا متنيل عشان اطلقك","md")
-elseif Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:") then
-local zwg_id = Redis:get(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")
+if text == "بوت طلقني" or text == "طلقني" then
+if not Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:") then 
+return bot.sendText(msg_chat_id,msg_id,"انت ولا متجوز ولا متنيل عشان اطلقك","md")
+elseif Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:") then
+local zwg_id = Redis:get(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")
 local zwg_name = bot.getUser(zwg_id).first_name
-Redis:del(Saidi.."zwag:"..msg.sender_id.user_id.."mtzwga:")
-Redis:del(Saidi.."zwag:"..zwg_id.."mtzwga:")
-Redis:srem(Saidi.."mtzwgen:", msg.sender_id.user_id)
-Redis:srem(Saidi.."mtzwgen:", zwg_id)
-return send(msg_chat_id,msg_id,"تم طلاقك من ["..zwg_name.."](tg://user?id="..zwg_id..")\nشوفو مين هياخد الجهال بقا","md")
+Redis:del(Saidi..msg_chat_id..msg.sender_id.user_id.."mtzwga:")
+Redis:del(Saidi..msg_chat_id..zwg_id.."mtzwga:")
+return bot.sendText(msg_chat_id,msg_id,"تم طلاقك من ["..zwg_name.."](tg://user?id="..zwg_id..")\nشوفو مين هياخد العيال بقا","md")
 end
 end
 
@@ -20970,9 +20930,21 @@ if ChannelJoin(msg) == false then
 local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
+print("\27[31;47m\n        ( تم تحديث ملفات البوت )        \n\27[0;34;49m\n") 
 print('Chat Id : '..msg_chat_id)
-print('User Id : '..msg_user_send_id)
-send(msg_chat_id,msg_id, "* ✧ تم تحديث الملفات *","md",true)
+print('User Id : '..msg.sender_id.user_id)
+local Text = [[
+*✧ تم تحديث الملفات*
+]] 
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
+},
+}
+}
+bot.sendText(msg_chat_id,msg_id,Text,"md",true, false, false, false, reply_markup)
 dofile('Saidi.lua')  
 end
 if text == 'تنظيف المشتركين' then
@@ -24334,6 +24306,9 @@ end
 if text == "ايدي المجموعة" or text == "ايدي المجموعه" then 
 return bot.sendText(msg_chat_id, msg_id," ✧ ايدي المجموعه ↑↓ \n❨ `"..msg_chat_id.."` ❩",'md',true)
 end
+if text == "ايدي البوت" or text == "ايدي بوت" then 
+return bot.sendText(msg_chat_id, msg_id," ✧ ايدي البوت ↑↓ \n❨ `"..Saidi.."` ❩",'md',true)
+end
 if text == 'ترتيب الاوامر' then
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
@@ -24548,6 +24523,20 @@ end
 Redis:set(Saidi.."smsme"..msg.chat_id,true)
 send(msg.chat_id,msg.id," ✧ تم تعطيل سمسمي")
 end
+if text == "تفعيل سمسمي عام" then
+if not msg.Manger then
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(6)..' * ',"md",true)  
+end
+Redis:set(Saidi.."smsme",true)
+send(msg.chat_id,msg.id," ✧ تم تفعيل سمسمي عام")
+end
+if text == "تعطيل سمسمي عام" then
+if not msg.Manger then
+return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص  '..Controller_Num(6)..' * ',"md",true)  
+end
+Redis:del(Saidi.."smsme")
+send(msg.chat_id,msg.id," ✧ تم تعطيل سمسمي عام")
+end
 if not Redis:get(Saidi.."smsme"..msg.chat_id) then
 if text and msg.reply_to_message_id ~= 0 then
 local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
@@ -24556,7 +24545,7 @@ ai_api = https.request("https://api-sv2.simsimi.net/v2/?text="..URL.escape(text)
 ai_decode = JSON.decode(ai_api)
 ai_text = ai_decode['success']
 if ai_text:match("(.*)سناب(.*)") or ai_text:match("(.*)واتس(.*)") or ai_text:match("(.*)انستا(.*)") or ai_text:match("(.*)رقمي(.*)") or ai_text:match("(%d+)") or ai_text:match("(.*)متابعه(.*)") or ai_text:match("(.*)تابعني(.*)") or ai_text:match("(.*)قناتي(.*)") or ai_text:match("(.*)قناه(.*)") or ai_text:match("(.*)يوتيوب(.*)") then
-txx = "لا افهمك"
+txx = "ما فهمتك يقميل 🌝💖"
 else
 txx = ai_text
 end
@@ -24580,9 +24569,21 @@ if ChannelJoin(msg) == false then
 local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = Redis:get(Saidi..'Channel:Join:Name'), url = 't.me/'..Redis:get(Saidi..'Channel:Join')}, },}}
 return send(msg.chat_id,msg.id,'*\n ✧  عليك الاشتراك في قناة البوت لأستخدام الاوامر*',"md",false, false, false, false, reply_markup)
 end
+print("\27[31;47m\n        ( تم تحديث ملفات البوت )        \n\27[0;34;49m\n") 
 print('Chat Id : '..msg_chat_id)
-print('User Id : '..msg_user_send_id)
-send(msg_chat_id,msg_id, "* ✧ تم تحديث الملفات*","md",true)
+print('User Id : '..msg.sender_id.user_id)
+local Text = [[
+*✧ تم تحديث الملفات*
+]] 
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
+},
+}
+}
+bot.sendText(msg_chat_id,msg_id,Text,"md",true, false, false, false, reply_markup)
 dofile('Saidi.lua')  
 end
 if text == '/start' then
@@ -24620,7 +24621,7 @@ data = {
 {text = '✧ اضفني لمجموعتك .', url = 't.me/'..UserBot..'?startgroup=new'}, 
 },
 {
-{text = '✧ لتنصيب بوت .', url = 't.me/S_a_i_d_i/115'},
+{text = '✧ لتنصيب بوت .', url = 't.me/S_a_i_d_i'},
 },
 {
 {text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url = 't.me/S_a_i_d_i'}, 
@@ -26543,30 +26544,24 @@ bot.editMessageText(ChatId,Msg_id,"* ✧ تم الغاء امر تغيير ال�
 end
 end
 --------
-if Text and Text:match('(.*)/yes_z/(.*)') then
-if not Redis:get(Saidi.."zwag_on"..IdUser) then
-return bot.answerCallbackQuery(data.id,"انتهت مده الطلب.. اي اخرك ف الرد هه ؟؟" , true)
-end
-local anubis = {Text:match('(.*)/yes_z/(.*)')}
-local zwga_id = anubis[1]
-local zwg_id = anubis[2]
-local mahr = anubis[3]
+if Text and Text:match('(.*)/yes_zw/(.*)') then
+local JABWA = {Text:match('(.*)/yes_zw/(.*)')}
+local zwga_id = JABWA[1]
+local zwg_id = JABWA[2]
 if tonumber(zwga_id) == tonumber(IdUser) then
 local zwga_name = bot.getUser(zwga_id).first_name
 local zwg_name = bot.getUser(zwg_id).first_name
-Redis:set(Saidi.."zwag:"..zwga_id.."mtzwga:", zwg_id)
-Redis:set(Saidi.."zwag:"..zwg_id.."mtzwga:", zwga_id)
-Redis:sadd(Saidi.."mtzwgen:", zwg_id)
-return edit(ChatId, Msg_id, "باركو لاختكم ["..zwga_name.."](tg://user?id="..zwga_id..")\nوافقت تزوج المحروص ["..zwg_name.."](tg://user?id="..zwg_id..")","md",false)
+Redis:set(Saidi..ChatId..zwga_id.."mtzwga:", zwg_id)
+Redis:set(Saidi..ChatId..zwg_id.."mtzwga:", zwga_id)
+return bot.editMessageText(ChatId, Msg_id, "*تم الزواج بنجاح ✅\nمبروك يا عريس -›* ["..zwga_name.."](tg://user?id="..zwga_id..")\n*مبروك يا عروسه -›* ["..zwg_name.."](tg://user?id="..zwg_id..")","md",false)
 end
 end
-
-if Text and Text:match('(.*)/no_z/(.*)') then
-local anubis = {Text:match('(.*)/no_z/(.*)')}
-local zwga_id = anubis[1]
-local zwg_id = anubis[2]
+if Text and Text:match('(.*)/no_zw/(.*)') then
+local JABWA = {Text:match('(.*)/no_zw/(.*)')}
+local zwga_id = JABWA[1]
+local zwg_id = JABWA[2]
 if tonumber(zwga_id) == tonumber(IdUser) then
-return edit(ChatId, Msg_id, "امال هتزوجي شوكت يا معنسه ؟؟","md",false)
+return bot.editMessageText(ChatId, Msg_id, "*تم رفض الطلب حاول التقديم مره آخره 😂*","md",false)
 end
 end
 ---------
@@ -28485,6 +28480,219 @@ local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = '･ 𓆩�
 edit(ChatId,Msg_id,Reply_Status(IdUser," ✧ تم تفعيل امر اطردني").unLock, 'md', true, false, reply_markup)
 end
 end
+if Text and Text:match('(%d+)/onlinebott(.*)') then
+local UserId = {Text:match('(%d+)/onlinebott(.*)')}
+if tonumber(IdUser) == tonumber(UserId[1]) then
+local Info_Chats = bot.getSupergroupFullInfo(ChatId)
+local Get_Chat = bot.getChat(ChatId)
+Redis:sadd(Saidi.."SOFI:Groups",UserId[2])
+Redis:set(Saidi.."Status:Id"..UserId[2],true) ;Redis:del(Saidi.."Status:Reply"..UserId[2]) ;Redis:del(Saidi.."Status:ReplySudo"..UserId[2]) ;Redis:set(Saidi.."Status:BanId"..UserId[2],true) ;Redis:set(Saidi.."Status:SetId"..UserId[2],true) ;Redis:set(Saidi.."Status:IdPhoto"..UserId[2],true) ;Redis:set(Saidi.."Status:Games"..UserId[2],true) 
+local Info_Members = bot.getSupergroupMembers(UserId[2], "Administrators", "*", 0, 200)
+local List_Members = Info_Members.members
+x = 0
+y = 0
+for k, v in pairs(List_Members) do
+if Info_Members.members[k].bot_info == nil then
+if Info_Members.members[k].status.luatele == "chatMemberStatusCreator" then
+Redis:sadd(Saidi.."SOFI:Owner:"..UserId[2],v.member_id.user_id) 
+x = x + 1
+else
+Redis:sadd(Saidi.."SOFI:Admins:"..UserId[2],v.member_id.user_id) 
+y = y + 1
+end
+end
+end
+if not data.Asasy then
+local UserInfo = bot.getUser(IdUser)
+
+for Name_User in string.gmatch(UserInfo.first_name, "[^%s]+" ) do
+UserInfo.first_name = Name_User
+break
+end
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = '• مغادرة المجموعة •', data = '/leftgroup@'..ChatId}, 
+},
+{
+{text = Get_Chat.title, url = Info_Chats.invite_link.invite_link}, 
+},
+}
+}
+bot.sendText(Sudo_Id,0,'*\n ✧ تم تفعيل مجموعه جديده ↫ ⤈ *\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ بواسطة ↫ ['..UserInfo.first_name..'](tg://user?id='..IdUser..') \n* ✧ معلومات المجموعة ↫ ⤈ *\n ✧ اسم المجموعه ↫ ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ✧ عدد الاعضاء ↫ '..Info_Chats.member_count..'\n ✧ عدد الادمنيه ↫ '..Info_Chats.administrator_count..'\n ✧ عدد المطرودين ↫ '..Info_Chats.banned_count..'\n ✧ عدد المقيدين ↫ '..Info_Chats.restricted_count..'\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ الوقت ↫ '..os.date('%I:%M%p')..'\n ✧ التاريخ ↫ '..os.date('%Y/%m/%d')..'\n•-› ✓',"md",true, false, false, false, reply_markup)
+end
+local txxt = "<b> ✧ المجموعة ↫ (<a href='"..Info_Chats.invite_link.invite_link.."'>"..Get_Chat.title.."</a>)  \n ✧ تم تفعيل المجموعة ورفع المالك و ("..y..") من الادمنيه \n•-› ✓</b>"
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{{text = '• ترتيب الاوامر •', data = IdUser..'/SetCmdPic'}},
+{{text="• غادر •",data="/LeaveBotPic:"..IdUser},{text="• تعطيل •",data= IdUser..'/offlinebotPic'..ChatId}},
+{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"}},
+}}
+bot.editMessageCaption(ChatId, msg_id, txxt, "html", reply_markup)
+end
+end
+------------------
+if Text and Text:match('(%d+)/offlinebotPic(.*)') then
+local UserId = {Text:match('(%d+)/offlinebotPic(.*)')}
+if tonumber(IdUser) == tonumber(UserId[1]) then
+local Get_Chat = bot.getChat(ChatId)
+local Info_Chats = bot.getSupergroupFullInfo(ChatId)
+if not Redis:sismember(Saidi.."SOFI:Groups",ChatId) then
+local txxt = "<b> ✧ المجموعة ↫ (<a href='"..Info_Chats.invite_link.invite_link.."'>"..Get_Chat.title.."</a>)  \n ✧ تم تعطيلها مسبقا \n•-› X</b>"
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{{text="• غادر •",data="/LeaveBotPic:"..IdUser},{text="• تفعيل •",data= IdUser..'/onlinebott'..ChatId}},
+{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"}},
+}}
+bot.editMessageCaption(ChatId, msg_id, txxt, "html", reply_markup)
+return false 
+else
+if not data.Asasy then
+local UserInfo = bot.getUser(IdUser)
+for Name_User in string.gmatch(UserInfo.first_name, "[^%s]+" ) do
+UserInfo.first_name = Name_User
+break
+end
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = Get_Chat.title, url = Info_Chats.invite_link.invite_link}, 
+},
+}
+}
+bot.sendText(Sudo_Id,0,'*\n ✧ تم تعطيل كروب جديده \n ✧ من قام بتعطيلها : {*['..UserInfo.first_name..'](tg://user?id='..IdUser..')*} \n ✧ معلومات المجموعة :\n ✧ عدد الاعضاء : '..Info_Chats.member_count..'\n ✧ عدد الادمنيه : '..Info_Chats.administrator_count..'\n ✧ عدد المطرودين : '..Info_Chats.banned_count..'\n ✧ عدد المقيدين : '..Info_Chats.restricted_count..'\n•-› ✓*',"md",true, false, false, false, reply_markup)
+end
+Redis:srem(Saidi.."SOFI:Groups",ChatId)
+local txxt = "<b> ✧ المجموعة ↫ (<a href='"..Info_Chats.invite_link.invite_link.."'>"..Get_Chat.title.."</a>)  \n ✧ تم تعطيلها بنجاح \n•-› X</b>"
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{{text="• غادر •",data="/LeaveBotPic:"..IdUser},{text="• تفعيل •",data= IdUser..'/onlinebott'..ChatId}},
+{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"}},
+}}
+bot.editMessageCaption(ChatId, msg_id, txxt, "html", reply_markup)
+return false 
+end
+end
+end
+---------------
+if Text and Text:match('(%d+)/offlinebotcmd(.*)') then
+local UserId = {Text:match('(%d+)/offlinebotcmd(.*)')}
+if tonumber(IdUser) == tonumber(UserId[1]) then
+local Get_Chat = bot.getChat(ChatId)
+local Info_Chats = bot.getSupergroupFullInfo(ChatId)
+if not Redis:sismember(Saidi.."SOFI:Groups",ChatId) then
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text="• غادر •",data="/LeaveBotCmd:"..IdUser},{text="• تفعيل •",data=IdUser..'/onlinebotcmd'..ChatId},
+},
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"},
+},
+}
+}
+bot.editMessageText(ChatId,msg_id,'* ✧ المجموعة ↫ {*['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')*}\n ✧ تم تعطيلها مسبقا \n•-› X*', 'md', true, false, reply_markup)
+return false 
+else
+if not data.Asasy then
+local UserInfo = bot.getUser(IdUser)
+for Name_User in string.gmatch(UserInfo.first_name, "[^%s]+" ) do
+UserInfo.first_name = Name_User
+break
+end
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = Get_Chat.title, url = Info_Chats.invite_link.invite_link}, 
+},
+}
+}
+bot.sendText(Sudo_Id,0,'*\n ✧ تم تعطيل كروب جديده \n ✧ من قام بتعطيلها : {*['..UserInfo.first_name..'](tg://user?id='..IdUser..')*} \n ✧ معلومات المجموعة :\n ✧ عدد الاعضاء : '..Info_Chats.member_count..'\n ✧ عدد الادمنيه : '..Info_Chats.administrator_count..'\n ✧ عدد المطرودين : '..Info_Chats.banned_count..'\n ✧ عدد المقيدين : '..Info_Chats.restricted_count..'\n•-› ✓*',"md",true, false, false, false, reply_markup)
+end
+Redis:srem(Saidi.."SOFI:Groups",ChatId)
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text="• غادر •",data="/LeaveBotCmd:"..IdUser},{text="• تفعيل •",data=IdUser..'/onlinebotcmd'..ChatId},
+},
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"},
+},
+}
+}
+bot.editMessageText(ChatId,msg_id,'* ✧ المجموعة ↫ {*['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')*}\n ✧ تم تعطيلها بنجاح \n•-› X*', 'md', true, false, reply_markup)
+return false 
+end
+end
+end
+---------------
+if Text and Text:match('(%d+)/onlinebotcmd(.*)') then
+local UserId = {Text:match('(%d+)/onlinebotcmd(.*)')}
+if tonumber(IdUser) == tonumber(UserId[1]) then
+Redis:sadd(Saidi.."SOFI:Groups",UserId[2])
+Redis:set(Saidi.."Status:Id"..UserId[2],true) ;Redis:del(Saidi.."Status:Reply"..UserId[2]) ;Redis:del(Saidi.."Status:ReplySudo"..UserId[2]) ;Redis:set(Saidi.."Status:BanId"..UserId[2],true) ;Redis:set(Saidi.."Status:SetId"..UserId[2],true) ;Redis:set(Saidi.."Status:IdPhoto"..UserId[2],true) ;Redis:set(Saidi.."Status:Games"..UserId[2],true) 
+local Info_Members = bot.getSupergroupMembers(UserId[2], "Administrators", "*", 0, 200)
+local List_Members = Info_Members.members
+x = 0
+y = 0
+for k, v in pairs(List_Members) do
+if Info_Members.members[k].bot_info == nil then
+if Info_Members.members[k].status.luatele == "chatMemberStatusCreator" then
+Redis:sadd(Saidi.."SOFI:Owner:"..UserId[2],v.member_id.user_id) 
+x = x + 1
+else
+Redis:sadd(Saidi.."SOFI:Admins:"..UserId[2],v.member_id.user_id) 
+y = y + 1
+end
+end
+end
+if not data.Asasy then
+local UserInfo = bot.getUser(IdUser)
+local Info_Chats = bot.getSupergroupFullInfo(ChatId)
+local Get_Chat = bot.getChat(ChatId)
+for Name_User in string.gmatch(UserInfo.first_name, "[^%s]+" ) do
+UserInfo.first_name = Name_User
+break
+end
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text = '• مغادرة المجموعة •', data = '/leftgroup@'..ChatId}, 
+},
+{
+{text = Get_Chat.title, url = Info_Chats.invite_link.invite_link}, 
+},
+}
+}
+bot.sendText(Sudo_Id,0,'*\n ✧ تم تفعيل مجموعه جديده ↫ ⤈ *\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ بواسطة ↫ ['..UserInfo.first_name..'](tg://user?id='..IdUser..') \n* ✧ معلومات المجموعة ↫ ⤈ *\n ✧ اسم المجموعه ↫ ['..Get_Chat.title..']('..Info_Chats.invite_link.invite_link..')\n ✧ عدد الاعضاء ↫ '..Info_Chats.member_count..'\n ✧ عدد الادمنيه ↫ '..Info_Chats.administrator_count..'\n ✧ عدد المطرودين ↫ '..Info_Chats.banned_count..'\n ✧ عدد المقيدين ↫ '..Info_Chats.restricted_count..'\nꔹ┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ꔹ\n ✧ الوقت ↫ '..os.date('%I:%M%p')..'\n ✧ التاريخ ↫ '..os.date('%Y/%m/%d')..'\n•-› ✓',"md",true, false, false, false, reply_markup)
+end
+local txxt = " ✧ تم تفعيل المجموعة و ترقيه〘 "..y.." 〙 ادمنيه \n ✧ تم ترقية المالك"
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{
+{text="• ترتيب الاوامر •",data= IdUser.."/SetCmdGp:"},{text="• رفع الادمنيه •",data= IdUser..'/UploadAdmin:'..ChatId}
+},
+{
+{text="• غادر •",data="/LeaveBotCmd:"..IdUser},{text="• تعطيل •",data= IdUser..'/offlinebotcmd'..ChatId},
+},
+{
+{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"},
+},
+}}
+bot.editMessageText(ChatId,msg_id,txxt, 'md', false, false, reply_markup)
+return false 
+end
+end
 if Text and Text:match('(%d+)/addAdmins@(.*)') then
 local UserId = {Text:match('(%d+)/addAdmins@(.*)')}
 if tonumber(IdUser) == tonumber(UserId[1]) then
@@ -28580,6 +28788,26 @@ local UserId = {Text:match('(%d+)/groupNumseteng//(%d+)')}
 if tonumber(IdUser) == tonumber(UserId[1]) then
 return GetAdminsSlahe(ChatId,UserId[1],UserId[2],Msg_id)
 end
+end
+if Text and Text:match('/LeaveBotPic:'..tonumber(data.sender_user_id)..'(.*)') then
+local UserId = Text:match('/LeaveBotPic:'..tonumber(data.sender_user_id)..'(.*)')
+if Redis:get(Saidi.."LeftBot") == "true" then
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"}},
+}}
+bot.editMessageCaption(ChatId, msg_id, ' ✧ المغادره معطله من قبل المطور الاساسي', "md", reply_markup)
+return false  
+end
+local txxt = " ✧ تم مغادره البوت من المجموعة"
+local reply_markup = bot.replyMarkup{
+type = 'inline',
+data = {
+{{text = '𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹', url="t.me/S_a_i_d_i"}},
+}}
+bot.editMessageCaption(ChatId, msg_id, txxt, "md", reply_markup)
+return bot.leaveChat(ChatId)
 end
 if Text and Text:match('(%d+)/groupNum1//(%d+)') then
 local UserId = {Text:match('(%d+)/groupNum1//(%d+)')}
