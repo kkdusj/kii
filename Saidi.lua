@@ -8703,21 +8703,6 @@ return send(msg_chat_id,msg_id,
 '\n ✧ تفاعلك -> '..TotalMsgT..
 '*'..(PermissionsUser or '') ,"md",true) 
 end
-if text == 'لقبي' then
-local StatusMember = bot.getChatMember(msg_chat_id,msg.sender_id.user_id)
-if StatusMember.status.custom_title ~= "" then
-Lakb = StatusMember.status.custom_title
-else
-Lakb = 'مشرف'
-end
-if (StatusMember.status.luatele == "chatMemberStatusCreator") then
-return send(msg_chat_id,msg_id,'\n* ✧ لقبك〘 '..Lakb..' 〙* ',"md",true)  
-elseif (StatusMember.status.luatele == "chatMemberStatusAdministrator") then
-return send(msg_chat_id,msg_id,'\n* ✧ لقبك〘 '..Lakb..' 〙* ',"md",true)  
-else
-return send(msg_chat_id,msg_id,'\n* ✧ انت عضو في الجروب* ',"md",true)  
-end
-end
 if text == "تفاعلي" then
 local TotalMsg = Redis:get(Saidi..'Num:Message:User'..msg_chat_id..':'..msg.sender_id.user_id) or 0
 local TotalMsgT = Total_message(TotalMsg) 
@@ -16611,61 +16596,178 @@ Redis:del(Saidi.."Admin:Group"..msg_chat_id)
 --Redis:del(Saidi.."Special:Group"..msg_chat_id)
 return send(msg_chat_id,msg_id,'\n* ✧ تم تنزيل جميع رتب الجروب { المنشئين الاساسسين , المنشئين , المدراء , الادمنيه  }* ',"md",true)  
 end
-
-if text and text:match('ضع لقب (.*)') and msg.reply_to_message_id ~= 0 then
-local CustomTitle = text:match('ضع لقب (.*)')
-if not msg.SuperCreator then
-return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(4)..' }* ',"md",true)  
+if text == 'لقبي' then
+local Check = https.request('https://api.telegram.org/bot'..Token..'/getChatMember?chat_id='..msg_chat_id..'&user_id='..msg_sender_id.user_id)
+local GetInfo = JSON.decode(Check)
+if GetInfo.ok == true then
+if GetInfo.result.status == "creator" then 
+Status = "المالك"
+elseif GetInfo.result.status == "administrator" then 
+Status = "مشرف"
+else
+Status = false
 end
-if msg.can_be_deleted_for_all_users == false then
-return send(msg_chat_id,msg_id,"\n* ✧ عذرآ البوت ليس ادمن او ليست لدي جميع الصلاحيات *","md",true)  
+if GetInfo.result.custom_title == nil and GetInfo.result.status == "creator" then 
+custom_title_infor = "المالك"
+elseif GetInfo.result.custom_title == nil and GetInfo.result.status == "administrator" then 
+custom_title_infor = "مشرف"
+else
+custom_title_infor = GetInfo.result.custom_title
+end
+if Status == false then
+return bot.sendText(msg_chat_id,msg_id," ✧ ليس لديك لقب هنا","md",true)  
+else
+local Text = " ✧ *عزيزي لقبك في المجموعة ...*"
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = custom_title_infor, url = "tg://user?id="..msg_sender_id.user_id}, },}}
+return bot.sendText(msg_chat_id,msg_id,Text,"md",false, false, false, false, reply_markup)
+end
+end
+end
+if text ==("لقبه") and msg_reply_to_message_id ~= 0 or text ==("لقبة") and msg_reply_to_message_id ~= 0 then 
+local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
+if Message_Reply.luatele == "error" then
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
+end
+local Check = https.request('https://api.telegram.org/bot'..Token..'/getChatMember?chat_id='..msg_chat_id..'&user_id='..Message_Reply.sender_id.user_id)
+local GetInfo = JSON.decode(Check)
+if GetInfo.ok == true then
+if GetInfo.result.status == "creator" then 
+Status = "المالك"
+elseif GetInfo.result.status == "administrator" then 
+Status = "مشرف"
+else
+Status = false
+end
+if GetInfo.result.custom_title == nil and GetInfo.result.status == "creator" then 
+custom_title_infor = "المالك"
+elseif GetInfo.result.custom_title == nil and GetInfo.result.status == "administrator" then 
+custom_title_infor = "مشرف"
+else
+custom_title_infor = GetInfo.result.custom_title
+end
+if Status == false then
+return bot.sendText(msg_chat_id,msg_id," ✧ ليس لديه لقب هنا","md",true)  
+else
+local Text = " ✧ *عزيزي لقبة في المجموعة ...*"
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = custom_title_infor, url = "tg://user?id="..Message_Reply.sender_id.user_id}, },}}
+return bot.sendText(msg_chat_id,msg_id,Text,"md",false, false, false, false, reply_markup)
+end
+end
+end
+if text and (text:match('^لقبه (%d+)$') or text:match('^لقبة (%d+)$')) then
+local UserId = (text:match('^لقبه (%d+)$') or text:match('^لقبة (%d+)$'))
+local Check = https.request('https://api.telegram.org/bot'..Token..'/getChatMember?chat_id='..msg_chat_id..'&user_id='..UserId)
+local GetInfo = JSON.decode(Check)
+if GetInfo.ok == true then
+if GetInfo.result.status == "creator" then 
+Status = "المالك"
+elseif GetInfo.result.status == "administrator" then 
+Status = "مشرف"
+else
+Status = false
+end
+if GetInfo.result.custom_title == nil and GetInfo.result.status == "creator" then 
+custom_title_infor = "المالك"
+elseif GetInfo.result.custom_title == nil and GetInfo.result.status == "administrator" then 
+custom_title_infor = "مشرف"
+else
+custom_title_infor = GetInfo.result.custom_title
+end
+if Status == false then
+return bot.sendText(msg_chat_id,msg_id," ✧ ليس لديه لقب هنا","md",true)  
+else
+local Text = " ✧ *عزيزي لقبة في المجموعة ...*"
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = custom_title_infor, url = "tg://user?id="..UserId}, },}}
+return bot.sendText(msg_chat_id,msg_id,Text,"md",false, false, false, false, reply_markup)
+end
+end
+end
+if text and (text:match('^لقبه @(%S+)$') or text:match('^لقبة @(%S+)$')) then
+local UserName = (text:match('^لقبه @(%S+)$') or text:match('^لقبة @(%S+)$'))
+local UserId_Info = bot.searchPublicChat(UserName)
+local Check = https.request('https://api.telegram.org/bot'..Token..'/getChatMember?chat_id='..msg_chat_id..'&user_id='..UserId_Info.id)
+local GetInfo = JSON.decode(Check)
+if GetInfo.ok == true then
+if GetInfo.result.status == "creator" then 
+Status = "المالك"
+elseif GetInfo.result.status == "administrator" then 
+Status = "مشرف"
+else
+Status = false
+end
+if GetInfo.result.custom_title == nil and GetInfo.result.status == "creator" then 
+custom_title_infor = "المالك"
+elseif GetInfo.result.custom_title == nil and GetInfo.result.status == "administrator" then 
+custom_title_infor = "مشرف"
+else
+custom_title_infor = GetInfo.result.custom_title
+end
+if Status == false then
+return bot.sendText(msg_chat_id,msg_id," ✧ ليس لديه لقب هنا","md",true)  
+else
+local Text = " ✧ *عزيزي لقبة في المجموعة ...*"
+local reply_markup = bot.replyMarkup{type = 'inline',data = {{{text = custom_title_infor, url = "tg://user?id="..UserId_Info.id}, },}}
+return bot.sendText(msg_chat_id,msg_id,Text,"md",false, false, false, false, reply_markup)
+end
+end
+end
+if text and text:match('ضع لقب (.*)') and msg_reply_to_message_id ~= 0 then
+local CustomTitle = text:match('ضع لقب (.*)')
+if not msg_BasicConstructor then
+return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg_sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(5)..' .\n•-› X').Warning,"md",true)    
+end
+if msg_can_be_deleted_for_all_users == false then
+return bot.sendText(msg_chat_id,msg_id,"\n* ✧ عذرآ البوت ليس ادمن في المجموعة يرجى ترقيته وتفعيل الصلاحيات له *","md",true)  
 end
 if GetInfoBot(msg).SetAdmin == false then
-return send(msg_chat_id,msg_id,'\n* ✧ البوت ليس لديه صلاحيه اضافة مشرفين* ',"md",true)  
+return bot.sendText(msg_chat_id,msg_id,'\n* ✧ البوت ليس لديه صلاحيه اضافة مشرفين* ',"md",true)  
 end
-local Message_Reply = bot.getMessage(msg.chat_id, msg.reply_to_message_id)
+local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
+if Message_Reply.luatele == "error" then
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
+end
 local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
 if UserInfo.message == "Invalid user ID" then
-return send(msg_chat_id,msg_id,"\n ✧  عذرآ تستطيع فقط استخدام الامر على المستخدمين ","md",true)  
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرآ تستطيع فقط استخدام الامر على المستخدمين ","md",true)  
 end
 if UserInfo and UserInfo.type and UserInfo.type.luatele == "userTypeBot" then
-return send(msg_chat_id,msg_id,"\n ✧  عذرآ لا تستطيع استخدام الامر على البوت ","md",true)  
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرآ لا تستطيع استخدام الامر على البوت ","md",true)  
 end
 local SetCustomTitle = https.request("https://api.telegram.org/bot"..Token.."/setChatAdministratorCustomTitle?chat_id="..msg_chat_id.."&user_id="..Message_Reply.sender_id.user_id.."&custom_title="..CustomTitle)
 local SetCustomTitle_ = JSON.decode(SetCustomTitle)
 if SetCustomTitle_.result == true then
-return send(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم وضع له لقب : "..CustomTitle).Reply,"md",true)  
+return bot.sendText(msg_chat_id,msg_id,Reply_Status(Message_Reply.sender_id.user_id," ✧ تم وضع له لقب : "..CustomTitle.."\n•-› ✓").Reply,"md",true)  
 else
-return send(msg_chat_id,msg_id,"\n ✧  عذرآ هناك خطا تاكد من البوت ومن الشخص","md",true)  
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ المستخدم ليس مشرف قم برفعه مشرف\n ✧ عند رفعه مشرف قم بتعديل صلاحياته \n•-› X","md",true)  
 end 
 end
 if text and text:match('^ضع لقب @(%S+) (.*)$') then
 local UserName = {text:match('^ضع لقب @(%S+) (.*)$')}
-if not msg.SuperCreator then
-return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(4)..' }* ',"md",true)  
+if not msg_BasicConstructor then
+return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg_sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(5)..' .\n•-› X').Warning,"md",true)    
 end
-if msg.can_be_deleted_for_all_users == false then
-return send(msg_chat_id,msg_id,"\n* ✧ عذرآ البوت ليس ادمن او ليست لدي جميع الصلاحيات *","md",true)  
+if msg_can_be_deleted_for_all_users == false then
+return bot.sendText(msg_chat_id,msg_id,"\n* ✧ عذرآ البوت ليس ادمن في المجموعة يرجى ترقيته وتفعيل الصلاحيات له *","md",true)  
 end
 if GetInfoBot(msg).SetAdmin == false then
-return send(msg_chat_id,msg_id,'\n* ✧ البوت ليس لديه صلاحيه اضافة مشرفين* ',"md",true)  
+return bot.sendText(msg_chat_id,msg_id,'\n* ✧ البوت ليس لديه صلاحيه اضافة مشرفين* ',"md",true)  
 end
 local UserId_Info = bot.searchPublicChat(UserName[1])
 if not UserId_Info.id then
-return send(msg_chat_id,msg_id,"\n ✧  عذرآ لا يوجد حساب بهذا المعرف ","md",true)  
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرآ لا يوجد حساب بهاذا المعرف ","md",true)  
 end
 if UserId_Info.type.is_channel == true then
-return send(msg_chat_id,msg_id,"\n ✧  عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرآ لا تستطيع استخدام معرف قناة او جروب ","md",true)  
 end
 if UserName and UserName[1]:match('(%S+)[Bb][Oo][Tt]') then
-return send(msg_chat_id,msg_id,"\n ✧  عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرآ لا تستطيع استخدام معرف البوت ","md",true)  
 end
 local SetCustomTitle = https.request("https://api.telegram.org/bot"..Token.."/setChatAdministratorCustomTitle?chat_id="..msg_chat_id.."&user_id="..UserId_Info.id.."&custom_title="..UserName[2])
 local SetCustomTitle_ = JSON.decode(SetCustomTitle)
 if SetCustomTitle_.result == true then
-return send(msg_chat_id,msg_id,Reply_Status(UserId_Info.id," ✧ تم وضع له لقب : "..UserName[2]).Reply,"md",true)  
+return bot.sendText(msg_chat_id,msg_id,Reply_Status(UserId_Info.id," ✧ تم وضع له لقب : "..UserName[2].."\n•-› ✓").Reply,"md",true)  
 else
-return send(msg_chat_id,msg_id,"\n ✧  عذرآ هناك خطا تاكد من البوت ومن الشخص","md",true)  
+return bot.sendText(msg_chat_id,msg_id,"\n ✧ المستخدم ليس مشرف قم برفعه مشرف\n ✧ عند رفعه مشرف قم بتعديل صلاحياته \n•-› X","md",true)  
 end 
 end 
 if text and text:match("^ضع التكرار (%d+)$") then  
@@ -17108,7 +17210,7 @@ local List = {
 ]], 
 [[ 
 ✧ ✧  𝐮𝐬𝐞𝐫 : #username 𖣬   
-✧ ✧  𝐦𝐬𝐠  : #msgs 𖣬  
+✧ ✧  ??𝐬𝐠  : #msgs 𖣬  
 ✧ ✧  𝐬𝐭𝐚 : #stast 𖣬  
 ✧ ✧  𝐢𝐝  : #id 𖣬 
 ]], 
@@ -18422,338 +18524,6 @@ local reply_markup = bot.replyMarkup{
   }
   }
   return send(msg_chat_id,msg_id," ✧ ارسل الان اسم الرتبه ","md",false, false, false, false, reply_markup)
-end
-if text ==("رفع رتبه") and msg_reply_to_message_id ~= 0 then 
-local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
-if Message_Reply.luatele == "error" then
-return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
-end
-local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
-if UserInfo.first_name == false then
-bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
-return false  
-end
-local Text ='*✧ قم باستعمال الازرار لرفع المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› ✓'
-if msg.Asasy then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..Message_Reply.sender_id.user_id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..Message_Reply.sender_id.user_id},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..Message_Reply.sender_id.user_id}},{{text="• رفع مطور ثانوي •",data=msg.sender_id.user_id..":SetSecondSudo:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Devss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..Message_Reply.sender_id.user_id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..Message_Reply.sender_id.user_id},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Dev then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..Message_Reply.sender_id.user_id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Ownerss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..Message_Reply.sender_id.user_id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Creator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..Message_Reply.sender_id.user_id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.SuperCreator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Manger then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Admin then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif not msg.Admin then
-return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
-end
-end
-if text and (text:match('^رفع رتبه (%d+)$')) then
-local UserId = (text:match('^رفع رتبه (%d+)$'))
-local UserInfo = bot.getUser(UserId)
-if not msg.Admin then
-return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(8)..' .\n•-› X').Warning,"md",true)    
-end
-if UserInfo.first_name == false then
-bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
-return false  
-end
-local Text ='*✧ قم باستعمال الازرار لرفع المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› ✓'
-if msg.Asasy then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..UserId}},{{text="• رفع مطور ثانوي •",data=msg.sender_id.user_id..":SetSecondSudo:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Devss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Dev then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Ownerss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Creator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.SuperCreator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Manger then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Admin then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif not msg.Admin then
-return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
-end
-end
-if text and (text:match('^رفع رتبه @(%S+)$')) then
-local UserName = (text:match('^رفع رتبه @(%S+)$'))
-if not msg.Admin then
-return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(8)..' .\n•-› X').Warning,"md",true)    
-end
-local UserId_Info = bot.searchPublicChat(UserName)
-local UserInfo = bot.getUser(UserId_Info.id)
-if UserInfo.first_name == false then
-bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
-return false  
-end
-local Text ='*✧ قم باستعمال الازرار لرفع المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› ✓'
-if msg.Asasy then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId_Info.id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId_Info.id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId_Info.id},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..UserId_Info.id}},{{text="• رفع مطور ثانوي •",data=msg.sender_id.user_id..":SetSecondSudo:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Devss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId_Info.id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId_Info.id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId_Info.id},{text="• رفع مطور •",data=msg.sender_id.user_id..":SetSudoBot:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Dev then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId_Info.id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId_Info.id}},{{text="• رفع مالك •",data=msg.sender_id.user_id..":SetOwner:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Ownerss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId_Info.id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text="• رفع منشئ اساسي •",data=msg.sender_id.user_id..":SetBasicConstructor:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Creator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع منشئ •",data=msg.sender_id.user_id..":SetConstructor:"..UserId_Info.id},{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.SuperCreator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text="• رفع مدير •",data=msg.sender_id.user_id..":SetManager:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Manger then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id},{text="• رفع ادمن •",data=msg.sender_id.user_id..":SetAdmin:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Admin then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• رفع مميز •",data=msg.sender_id.user_id..":SetMem:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif not msg.Admin then
-return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
-end
-end
-if text ==("تنزيل رتبه") and msg_reply_to_message_id ~= 0 then 
-local Message_Reply = bot.getMessage(msg_chat_id, msg_reply_to_message_id)
-if Message_Reply.luatele == "error" then
-return bot.sendText(msg_chat_id,msg_id,"\n ✧ عذرا هذا المستخدم غير مدعوم ","md",true)  
-end
-local UserInfo = bot.getUser(Message_Reply.sender_id.user_id)
-if UserInfo.first_name == false then
-bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
-return false  
-end
-local Text ='*✧ قم باستعمال الازرار لتنزيل المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› X'
-if msg.Asasy then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..Message_Reply.sender_id.user_id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..Message_Reply.sender_id.user_id},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل مطور ثانوي •",data=msg.sender_id.user_id..":RemSecondSudo:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Devss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..Message_Reply.sender_id.user_id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..Message_Reply.sender_id.user_id},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Dev then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..Message_Reply.sender_id.user_id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Ownerss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..Message_Reply.sender_id.user_id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Creator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..Message_Reply.sender_id.user_id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.SuperCreator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Manger then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Admin then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..Message_Reply.sender_id.user_id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif not msg.Admin then
-return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
-end
-end
-if text and (text:match('^تنزيل رتبه (%d+)$')) then
-local UserId = (text:match('^تنزيل رتبه (%d+)$'))
-local UserInfo = bot.getUser(UserId)
-if not msg.Admin then
-return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(8)..' .\n•-› X').Warning,"md",true)    
-end
-if UserInfo.first_name == false then
-bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
-return false  
-end
-local Text ='*✧ قم باستعمال الازرار لتنزيل المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› X'
-if msg.Asasy then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..UserId}},{{text="• تنزيل مطور ثانوي •",data=msg.sender_id.user_id..":RemSecondSudo:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Devss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Dev then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Ownerss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Creator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.SuperCreator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Manger then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Admin then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif not msg.Admin then
-return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
-end
-end
-if text and (text:match('^تنزيل رتبه @(%S+)$')) then
-local UserName = (text:match('^تنزيل رتبه @(%S+)$'))
-if not msg.Admin then
-return bot.sendText(msg_chat_id,msg_id,Reply_Status(msg.sender_id.user_id,' ✧ هذا الامر يخص ↫ '..Controller_Num(8)..' .\n•-› X').Warning,"md",true)    
-end
-local UserId_Info = bot.searchPublicChat(UserName)
-local UserInfo = bot.getUser(UserId_Info.id)
-if UserInfo.first_name == false then
-bot.sendText(msg_chat_id,msg_id," ✧ الحساب محذوف","md",true)  
-return false  
-end
-local Text ='*✧ قم باستعمال الازرار لتنزيل المستخدم ↑↓*\n*✧ المستخدم ->* ['..UserInfo.first_name..'](t.me/'..(UserInfo.username or 'S_a_i_d_i')..')\n•-› X'
-if msg.Asasy then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId_Info.id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId_Info.id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId_Info.id},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..UserId_Info.id}},{{text="• تنزيل مطور ثانوي •",data=msg.sender_id.user_id..":RemSecondSudo:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Devss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId_Info.id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId_Info.id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId_Info.id},{text="• تنزيل مطور •",data=msg.sender_id.user_id..":RemSudoBot:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Dev then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId_Info.id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId_Info.id}},{{text="• تنزيل مالك •",data=msg.sender_id.user_id..":RemOwner:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Ownerss then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId_Info.id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text="• تنزيل منشئ اساسي •",data=msg.sender_id.user_id..":RemBasicConstructor:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Creator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل منشئ •",data=msg.sender_id.user_id..":RemConstructor:"..UserId_Info.id},{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.SuperCreator then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text="• تنزيل مدير •",data=msg.sender_id.user_id..":RemManager:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Manger then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id},{text="• تنزيل ادمن •",data=msg.sender_id.user_id..":RemAdmin:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif msg.Admin then
-local reply_markup = bot.replyMarkup{type = 'inline',data = {
-{{text="• تنزيل مميز •",data=msg.sender_id.user_id..":RemMem:"..UserId_Info.id}},{{text='𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹',url="t.me/S_a_i_d_i"}},
-}}
-return bot.sendText(msg_chat_id, msg_id, Text, 'md', true, false, false, false, reply_markup)
-elseif not msg.Admin then
-return bot.sendText(msg_chat_id, msg_id, " ✧ هذا الامر للادمنيه في البوت فما فوق", 'md', true)
-end
 end
 if text and Redis:get(Saidi.."del:rtba"..msg.sender_id.user_id..":"..msg_chat_id) == "true" then
   Redis:srem(Saidi.."rowtab:", text)
@@ -24377,7 +24147,7 @@ Redis:set(Saidi.."Game:Difference"..msg.chat_id,name)
 name = string.gsub(name,"😸","😹??????😹😹😹😹😸😹😹😹😹")
 name = string.gsub(name,"☠","💀💀💀💀💀💀💀☠??💀💀💀💀")
 name = string.gsub(name,"🐼","👻👻👻🐼👻👻??👻👻👻👻")
-name = string.gsub(name,"🐇","🕊🕊🕊🕊🕊🐇🕊🕊🕊🕊")
+name = string.gsub(name,"🐇","🕊🕊??🕊🕊🐇🕊🕊🕊🕊")
 name = string.gsub(name,"🌑","🌚🌚🌚🌚🌚🌑🌚🌚🌚")
 name = string.gsub(name,"🌚","🌑🌑🌑🌑🌑??🌑🌑🌑")
 name = string.gsub(name,"⭐️","🌟🌟🌟🌟🌟🌟🌟🌟⭐️🌟🌟🌟")
