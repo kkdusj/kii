@@ -13290,54 +13290,7 @@ if text and text:match("^قول (.*)$") and Redis:get(Saidi..'kolklma'..msg.chat
 local txt = {string.match(text, "^(قول) (.*)$")}
 return send(msg_chat_id,msg_id, txt[2], 'md')
 end
-if text and text:match("^تحميل ساوند (.*)$") then
-local url = text:match("^تحميل ساوند (.*)$")
-q = bot.sendText(msg_chat_id,msg_id,"جاري التحميل","md",true) 
-api = https.request("https://devdeiveddev.ml/api/soundcloud/soundcloud_api.php?url="..url)
-info = JSON.decode(api)
-title = info.title
-photo = info.photo
-id = msg_chat_id..msg_id
-link = info.link
-os.execute("wget -O "..id..".mp3 "..link)
-bot.sendText(msg_chat_id,msg_id,"جاري الرفع","md",true) 
-os.execute("wget -O "..id..".png "..photo)
-bot.sendAudio(msg_chat_id, msg_id, "./"..id..".mp3", '['..title..']'..'('..url..')', 'md', false, title, "@YYYBD", "./"..id..".png")
-end
-if text and text:match("^احسب (.*)$") then
-local Textage = text:match("^احسب (.*)$")
-api = https.request('https://devdeiveddev.ml/api/tele/source/7sab3mr.php?age='..URL.escape(Textage))
-ay = JSON.decode(api)
-ay1 = ay.ahmed.years
-ay2 = ay.ahmed.months
-ay3 = ay.ahmed.day
-ay4 = ay.yad.months.." شهر"
-ay5 = ay.yad.weeks.." اسبوع"
-ay6 = ay.yad.days.." يوم"
-ay7 = ay.yad.hours.." ساعة"
-ay8 = ay.yad.mins.." دقيقة"
-ay9 = ay.yad.seconds.." ثانيا"
-ay10 = ay.yad.moment.." لحظة"
-a = "\n ✧ مر علي ولادتك "
-t = " ✧ تم حساب عمرك بالتفصيل\n"
-.." ✧ عمرك "..ay1.." سنه و "..ay2.." شهر و "..ay3.." يوم"
-..a..ay4..a..ay5..a..ay6..a..ay7..a..ay8..a..ay9..a..ay10
-.."\n ✧ برجك هو "..ay.Horoscopes
-bot.sendText(msg_chat_id,msg_id,t,"md",true) 
-end 
-if text and text:match("^معادله (.*)$") then
-local Text = text:match("^معادله (.*)$")
-ay = https.request('https://dev-ahmed.ml/api/calculator.php?q=Saidi&w='..Text)
-t = "\n ✧ تم حساب المعادلة "..Text..'='..ay
-bot.sendText(msg_chat_id,msg_id,t,"html",true) 
-end 
-if text and text:match("^برج (.*)$") then
-local Textbrj = text:match("^برج (.*)$")
-gk = io.popen('curl -s "https://apiabs.ml/brg.php?brg='..URL.escape(Textbrj)..'"'):read('*a')
-br = JSON.decode(gk)
-text = br.ok.abs:gsub( " • ", " ✧ " ):gsub( "ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ", "𓄼• sᴏᴜʀᴄᴇ sᴀɪᴅɪ •𓄹" )
-bot.sendText(msg_chat_id,msg_id, text,"md", true)
-end
+
 if text == "تعطيل اغنيه" then
 if not msg.Manger then
 return send(msg_chat_id,msg_id,'\n* ✧ هذا الامر يخص { '..Controller_Num(6)..' }* ',"md",true)  
@@ -20981,7 +20934,7 @@ local TextHelp = [[*
  ✧ رفع ، تنزيل ->{ مالك }
  ✧ المالكين ، مسح المالكين
  ✧ تنزيل جميع الرتب
-ꔹ━━━━━ꔹ𝐒??𝐈𝐃𝐈ꔹ━━━━━ꔹ
+ꔹ━━━━━ꔹ𝐒??𝐈𝐃??ꔹ━━━━━ꔹ
  ✧ اوامر المالكين 
 ꔹ━━━━━ꔹ𝐒𝐀𝐈𝐃𝐈ꔹ━━━━━ꔹ
  ✧ رفع ، تنزيل -> { منشئ اساسي }
